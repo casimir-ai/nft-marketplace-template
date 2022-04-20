@@ -1,4 +1,4 @@
-# nowar-portal
+# no-war-portal
 
 ## Project setup
 ```
