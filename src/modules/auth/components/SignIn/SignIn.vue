@@ -16,7 +16,6 @@
 
         <auth-sign-in
           :username-label="$t('auth.email')"
-          password-restore-hidden
           @success="handleSignInSuccess"
           @error="handleSignInError"
         />
