@@ -4,6 +4,12 @@
 .v-application {
   --v-primary-hover: #F2F2F2;
 
+  .theme--light {
+    .v-btn.v-btn--icon {
+      color: currentColor;
+    }
+  }
+
   .w-100 {
     width: 100%;
   }
