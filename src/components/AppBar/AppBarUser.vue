@@ -1,14 +1,13 @@
 <template>
   <div>
-    <v-btn
+    <nw-btn
       v-if="$isGuest"
+      kind="secondary"
       small
-      outlined
-      color="secondary"
       :to="{ name: 'signIn' }"
     >
       {{ $t('auth.signIn') }}
-    </v-btn>
+    </nw-btn>
 
     <v-menu
       v-if="$isUser"
@@ -18,13 +17,13 @@
       min-width="220"
     >
       <template #activator="{ on }">
-        <v-btn
-          text
+        <nw-btn
+          kind="tetriary"
           small
           v-on="on"
         >
           {{ $t('components.appBar.profile') }}
-        </v-btn>
+        </nw-btn>
       </template>
 
       <v-list dense active-class="primary">
@@ -69,9 +68,15 @@
 </template>
 
 <script>
+  import { NwBtn } from '../NwBtn';
 
   export default {
-    name: 'AppBar',
+    name: 'AppBarUser',
+
+    components: {
+      NwBtn
+    },
+
     computed: {
       userMenu() {
         return [
@@ -88,6 +93,7 @@
         ];
       }
     },
+
     methods: {
       handleSignOut() {
         this.$store.dispatch('auth/signOut');
