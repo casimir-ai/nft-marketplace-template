@@ -132,6 +132,11 @@ $btn-font-sizes: (
 
 $app-bar-elevation: 0;
 
+// TABLE
+
+$data-table-regular-header-font-size: map.get($headings, 'caption', 'size');
+$data-table-regular-row-font-size: map.get($headings, 'body-1', 'size');
+
 $utilities: (
   "position": (
     responsive: true,
