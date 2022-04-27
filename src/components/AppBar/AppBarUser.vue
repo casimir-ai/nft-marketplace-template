@@ -4,6 +4,7 @@
       v-if="$isGuest"
       kind="secondary"
       small
+      active-class="no-active"
       :to="{ name: 'signIn' }"
     >
       {{ $t('auth.signIn') }}
