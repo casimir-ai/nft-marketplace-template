@@ -1,8 +1,15 @@
 const path = require('path');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 module.exports = {
   productionSourceMap: false,
   lintOnSave: false,
+
+  configureWebpack: {
+    plugins: [
+      new VuetifyLoaderPlugin()
+    ]
+  },
 
   chainWebpack: (config) => {
     for (const module of ['vue', 'vuex', 'vue-router', 'vuetify']) {
