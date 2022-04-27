@@ -1,9 +1,10 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vuetify from 'vuetify/lib/framework';
 import { VTextField, VBtn } from 'vuetify/lib/components';
 
 VTextField.extendOptions.props.outlined.default = true;
 VBtn.extendOptions.props.depressed.default = true;
+
 Vue.use(Vuetify);
 
 export default new Vuetify({
