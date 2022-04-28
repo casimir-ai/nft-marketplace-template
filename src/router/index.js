@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import qs from 'qs';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,18 @@ const router = new VueRouter({
 
     return result ? (`?${result}`) : '';
   }
+});
+
+router.beforeResolve((to, from, next) => {
+  const { viewSetup: { sideBar } = {} } = to.meta;
+
+  if (sideBar) {
+    store.dispatch('admin/changeSideBarState', sideBar);
+  } else {
+    store.dispatch('admin/resetSideBarState');
+  }
+
+  next();
 });
 
 export default router;

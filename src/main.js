@@ -19,6 +19,7 @@ import { ProjectContentModule } from '@deip/project-content-module';
 
 import { NoWarAuthModule } from '@/modules/auth';
 import { NoWarMarketplaceModule } from '@/modules/marketplace';
+import { NoWarAdminModule } from '@/modules/admin';
 
 import vuetify from '@/plugins/vuetify';
 import i18n from '@/plugins/i18n';
@@ -52,6 +53,7 @@ noWarApp
 
   .addModule(NoWarAuthModule)
   .addModule(NoWarMarketplaceModule)
+  .addModule(NoWarAdminModule)
 
   .bootstrap()
 
