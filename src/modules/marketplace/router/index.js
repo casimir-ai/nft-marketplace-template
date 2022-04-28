@@ -4,6 +4,9 @@ export const marketplaceRouter = [
   {
     path: '/',
     name: 'nftList',
-    component: inDevelopmentView
+    component: inDevelopmentView,
+    meta: {
+      auth: false
+    }
   }
 ];

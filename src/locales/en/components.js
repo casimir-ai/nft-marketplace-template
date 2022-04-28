@@ -4,5 +4,10 @@ export default {
     account: 'Account',
     wallet: 'Wallet',
     admin: 'Admin'
+  },
+  navigation: {
+    members: 'Members',
+    attributes: 'Attributes',
+    layouts: 'Layouts'
   }
 };
