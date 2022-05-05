@@ -29,7 +29,7 @@
             </ve-stack>
           </v-card-title>
 
-          <v-card-text class="text-body-1 px-8 pb-8">
+          <v-card-text :class="cardClass" :style="cardStyle">
             <slot />
           </v-card-text>
         </div>
@@ -46,6 +46,8 @@
     contextMixin,
     getBindableProps
   } from '@deip/vuetify-extended';
+  import { convertToUnit } from '@deip/toolbox';
+
   import { NwBtn } from '../NwBtn';
 
   export default {
@@ -63,6 +65,10 @@
       value: {
         type: Boolean,
         default: false
+      },
+      maxContentHeight: {
+        type: [String, Number],
+        default: null
       }
     },
 
@@ -78,6 +84,18 @@
         set(val) {
           this.$emit('input', val);
         }
+      },
+      cardClass() {
+        return [
+          'text-body-1 px-8 pb-8',
+          { 'overflow-auto': !!this.maxContentHeight }
+        ];
+      },
+      cardStyle() {
+        if (!this.maxContentHeight) {
+          return null;
+        }
+        return { maxHeight: convertToUnit(this.maxContentHeight) };
       }
     },
 

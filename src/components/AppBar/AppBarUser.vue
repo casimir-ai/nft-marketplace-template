@@ -10,61 +10,71 @@
       {{ $t('auth.signIn') }}
     </nw-btn>
 
-    <v-menu
-      v-if="$isUser"
-      bottom
-      left
-      offset-y
-      min-width="220"
-    >
-      <template #activator="{ on }">
-        <nw-btn
-          kind="tetriary"
-          small
-          v-on="on"
-        >
-          {{ $t('components.appBar.profile') }}
-        </nw-btn>
-      </template>
-
-      <v-list dense active-class="primary">
-        <v-list-item
-          v-for="(item, index) of userMenu"
-          :key="'nav-tab-' + index"
-          :to="item.to"
-        >
-          <v-list-item-icon>
-            <v-icon v-if="item.icon">
-              {{ item.icon }}
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>
-            {{ item.label }}
-          </v-list-item-title>
-        </v-list-item>
-
-        <template v-if="$currentUser.isAdmin">
-          <v-divider />
-          <v-list-item
-            :to="{ name: 'admin' }"
+    <template v-if="$isUser">
+      <v-menu
+        bottom
+        left
+        offset-y
+        min-width="220"
+      >
+        <template #activator="{ on }">
+          <nw-btn
+            kind="tetriary"
+            small
+            v-on="on"
           >
-            <v-list-item-icon>
-              <v-icon>mdi-account-tie</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>{{ $t('components.appBar.admin') }}</v-list-item-title>
-          </v-list-item>
+            {{ $t('components.appBar.profile') }}
+          </nw-btn>
         </template>
 
-        <v-divider />
+        <v-list dense active-class="primary">
+          <v-list-item
+            v-for="(item, index) of userMenu"
+            :key="'nav-tab-' + index"
+            :to="item.to"
+          >
+            <v-list-item-icon>
+              <v-icon v-if="item.icon">
+                {{ item.icon }}
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>
+              {{ item.label }}
+            </v-list-item-title>
+          </v-list-item>
 
-        <v-list-item @click="handleSignOut">
-          <v-list-item-icon>
-            <v-icon>mdi-logout-variant</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t('auth.signOut') }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+          <template v-if="$currentUser.isAdmin">
+            <v-divider />
+            <v-list-item
+              :to="{ name: 'admin' }"
+            >
+              <v-list-item-icon>
+                <v-icon>mdi-account-tie</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{ $t('components.appBar.admin') }}</v-list-item-title>
+            </v-list-item>
+          </template>
+
+          <v-divider />
+
+          <v-list-item @click="handleSignOut">
+            <v-list-item-icon>
+              <v-icon>mdi-logout-variant</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ $t('auth.signOut') }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+      <nw-btn
+        kind="primary"
+        small
+        active-class="no-active"
+        :to="{ name: 'createAsset' }"
+      >
+        {{ $t('components.appBar.submitAsset') }}
+      </nw-btn>
+    </template>
   </div>
 </template>
 

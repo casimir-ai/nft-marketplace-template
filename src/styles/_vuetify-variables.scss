@@ -60,23 +60,13 @@ $headings: (
     'line-height': 23px,
     'weight': 400
   ),
-  'subtitle-3': (
-    'size': 16px,
-    'line-height': 24px,
-    'weight': 500
-  ),
   'body-1': (
     'size': 16px,
     'line-height': 24px,
     'weight': 400
   ),
-  'button-1': (
+  'button': (
     'size': 16px,
-    'line-height': 16px,
-    'weight': 500,
-  ),
-  'button-2': (
-    'size': 14px,
     'line-height': 16px,
     'weight': 500,
   ),
@@ -86,20 +76,10 @@ $headings: (
     'weight': 400,
   ),
   'overline': (
-    'size': 10px,
-    'line-height': 16px,
-    'weight': 500
-  ),
-  'overline-1': (
     'size': 14px,
     'line-height': 16px,
     'weight': 500
-  ),
-  'overline-2': (
-    'size': 14px,
-    'line-height': 16px,
-    'weight': 400
-  ),
+  )
 );
 
 $font-weights: (
@@ -136,6 +116,11 @@ $app-bar-elevation: 0;
 
 $data-table-regular-header-font-size: map.get($headings, 'caption', 'size');
 $data-table-regular-row-font-size: map.get($headings, 'body-1', 'size');
+
+
+// LIST
+$list-item-title-font-size: map.get($headings, 'body-1', 'size');
+$list-item-subtitle-font-size: map.get($headings, 'body-2', 'size');
 
 $utilities: (
   "position": (
