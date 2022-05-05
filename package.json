@@ -13,9 +13,10 @@
   },
   "dependencies": {
     "@casimir/scopes-module": "^1.376.0",
+    "@deip/access-service": "^1.376.0",
     "@deip/attributes-module": "^1.376.0",
     "@deip/auth-module": "^1.376.0",
-    "@deip/constants": "1.376.0",
+    "@deip/constants": "^1.376.0",
     "@deip/env-module": "^1.376.0",
     "@deip/layouts-module": "^1.376.0",
     "@deip/platform-components": "1.376.0",
