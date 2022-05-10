@@ -20,6 +20,7 @@ import { ProjectContentModule } from '@deip/project-content-module';
 import { NoWarAuthModule } from '@/modules/auth';
 import { NoWarMarketplaceModule } from '@/modules/marketplace';
 import { NoWarAdminModule } from '@/modules/admin';
+import { NoWarProfileModule } from '@/modules/profile';
 
 import vuetify from '@/plugins/vuetify';
 import i18n from '@/plugins/i18n';
@@ -36,6 +37,13 @@ const noWarApp = new CreateApp(Vue, {
   store
 });
 
+const usersModuleOptions = {
+  attributesMappedKeys: [
+    { key: 'name', label: 'Name', allowedTypes: ['text'] },
+    { key: 'email', label: 'Email', allowedTypes: ['text'] }
+  ]
+};
+
 noWarApp
   .addModule(EnvModule)
 
@@ -46,7 +54,7 @@ noWarApp
   .addModule(AttributesModule)
   .addModule(LayoutsModule)
   .addModule(AuthModule)
-  .addModule(UsersModule)
+  .addModule(UsersModule, usersModuleOptions)
   .addModule(TeamsModule)
   .addModule(ProjectsModule)
   .addModule(ProjectContentModule)
@@ -54,6 +62,7 @@ noWarApp
   .addModule(NoWarAuthModule)
   .addModule(NoWarMarketplaceModule)
   .addModule(NoWarAdminModule)
+  .addModule(NoWarProfileModule)
 
   .bootstrap()
 
