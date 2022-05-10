@@ -84,7 +84,7 @@
           {
             label: this.$t('components.appBar.account'),
             icon: 'mdi-account',
-            to: { name: 'account.details' }
+            to: { name: 'profile.details' }
           },
           {
             label: this.$t('components.appBar.wallet'),
