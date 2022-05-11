@@ -47,10 +47,6 @@
 </script>
 
 <style lang="scss" scoped>
-.v-tab {
-  font-size: 14px;
-}
-
 .v-tabs--vertical > .v-tabs-bar .v-tab {
     height: 16px;
 }

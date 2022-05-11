@@ -21,6 +21,7 @@ import { NoWarAuthModule } from '@/modules/auth';
 import { NoWarMarketplaceModule } from '@/modules/marketplace';
 import { NoWarAdminModule } from '@/modules/admin';
 import { NoWarProfileModule } from '@/modules/profile';
+import { NoWarWalletModule } from '@/modules/wallet';
 
 import vuetify from '@/plugins/vuetify';
 import i18n from '@/plugins/i18n';
@@ -59,6 +60,7 @@ noWarApp
   .addModule(ProjectsModule)
   .addModule(ProjectContentModule)
 
+  .addModule(NoWarWalletModule)
   .addModule(NoWarAuthModule)
   .addModule(NoWarMarketplaceModule)
   .addModule(NoWarAdminModule)
