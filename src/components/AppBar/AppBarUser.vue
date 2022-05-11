@@ -99,7 +99,7 @@
           {
             label: this.$t('components.appBar.wallet'),
             icon: 'mdi-wallet',
-            to: { name: 'account.wallet' }
+            to: { name: 'wallet' }
           }
         ];
       }
