@@ -15,6 +15,7 @@
         </div>
 
         <auth-sign-up
+          ref="signUpForm"
           @success="handleSignUpSuccess"
           @error="handleSignUpError"
         />
@@ -35,14 +36,32 @@
     },
 
     methods: {
-      handleSignUpSuccess() {
-        this.$currentUser.await(() => {
-          this.$notifier.showSuccess(this.$t('auth.signUpSuccess'));
-          this.$router.push({ name: 'home' });
+      async handleSignUpSuccess() {
+        this.$refs.signUpForm.setLoading(true);
+        this.$currentUser.await(async () => {
+          try {
+            await this.createProject();
+            this.$notifier.showSuccess(this.$t('auth.signUpSuccess'));
+            this.$router.push({ name: 'home' });
+          } catch (error) {
+            this.$notifier.showError(error);
+            console.error(error);
+          }
         });
       },
+
       handleSignUpError(error) {
         this.$notifier.showError(error);
+      },
+
+      async createProject() {
+        const { _id: teamId } = await this.$store.dispatch(
+          'teams/create', { initiator: this.$currentUser, attributes: [] }
+        );
+
+        await this.$store.dispatch(
+          'projects/create', { initiator: this.$currentUser, data: { teamId, attributes: [] } }
+        );
       }
     }
   };
