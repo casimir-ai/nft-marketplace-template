@@ -26,7 +26,8 @@ prompt([{
       process.exit();
     }
 
-    await execa.command('npx ncu "/^@(deip|casimir)\\/.*$/" -u', { stdio: 'inherit', shell: true });
+    await execa.command('npx npm-check-updates "/^@(deip|casimir)\\/.*$/" -u',
+      { stdio: 'inherit', shell: true });
     await execa.command('npm i', { stdio: 'inherit', shell: true });
     process.exit();
   });
