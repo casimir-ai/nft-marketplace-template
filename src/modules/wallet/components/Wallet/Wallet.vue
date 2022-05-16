@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    min-height="calc(100vh - 56px)"
+    min-height="var(--app-bar-height)"
     class="d-flex flex-column align-center justify-center pa-16 transparent"
   >
     <v-card
@@ -33,20 +33,15 @@
         </nw-btn>
       </div>
       <v-divider class="mt-11" />
-      <nw-btn
-        icon
-        large
-        kind="secondary"
-        class="usdt-icon"
-        disabled
-      >
+
+      <span class="usdt-icon">
         <img
           src="@/assets/usdt.svg"
           height="36"
           width="36"
           alt=""
         >
-      </nw-btn>
+      </span>
       <div class="d-flex flex-column align-center justify-center mt-6">
         <h3 class="text-h3">
           950.00 wUSDT
@@ -121,11 +116,17 @@
 }
 
 .usdt-icon {
-  background-color: white;
-  display: block;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  background-color:  #FFFFFF;
   margin-left: auto;
   margin-right: auto;
-  margin-top: -1.8em;
+  margin-top: -29px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 </style>

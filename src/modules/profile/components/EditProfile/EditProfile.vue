@@ -1,6 +1,6 @@
 <template>
   <v-sheet>
-    <vex-section height="100vh">
+    <vex-section height="var(--app-bar-height)">
       <ve-stack class="align-center justify-center">
         <vex-section-title
           :title="$t('profile.editProfileTitle')"
