@@ -1,6 +1,6 @@
 <template>
   <v-sheet>
-    <vex-section height="var(--app-bar-height)">
+    <vex-section :height="sectionHeight">
       <ve-stack class="align-center justify-center">
         <vex-section-title
           :title="$t('profile.editProfileTitle')"
@@ -32,6 +32,7 @@
   import { VeStack } from '@deip/vue-elements';
   import { Account } from '@/modules/profile/components/EditProfile/Account';
   import { Password } from '@/modules/profile/components/EditProfile/Password';
+  import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
     name: 'EditProfile',
@@ -41,6 +42,12 @@
       VeStack,
       Account,
       Password
+    },
+
+    computed: {
+      sectionHeight() {
+        return `calc(100vh - ${APP_BAR_HEIGHT}px)`;
+      }
     }
 
   };
