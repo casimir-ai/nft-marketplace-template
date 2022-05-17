@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    min-height="var(--app-bar-height)"
+    :min-height="sheetHeight"
     class="d-flex flex-column align-center justify-center pa-16 transparent"
   >
     <v-card
@@ -84,6 +84,7 @@
   import { NwBtn } from '@/components/NwBtn';
   import { Assets } from '@/modules/wallet/components/Assets';
   import { Transactions } from '@/modules/wallet/components/Transactions';
+  import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
     name: 'Wallet',
@@ -96,6 +97,9 @@
     computed: {
       walletAddress() {
         return this.$currentUser.profile.address;
+      },
+      sheetHeight() {
+        return `calc(100vh - ${APP_BAR_HEIGHT}px)`;
       }
     },
 

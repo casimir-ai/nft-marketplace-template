@@ -4,7 +4,7 @@
     fixed
     clipped-left
     class="app-bar"
-    height="56"
+    :height="APP_BAR_HEIGHT"
   >
     <v-app-bar-title>
       <router-link
@@ -23,10 +23,14 @@
 
 <script>
   import AppBarUser from '@/components/AppBar/AppBarUser';
+  import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
     name: 'AppBar',
-    components: { AppBarUser }
+    components: { AppBarUser },
+    data() {
+      return { APP_BAR_HEIGHT };
+    }
   };
 </script>
 
