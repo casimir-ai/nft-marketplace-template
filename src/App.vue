@@ -14,6 +14,12 @@
     name: 'App',
     components: {
       AppBar
+    },
+
+    created() {
+      this.$currentUser.await(() => {
+        this.$store.dispatch('getCurrentUserProject');
+      });
     }
   };
 </script>

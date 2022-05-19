@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ve-stack flow="column" gap="8">
     <nw-btn
       v-if="$isGuest"
       kind="secondary"
@@ -70,22 +70,36 @@
         kind="primary"
         small
         active-class="no-active"
-        :to="{ name: 'createAsset' }"
+        @click="handleCreateAssetClick"
       >
         {{ $t('components.appBar.submitAsset') }}
       </nw-btn>
+
+      <asset-create-dialog
+        v-model="isCreateAssetDialogOpened"
+      />
     </template>
-  </div>
+  </ve-stack>
 </template>
 
 <script>
+  import { VeStack } from '@deip/vue-elements';
+  import { AssetCreateDialog } from '@/modules/marketplace/components/AssetCreateDialog';
   import { NwBtn } from '../NwBtn';
 
   export default {
     name: 'AppBarUser',
 
     components: {
-      NwBtn
+      VeStack,
+      NwBtn,
+      AssetCreateDialog
+    },
+
+    data() {
+      return {
+        isCreateAssetDialogOpened: false
+      };
     },
 
     computed: {
@@ -108,6 +122,10 @@
     methods: {
       handleSignOut() {
         this.$store.dispatch('auth/signOut');
+      },
+
+      handleCreateAssetClick() {
+        this.isCreateAssetDialogOpened = true;
       }
     }
   };

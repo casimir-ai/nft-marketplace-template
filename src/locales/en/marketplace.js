@@ -13,7 +13,12 @@ export default {
     fundsMessage: `I understand that all the money from 
     selling NFTs is sent to the Ukrainian funds`,
     moderationMessage: `I understand that in case of moderation 
-    decline - NFT would be removed for good`
+    decline - NFT would be removed for good`,
+    createSuccess: 'Asset successfully created!',
+    errors: {
+      duplicate: 'Such asset already exists',
+      noProject: 'User can\'t submit assets'
+    }
   },
   priceSelector: {
     yourPrice: 'Your price'
