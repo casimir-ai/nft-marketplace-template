@@ -49,15 +49,14 @@
             <validation-provider
               v-slot="{ errors }"
               :name="$t('marketplace.createAsset.uploadFile')"
-              rules="required"
+              :rules="{required: true, size: 204800}"
             >
               <vex-image-input
                 v-model="formData.image"
                 :error-messages="errors"
-                no-rotate
-                no-flip
-                no-resize
+                disable-crop
                 hide-details="auto"
+                :aspect-ratio="3/2"
               />
             </validation-provider>
           </ve-stack>
@@ -121,6 +120,7 @@
             kind="primary"
             :disabled="invalid"
             :loading="loading"
+            type="submit"
           >
             {{ $t('marketplace.createAsset.createNft') }}
           </nw-btn>
@@ -133,7 +133,8 @@
 <script>
   import { VeStack } from '@deip/vue-elements';
   import { VexImageInput } from '@deip/vuetify-extended';
-  import { NwBtn } from '@/components';
+  import { PROJECT_CONTENT_FORMAT } from '@deip/constants';
+  import { NwBtn } from '@/components/NwBtn';
   import PriceSelector from './PriceSelector';
 
   export default {
@@ -161,9 +162,63 @@
       };
     },
 
-    methods: {
-      submit() {}
+    computed: {
+      project() {
+        return this.$store.getters.project;
+      }
+    },
 
+    methods: {
+      async submit() {
+        this.loading = true;
+        await this.createAsset();
+        this.loading = false;
+      },
+
+      async createAsset() {
+        if (!this.project) {
+          this.$notifier.showError(this.$t('marketplace.createAsset.errors.noProject'));
+          return;
+        }
+
+        try {
+          const draftPayload = {
+            data: {
+              projectId: this.project._id,
+              teamId: this.$store.getters.team._id,
+              title: this.formData.name,
+              authors: [this.$currentUser.username],
+              formatType: PROJECT_CONTENT_FORMAT.PACKAGE,
+              files: [this.formData.image],
+              metadata: {
+                description: this.formData.description,
+                price: this.formData.price,
+                publishAnonymously: this.formData.publishAnonymously
+              }
+            }
+          };
+
+          const {
+            data: { _id: draftId }
+          } = await this.$store.dispatch('projectContentDrafts/create', draftPayload);
+
+          await this.$store.dispatch('projectContentDrafts/getOne', draftId);
+
+          const contentPayload = {
+            initiator: this.$currentUser,
+            data: this.$store.getters['projectContentDrafts/one'](draftId)
+          };
+          await this.$store.dispatch('projectContentDrafts/publish', contentPayload);
+
+          this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
+          this.$emit('success');
+        } catch (error) {
+          console.error(error.error);
+          const errorText = error.statusCode === 409
+            ? this.$t('marketplace.createAsset.errors.duplicate') : error.error.message;
+          this.$notifier.showError(errorText);
+        }
+      }
     }
   };
 </script>

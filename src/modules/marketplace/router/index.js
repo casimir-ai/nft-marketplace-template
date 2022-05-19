@@ -1,6 +1,4 @@
-import { SYSTEM_ROLE } from '@deip/constants';
 import { AssetList } from '../components/AssetList';
-import { AssetCreateDialog } from '../components/AssetCreateDialog';
 import { AssetDetails } from '../components/AssetDetails';
 
 export const marketplaceRouter = [
@@ -29,21 +27,6 @@ export const marketplaceRouter = [
             id: route.params.id,
             mainRoute: { name: 'marketplace' }
           })
-        }
-      },
-      {
-        name: 'createAsset',
-        path: 'asset/create',
-        components: {
-          default: AssetList,
-          dialog: AssetCreateDialog
-        },
-        meta: { auth: [SYSTEM_ROLE.ANY] },
-        props: {
-          dialog: {
-            value: true,
-            mainRoute: { name: 'marketplace' }
-          }
         }
       }
     ]

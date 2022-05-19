@@ -8,12 +8,14 @@
     <template #title>
       {{ $t('marketplace.createAsset.formTitle') }}
     </template>
-    <asset-create-form />
+    <asset-create-form
+      @success="handleCreateSuccess"
+    />
   </nw-dialog>
 </template>
 
 <script>
-  import { NwDialog } from '@/components';
+  import { NwDialog } from '@/components/NwDialog';
   import AssetCreateForm from './AssetCreateForm';
 
   export default {
@@ -36,18 +38,24 @@
     },
 
     watch: {
+      value: {
+        handler(newVal) {
+          this.isDialogOpen = newVal;
+        }
+      },
       isDialogOpen: {
         handler(newVal) {
-          if (!newVal) {
-            this.closeDialog();
-          }
+          this.$emit('input', newVal);
         }
       }
     },
 
     methods: {
+      handleCreateSuccess() {
+        this.closeDialog();
+      },
       closeDialog() {
-        this.$router.push({ name: 'marketplace' });
+        this.isDialogOpen = false;
       }
     }
   };
