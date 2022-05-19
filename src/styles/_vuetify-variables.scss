@@ -15,6 +15,9 @@ $material-light: (
     'outlined-disabled': rgba(map-get($shades, 'black'), 0.06),
     'outlined-hover': rgba(map-get($shades, 'black'), 0.24)
   ),
+  'text': (
+    'primary': rgba(map-get($shades, 'black'), 0.95),
+  ),
 );
 
 // TEXT
@@ -60,6 +63,14 @@ $headings: (
     'line-height': 23px,
     'weight': 400
   ),
+  'subtitle-3': (
+    'size': 16px,
+    'weight': 500,
+    'line-height': 24px,
+    'letter-spacing':  0.15px,
+    'font-family': Roboto,
+    'text-transform': false
+  ),
   'body-1': (
     'size': 16px,
     'line-height': 24px,
@@ -69,6 +80,14 @@ $headings: (
     'size': 16px,
     'line-height': 16px,
     'weight': 500,
+  ),
+  'button-2': (
+    'size': 14px,
+    'weight': 500,
+    'line-height': 16px,
+    'letter-spacing': 1.25px,
+    'font-family': Roboto,
+    'text-transform': 'uppercase'
   ),
   'caption': (
     'size': 12px,
