@@ -24,7 +24,7 @@
           <div class="text-h6">
             {{ content.title }}
           </div>
-          <div class="text-subtitle-3 font-weight-medium">
+          <div class="text-subtitle-3">
             <!-- TODO replace with user name-->
             @username
           </div>
