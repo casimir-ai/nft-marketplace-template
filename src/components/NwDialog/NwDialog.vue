@@ -4,7 +4,9 @@
     v-bind="dialogProps"
   >
     <v-card>
-      <div class="d-flex flex-wrap">
+      <div
+        :class="wrapItems"
+      >
         <div v-if="hasSlot('aside')" class="flex-grow-1">
           <slot name="aside" />
         </div>
@@ -96,6 +98,11 @@
           return null;
         }
         return { maxHeight: convertToUnit(this.maxContentHeight) };
+      },
+      wrapItems() {
+        if (this.$vuetify.breakpoint.mdOnly
+          || this.$vuetify.breakpoint.smAndDown) return 'd-flex flex-wrap';
+        return 'd-flex flex-nowrap';
       }
     },
 

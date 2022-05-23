@@ -33,16 +33,16 @@
           </div>
         </ve-stack>
 
-        <div class="purchase-container d-flex justify-space-between">
+        <div class="purchase-container d-flex justify-space-between align-center">
           <div class="price-container">
             <span class="text-h3">20 </span>
             <span class="text-subtitle-3 grey--text text--lighten-2">wUSDT</span>
           </div>
 
           <div class="buttons-container">
-            <nw-btn v-if="isCurrentUserAuthor" kind="primary" small>
-              {{ $t('components.assetCard.support') }}
-            </nw-btn>
+            <v-chip v-if="isCurrentUserAuthor" label outlined>
+              {{ $t('components.assetCard.created') }}
+            </v-chip>
           </div>
         </div>
       </ve-stack>
