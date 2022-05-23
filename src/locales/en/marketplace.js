@@ -24,5 +24,27 @@ export default {
     byDefault: 'By default',
     byName: 'By name',
     byPrice: 'By price'
+  },
+  assetDetails: {
+    creator: 'Creator',
+    created: 'Created',
+    price: 'Price',
+    views: 'Views',
+    fullView: 'Full view',
+    minimize: 'Minimize',
+    raisePrice: 'Raise the price',
+    support: 'Support',
+    shareDialogTitle: 'Share this NFT',
+    completeCheckout: 'Complete checkout',
+    balance: 'Your balance',
+    serviceFee: 'Service fee',
+    total: 'You\'ll pay',
+    checkout: 'Checkout',
+    backButton: 'Back',
+    twitter: 'Twitter',
+    email: 'E-mail',
+    telegram: 'Telegram',
+    link: 'Link',
+    facebook: 'Facebook'
   }
 };
