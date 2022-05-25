@@ -9,6 +9,8 @@
       {{ $t('marketplace.createAsset.formTitle') }}
     </template>
     <asset-create-form
+      ref="createAssetForm"
+      class="d-block mt-1"
       @success="handleCreateSuccess"
     />
   </nw-dialog>
@@ -46,6 +48,9 @@
       isDialogOpen: {
         handler(newVal) {
           this.$emit('input', newVal);
+          if (!newVal) {
+            this.$refs.createAssetForm.clearForm();
+          }
         }
       }
     },

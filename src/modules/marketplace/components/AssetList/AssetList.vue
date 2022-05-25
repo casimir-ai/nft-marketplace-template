@@ -82,6 +82,9 @@
         try {
           this.loading = true;
           await this.$store.dispatch('projectContent/getList');
+          const authorIds = this.contentList.map((content) => content.authors[0]);
+          const uniqueAuthorIds = Array.from(new Set(authorIds));
+          await this.$store.dispatch('users/getList', uniqueAuthorIds);
           this.loading = false;
         } catch (error) {
           console.error(error);

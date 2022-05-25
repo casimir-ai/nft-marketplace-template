@@ -16,6 +16,7 @@ import { UsersModule } from '@deip/users-module';
 import { TeamsModule } from '@deip/teams-module';
 import { ProjectsModule } from '@deip/projects-module';
 import { ProjectContentModule } from '@deip/project-content-module';
+import { AssetsModule } from '@deip/assets-module';
 
 import { NoWarAuthModule } from '@/modules/auth';
 import { NoWarMarketplaceModule } from '@/modules/marketplace';
@@ -59,7 +60,7 @@ noWarApp
   .addModule(TeamsModule)
   .addModule(ProjectsModule)
   .addModule(ProjectContentModule)
-
+  .addModule(AssetsModule)
   .addModule(NoWarWalletModule)
   .addModule(NoWarAuthModule)
   .addModule(NoWarMarketplaceModule)

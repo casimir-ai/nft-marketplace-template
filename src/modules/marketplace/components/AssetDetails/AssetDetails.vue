@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="content">
     <nw-dialog
       v-model="isDialogOpen"
       persistent
@@ -59,7 +59,7 @@
       </template>
       <div v-if="!completeCheckout" class="content-container mb-3">
         <div>
-          {{ content.description }}
+          {{ content.metadata.description }}
         </div>
 
         <v-row no-gutters class="mt-8">
@@ -68,7 +68,7 @@
               <div class="text-body-1 grey--text text--lighten-2">
                 {{ $t('marketplace.assetDetails.creator') }}
               </div>
-              <div class="text-subtitle-2">
+              <div v-if="!content.metadata.publishAnonymously && creator" class="text-subtitle-2">
                 {{ creator }}
               </div>
             </div>
@@ -89,8 +89,10 @@
                 {{ $t('marketplace.assetDetails.price') }}
               </div>
               <div>
-                <span class="text-subtitle-1">20 </span>
-                <span class="text-body-1 grey--text text--lighten-2">wUSDT</span>
+                <span class="text-subtitle-1">{{ content.metadata.price.amount }} </span>
+                <span class="text-body-1 grey--text text--lighten-2">
+                  {{ content.metadata.price.symbol }}
+                </span>
               </div>
             </div>
           </v-col>
@@ -121,7 +123,7 @@
 
             <div v-else>
               <price-input
-                v-model="content.price"
+                v-model="customPrice"
                 @blur="handleTextFieldBlur"
               />
             </div>
@@ -142,6 +144,7 @@
       <complete-checkout
         v-if="completeCheckout"
         :content="content"
+        :custom-price="customPrice"
         :creator-name="creator"
         :content-url="contentUrl"
       />
@@ -199,6 +202,7 @@
         completeCheckout: false,
         isFullViewDialogOpen: false,
         raisePrice: false,
+        customPrice: null,
         showBackButton: false,
         isDialogOpen: this.value
       };
@@ -239,7 +243,6 @@
       maxWidth() {
         return this.completeCheckout ? '638' : '1100';
       }
-
     },
 
     watch: {

@@ -1,5 +1,8 @@
 <template>
-  <validation-observer v-slot="{ invalid, handleSubmit }">
+  <validation-observer
+    v-slot="{ invalid, handleSubmit }"
+    ref="validationObserver"
+  >
     <v-form
       :disabled="loading"
       @submit.prevent="handleSubmit(submit)"
@@ -42,6 +45,7 @@
                   hide-details="auto"
                   no-resize
                   rows="4"
+                  :disabled="loading"
                 />
               </validation-provider>
             </ve-stack>
@@ -72,6 +76,7 @@
             >
               <price-selector
                 v-model="formData.price"
+                :disabled="loading"
                 :error-messages="errors"
               />
             </validation-provider>
@@ -137,6 +142,16 @@
   import { NwBtn } from '@/components/NwBtn';
   import PriceSelector from './PriceSelector';
 
+  const defaultFormData = () => ({
+    name: null,
+    description: null,
+    image: null,
+    price: null,
+    publishAnonymously: false,
+    confirmDonate: null,
+    confirmModeration: null
+  });
+
   export default {
     name: 'AssetCreateForm',
 
@@ -150,21 +165,16 @@
     data() {
       return {
         loading: false,
-        formData: {
-          name: null,
-          description: null,
-          image: null,
-          price: null,
-          publishAnonymously: false,
-          confirmDonate: null,
-          confirmModeration: null
-        }
+        formData: defaultFormData()
       };
     },
 
     computed: {
       project() {
         return this.$store.getters.project;
+      },
+      defaultAsset() {
+        return this.$store.getters.defaultAsset;
       }
     },
 
@@ -173,6 +183,11 @@
         this.loading = true;
         await this.createAsset();
         this.loading = false;
+      },
+
+      clearForm() {
+        this.formData = defaultFormData();
+        this.$refs.validationObserver.reset();
       },
 
       async createAsset() {
@@ -192,7 +207,12 @@
               files: [this.formData.image],
               metadata: {
                 description: this.formData.description,
-                price: this.formData.price,
+                price: {
+                  id: this.defaultAsset._id,
+                  symbol: this.defaultAsset.symbol,
+                  precision: this.defaultAsset.precision,
+                  amount: this.formData.price
+                },
                 publishAnonymously: this.formData.publishAnonymously
               }
             }
