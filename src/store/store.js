@@ -1,4 +1,8 @@
+import { proxydi } from '@deip/proxydi';
+
 const GETTERS = {
+  defaultAsset: (state) => state.assets.data
+    .find((asset) => asset.symbol === proxydi.get('env').CORE_ASSET.symbol),
   team: (state) => {
     const currentUser = state.currentUser.data;
     if (!currentUser) return null;

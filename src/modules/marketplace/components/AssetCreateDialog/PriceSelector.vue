@@ -1,5 +1,9 @@
 <template>
-  <div class="price-selector-container">
+  <div
+    v-if="defaultAsset"
+    :class="{'price-selector-container': true,
+             'price-selector-container--is-disabled': disabled}"
+  >
     <v-item-group
       v-model="internalValue"
       class="d-flex amount-container mb-2"
@@ -13,7 +17,7 @@
           :class="getItemClass(amount)"
           @click="handleSelect(amount)"
         >
-          {{ amount }} wUSDT
+          {{ amount }} {{ defaultAsset.symbol }}
         </div>
       </v-item>
       <v-item>
@@ -74,6 +78,10 @@
         type: Number,
         default: null
       },
+      disabled: {
+        type: Boolean,
+        default: false
+      },
       errorMessages: {
         type: Array,
         default: null
@@ -90,6 +98,9 @@
     },
 
     computed: {
+      defaultAsset() {
+        return this.$store.getters.defaultAsset;
+      },
       customPriceClass() {
         return [
           itemClasses,
@@ -141,28 +152,34 @@
 </script>
 
 <style scoped lang="scss">
-  .amount-container {
-    gap: 8px;
-
-    .amount {
-      height: 40px;
-      cursor: pointer;
-      border: 1px solid rgba(0, 0, 0, 0.12);
-
-      &:hover, &--active {
-        color: var(--v-anchor);
-        border-color: transparent;
-        background-color: rgba(1, 102, 255, 0.12);
-      }
-
-      &--disabled {
-        pointer-events: none;
-      }
+  .price-selector-container {
+    &--is-disabled {
+      pointer-events: none;
+      color: rgba(0, 0, 0, 0.38);
     }
 
-    .custom-price-container {
+    .amount-container {
       gap: 8px;
+
+      .amount {
+        height: 40px;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+
+        &:hover, &--active {
+          color: var(--v-anchor);
+          border-color: transparent;
+          background-color: rgba(1, 102, 255, 0.12);
+        }
+
+        &--disabled {
+          pointer-events: none;
+        }
+      }
+
+      .custom-price-container {
+        gap: 8px;
+      }
     }
   }
-
 </style>

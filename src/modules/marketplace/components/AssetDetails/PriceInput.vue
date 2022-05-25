@@ -20,7 +20,7 @@
       >
         <template slot="append">
           <div class="pt-1 pb-1 grey--text text--lighten-2">
-            wUSDT
+            {{ defaultAsset.symbol }}
           </div>
         </template>
       </v-text-field>
@@ -48,6 +48,12 @@
       return {
         internalValue: this.value
       };
+    },
+
+    computed: {
+      defaultAsset() {
+        return this.$store.getters.defaultAsset;
+      }
     },
 
     watch: {

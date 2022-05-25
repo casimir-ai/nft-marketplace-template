@@ -17,16 +17,14 @@
         </nw-btn>
       </div>
     </v-img>
-
     <v-card-text class="grey--text text--darken-4">
       <ve-stack :gap="32">
         <ve-stack :gap="4">
           <div class="text-h6">
             {{ content.title }}
           </div>
-          <div class="text-subtitle-3">
-            <!-- TODO replace with user name-->
-            @username
+          <div v-if="!content.metadata.publishAnonymously && creator" class="text-subtitle-3">
+            {{ creator }}
           </div>
           <div class="text-body-1 grey--text text--lighten-2">
             {{ $$formatDate($$parseISO(content.createdAt), 'PP') }}
@@ -35,11 +33,13 @@
 
         <div class="purchase-container d-flex justify-space-between align-center">
           <div class="price-container">
-            <span class="text-h3">20 </span>
-            <span class="text-subtitle-3 grey--text text--lighten-2">wUSDT</span>
+            <span class="text-h3">{{ content.metadata.price.amount }} </span>
+            <span class="text-subtitle-3 grey--text text--lighten-2">
+              {{ content.metadata.price.symbol }}
+            </span>
           </div>
 
-          <div class="buttons-container">
+          <div>
             <v-chip v-if="isCurrentUserAuthor" label outlined>
               {{ $t('components.assetCard.created') }}
             </v-chip>
@@ -87,6 +87,15 @@
 
       isCurrentUserAuthor() {
         return this.content.authors.includes(this.$currentUser._id);
+      },
+
+      creator() {
+        const userData = this.$store.getters['users/one'](this.content.authors[0]);
+
+        if (!userData?.attributes) return null;
+
+        return this.$attributes
+          .getMappedData('user.name', userData.attributes)?.value;
       }
     },
 

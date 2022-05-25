@@ -19,10 +19,7 @@
       </div>
       <div class="d-flex flex-column align-center">
         <div class="text-subtitle-3">
-          {{ content.price }} wUSDT
-        </div>
-        <div class="body-1 grey--text text--lighten-2">
-          (~74.11 DEIP)
+          {{ price }} {{ defaultAsset.symbol }}
         </div>
       </div>
     </div>
@@ -33,7 +30,7 @@
           {{ $t('marketplace.assetDetails.balance') }}
         </div>
         <div>
-          153.75 wUSDT
+          153.75 {{ defaultAsset.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -41,7 +38,7 @@
           {{ $t('marketplace.assetDetails.price') }}
         </div>
         <div>
-          53.50 wUSDT
+          {{ price }} {{ defaultAsset.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -49,7 +46,7 @@
           {{ $t('marketplace.assetDetails.serviceFee') }}
         </div>
         <div>
-          2.50 wUSDT
+          2.50 {{ defaultAsset.symbol }}
         </div>
       </div>
     </ve-stack>
@@ -59,7 +56,7 @@
         {{ $t('marketplace.assetDetails.total') }}
       </div>
       <div class="text-h4">
-        56.00 wUSDT
+        56.00 {{ defaultAsset.symbol }}
       </div>
     </div>
     <div class="d-flex justify-end">
@@ -93,6 +90,19 @@
       contentUrl: {
         type: String,
         required: true
+      },
+      customPrice: {
+        type: String,
+        default: null
+      }
+    },
+
+    computed: {
+      defaultAsset() {
+        return this.$store.getters.defaultAsset;
+      },
+      price() {
+        return this.customPrice || this.content.metadata.price.amount;
       }
     }
   };
@@ -102,5 +112,4 @@
   .image {
     border-radius: 4px;
   }
-
 </style>
