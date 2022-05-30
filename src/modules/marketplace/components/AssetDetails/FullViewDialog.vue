@@ -1,16 +1,11 @@
 <template>
   <v-dialog
     v-model="isFullViewDialogOpen"
+    width="auto"
     persistent
-    :max-width="1100"
-    max-content-height="600"
   >
-    <v-img
-      height="100%"
-      width="100%"
-      :src="contentUrl"
-    >
-      <div class="d-flex justify-end mt-8 mr-8">
+    <v-card :height="imageHeight" class="image-card">
+      <div class="d-flex justify-end minimize-button">
         <nw-btn
           icon
           small
@@ -22,7 +17,13 @@
           <v-icon>mdi-arrow-collapse</v-icon>
         </nw-btn>
       </div>
-    </v-img>
+      <img
+        :width="imageWidth"
+        :height="imageHeight"
+        :src="contentUrl"
+        @load="loaded"
+      >
+    </v-card>
   </v-dialog>
 </template>
 
@@ -51,6 +52,13 @@
       }
     },
 
+    data() {
+      return {
+        naturalWidth: 0,
+        naturalHeight: 0
+      };
+    },
+
     computed: {
       isFullViewDialogOpen: {
         get() {
@@ -59,10 +67,23 @@
         set(value) {
           this.$emit('input', value);
         }
+      },
+      imageWidth() {
+        return this.naturalWidth > 1100 ? '1100' : this.naturalWidth;
+      },
+      imageHeight() {
+        return this.naturalHeight > 600 ? '600' : this.naturalHeight;
       }
     },
 
     methods: {
+      loaded(e) {
+        const img = e.target;
+        if (img) {
+          this.naturalWidth = img.naturalWidth;
+          this.naturalHeight = img.naturalHeight;
+        }
+      },
       closeDialog() {
         this.isFullViewDialogOpen = false;
       },
@@ -72,3 +93,15 @@
     }
   };
 </script>
+
+<style scoped lang="scss">
+  .minimize-button {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
+  .image-card {
+    position: relative;
+    overflow: hidden;
+  }
+</style>

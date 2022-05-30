@@ -1,7 +1,12 @@
 <template>
-  <v-card outlined class="nft-card">
+  <v-card
+    outlined
+    class="nft-card"
+  >
     <v-img
       height="230"
+      width="100%"
+      content-class="image-responsive"
       :src="contentUrl"
     >
       <div class="button-container d-flex justify-end mt-4 mr-4">
@@ -112,3 +117,11 @@
     }
   };
 </script>
+
+<style lang="scss">
+
+.image-responsive {
+  width: 100% !important;
+}
+
+</style>

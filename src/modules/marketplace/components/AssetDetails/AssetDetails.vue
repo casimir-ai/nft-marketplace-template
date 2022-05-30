@@ -9,7 +9,8 @@
       <template v-if="!completeCheckout" #aside>
         <v-img
           height="500"
-          min-width="500"
+          :min-width="minImageWidth"
+          content-class="responsive-image"
           :src="contentUrl"
         >
           <div class="d-flex justify-end mt-8 mr-8">
@@ -242,6 +243,10 @@
 
       maxWidth() {
         return this.completeCheckout ? '638' : '1100';
+      },
+
+      minImageWidth() {
+        return this.$vuetify.breakpoint.xs ? null : '500';
       }
     },
 
@@ -311,5 +316,10 @@
   .content-container {
     word-break: break-all;
   }
+</style>
 
+<style  lang="scss">
+  .responsive-image {
+    width: 100% !important;
+  }
 </style>
