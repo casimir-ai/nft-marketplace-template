@@ -4,7 +4,8 @@ export default {
     profile: 'Profile',
     account: 'Account',
     wallet: 'Wallet',
-    admin: 'Admin'
+    admin: 'Admin',
+    moderation: 'Moderation'
   },
   navigation: {
     members: 'Members',
@@ -16,5 +17,8 @@ export default {
     created: 'Created',
     copyLink: 'Copy link',
     linkCopied: 'Link successfully copied!'
+  },
+  assetsInfiniteList: {
+    noMore: 'No more data'
   }
 };
