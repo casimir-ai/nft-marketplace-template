@@ -27,8 +27,12 @@ export default {
     allNfts: 'All NFTs',
     sorting: 'Sorting',
     byDefault: 'By default',
-    byName: 'By name',
-    byPrice: 'By price'
+    byNameDesc: 'By name - desc',
+    byPriceAsc: 'By price - asc',
+    byNameAsc: 'By name - asc',
+    byPriceDesc: 'By price - desc',
+    byCreationDateDesc: 'By creation date - desc',
+    byCreationDateAsc: 'By creation date - asc'
   },
   assetDetails: {
     creator: 'Creator',
