@@ -38,9 +38,12 @@
       sort: {
         type: Object,
         default: undefined
+      },
+      isDraft: {
+        type: Boolean,
+        default: false
       }
     },
-
     data() {
       return {
         assets: [],
@@ -48,7 +51,6 @@
         infiniteScrollId: +new Date()
       };
     },
-
     watch: {
       filter() {
         this.resetInfiniteScroll();
@@ -57,19 +59,18 @@
         this.resetInfiniteScroll();
       }
     },
-
     methods: {
       async getList(scrollState) {
         const query = {
           page: this.page,
           pageSize: this.pageSize
         };
-
         if (this.filter) query.filter = this.filter;
         if (this.sort) query.sort = this.sort;
-
         try {
-          const { items } = await this.$store.dispatch('projectContent/getListPaginated', query);
+          const { items } = (this.isDraft)
+            ? await this.$store.dispatch('projectContentDrafts/getListPaginated', query)
+            : await this.$store.dispatch('projectContent/getListPaginated', query);
           if (items.length) {
             this.assets = this.assets.concat(items);
             const authorIds = this.assets.map((asset) => asset.authors[0]);
@@ -84,7 +85,6 @@
           console.error(error);
         }
       },
-
       resetInfiniteScroll() {
         this.page = 0;
         this.assets = [];

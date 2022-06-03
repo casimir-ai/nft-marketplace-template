@@ -1,7 +1,7 @@
 <template>
   <v-sheet>
     <vex-section class="section pt-md-0">
-      <ve-stack class="d-flex-column align-center justify-center">
+      <ve-stack class="d-flex-column align-center justify-center mb-8">
         <div class="d-flex align-center justify-center">
           <user-avatar
             size="100"
@@ -55,6 +55,39 @@
           </nw-btn>
         </div>
       </ve-stack>
+
+      <v-tabs
+        v-model="tabs"
+        background-color="transparent"
+        centered
+        fixed-tabs
+      >
+        <v-tabs-slider />
+
+        <v-tab>
+          {{ $t('profile.createdAssets.created') }}
+        </v-tab>
+
+        <v-tab>
+          {{ $t('profile.soldAssets.sold') }}
+        </v-tab>
+
+        <v-tab>
+          {{ $t('profile.purchasedAssets.purchased') }}
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-model="tabs">
+        <v-tab-item>
+          <created-assets />
+        </v-tab-item>
+        <v-tab-item>
+          <sold-assets />
+        </v-tab-item>
+        <v-tab-item>
+          <purchased-assets />
+        </v-tab-item>
+      </v-tabs-items>
     </vex-section>
   </v-sheet>
 </template>
@@ -64,6 +97,9 @@
   import { UserAvatar } from '@deip/users-module';
   import { VeStack } from '@deip/vue-elements';
   import { NwBtn } from '@/components/NwBtn';
+  import { CreatedAssets } from '@/modules/profile/components/CreatedAssets';
+  import { PurchasedAssets } from '@/modules/profile/components/PurchasedAssets';
+  import { SoldAssets } from '@/modules/profile/components/SoldAssets';
 
   export default {
     name: 'Profile',
@@ -71,7 +107,16 @@
       VexSection,
       VeStack,
       UserAvatar,
-      NwBtn
+      NwBtn,
+      CreatedAssets,
+      PurchasedAssets,
+      SoldAssets
+    },
+
+    data() {
+      return {
+        tabs: null
+      };
     },
 
     computed: {
@@ -114,6 +159,9 @@
 .avatar {
   margin-top: -50px;
   border: 4px solid #FFFFFF;
+}
+.v-tabs{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 </style>
