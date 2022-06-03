@@ -7,8 +7,7 @@
     >
       <v-img
         height="230"
-        width="100%"
-        content-class="image-responsive"
+        aspect-ratio="1.3"
         :src="contentUrl"
       >
         <div class="button-container d-flex justify-end mt-4 mr-4">
@@ -47,8 +46,8 @@
             </div>
 
             <div>
-              <v-chip v-if="isCurrentUserAuthor" label outlined>
-                {{ $t('components.assetCard.created') }}
+              <v-chip outlined>
+                {{ getStatusLabel(content.status) }}
               </v-chip>
             </div>
           </div>
@@ -65,6 +64,7 @@
 </template>
 
 <script>
+  import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
   import { AccessService } from '@deip/access-service';
   import { dateMixin } from '@deip/platform-components';
   import { VeStack } from '@deip/vue-elements';
@@ -101,6 +101,7 @@
 
     data() {
       return {
+        PROJECT_CONTENT_DRAFT_STATUS,
         isAssetDetailsDialogOpen: false
       };
     },
@@ -142,16 +143,12 @@
 
       onCardClick() {
         this.isAssetDetailsDialogOpen = true;
+      },
+
+      getStatusLabel(status) {
+        return this.$t(`components.assetCard.status.${PROJECT_CONTENT_DRAFT_STATUS[status]}`);
       }
     }
 
   };
 </script>
-
-<style lang="scss">
-
-.image-responsive {
-  width: 100% !important;
-}
-
-</style>

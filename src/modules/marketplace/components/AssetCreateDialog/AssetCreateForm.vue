@@ -138,7 +138,7 @@
 <script>
   import { VeStack } from '@deip/vue-elements';
   import { VexImageInput } from '@deip/vuetify-extended';
-  import { PROJECT_CONTENT_FORMAT } from '@deip/constants';
+  import { PROJECT_CONTENT_FORMAT, PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
   import { NwBtn } from '@/components/NwBtn';
   import PriceSelector from './PriceSelector';
 
@@ -205,6 +205,7 @@
               authors: [this.$currentUser.username],
               formatType: PROJECT_CONTENT_FORMAT.PACKAGE,
               files: [this.formData.image],
+              status: PROJECT_CONTENT_DRAFT_STATUS.PROPOSED,
               metadata: {
                 description: this.formData.description,
                 price: {
@@ -218,17 +219,7 @@
             }
           };
 
-          const {
-            data: { _id: draftId }
-          } = await this.$store.dispatch('projectContentDrafts/create', draftPayload);
-
-          await this.$store.dispatch('projectContentDrafts/getOne', draftId);
-
-          const contentPayload = {
-            initiator: this.$currentUser,
-            data: this.$store.getters['projectContentDrafts/one'](draftId)
-          };
-          await this.$store.dispatch('projectContentDrafts/publish', contentPayload);
+          await this.$store.dispatch('projectContentDrafts/create', draftPayload);
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');

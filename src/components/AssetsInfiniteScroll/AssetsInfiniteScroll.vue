@@ -9,8 +9,12 @@
           class="my-8"
         />
       </template>
+
       <template #no-more>
         {{ $t('components.assetsInfiniteList.noMore') }}
+      </template>
+      <template #no-results class="my-8">
+        {{ $t('components.assetsInfiniteList.noResults') }}
       </template>
     </infinite-loading>
   </div>

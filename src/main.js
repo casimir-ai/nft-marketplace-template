@@ -8,6 +8,7 @@ import { CreateApp } from '@deip/platform-util';
 import { ValidationPlugin } from '@deip/validation-plugin';
 import { VuetifyExtended } from '@deip/vuetify-extended';
 import { EnvModule } from '@deip/env-module';
+import { PortalsModule } from '@deip/portals-module';
 import { ScopesModule } from '@casimir/scopes-module';
 import { AttributesModule } from '@deip/attributes-module';
 import { LayoutsModule } from '@deip/layouts-module';
@@ -23,6 +24,7 @@ import { NoWarMarketplaceModule } from '@/modules/marketplace';
 import { NoWarAdminModule } from '@/modules/admin';
 import { NoWarProfileModule } from '@/modules/profile';
 import { NoWarWalletModule } from '@/modules/wallet';
+import { NoWarModerationModule } from '@/modules/moderation';
 
 import vuetify from '@/plugins/vuetify';
 import i18n from '@/plugins/i18n';
@@ -52,6 +54,7 @@ noWarApp
   .addModule(ValidationPlugin)
   .addModule(VuetifyExtended, { vuetify })
 
+  .addModule(PortalsModule)
   .addModule(ScopesModule)
   .addModule(AttributesModule)
   .addModule(LayoutsModule)
@@ -66,6 +69,7 @@ noWarApp
   .addModule(NoWarMarketplaceModule)
   .addModule(NoWarAdminModule)
   .addModule(NoWarProfileModule)
+  .addModule(NoWarModerationModule)
 
   .bootstrap()
 
