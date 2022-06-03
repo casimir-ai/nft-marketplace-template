@@ -12,7 +12,7 @@
         </div>
 
         <div class="flex-grow-1">
-          <v-card-title class="flex-nowrap align-start px-8 pt-8 pb-6">
+          <v-card-title class="flex-nowrap align-start px-8 pt-8 pb-6 text-break">
             <span v-if="hasSlot('title')" class="text-h3 mr-4">
               <slot name="title" />
             </span>

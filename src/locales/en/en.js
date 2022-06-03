@@ -5,6 +5,7 @@ import profile from './profile';
 import wallet from './wallet';
 import components from './components';
 import marketplace from './marketplace';
+import moderation from './moderation';
 
 export default {
   $vuetify: en,
@@ -13,5 +14,6 @@ export default {
   profile,
   marketplace,
   wallet,
-  components
+  components,
+  moderation
 };

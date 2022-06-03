@@ -16,6 +16,7 @@
       <assets-infinite-scroll
         :sort="sort"
         :filter="{ status: PROJECT_CONTENT_DRAFT_STATUS.APPROVED }"
+        is-draft
       >
         <template #default="{ assets }">
           <v-row>
@@ -30,7 +31,7 @@
                 :to="{name: 'assetDetails', params: {id: asset._id}}"
                 class="text-decoration-none"
               >
-                <asset-card :content="asset" />
+                <asset-card :content="asset" is-draft />
               </router-link>
             </v-col>
           </v-row>

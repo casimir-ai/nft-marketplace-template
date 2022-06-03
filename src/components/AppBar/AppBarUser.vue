@@ -43,6 +43,13 @@
             </v-list-item-title>
           </v-list-item>
 
+          <v-list-item v-if="isModerator" :to="{ name: 'moderation' }">
+            <v-list-item-icon>
+              <v-icon>mdi-thumbs-up-down</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>{{ $t('components.appBar.moderation') }}</v-list-item-title>
+          </v-list-item>
+
           <template v-if="$currentUser.isAdmin">
             <v-divider />
             <v-list-item
@@ -116,6 +123,15 @@
             to: { name: 'wallet' }
           }
         ];
+      },
+      isModerator() {
+        const {
+          moderators = [],
+          projectContentModerationRequired = false
+        } = this.$currentPortal?.profile?.settings?.moderation || {};
+
+        return projectContentModerationRequired
+          && moderators.includes(this.$currentUser?._id);
       }
     },
 

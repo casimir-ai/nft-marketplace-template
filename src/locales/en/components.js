@@ -16,9 +16,15 @@ export default {
     support: 'Support',
     created: 'Created',
     copyLink: 'Copy link',
-    linkCopied: 'Link successfully copied!'
+    linkCopied: 'Link successfully copied!',
+    status: {
+      APPROVED: 'Approved',
+      REJECTED: 'Declined',
+      PROPOSED: 'Created'
+    }
   },
   assetsInfiniteList: {
-    noMore: 'No more data'
+    noMore: 'No more data',
+    noResults: 'No results found'
   }
 };

@@ -25,7 +25,8 @@ export const marketplaceRouter = [
           dialog: (route) => ({
             value: true,
             id: route.params.id,
-            mainRoute: { name: 'marketplace' }
+            mainRoute: { name: 'marketplace' },
+            isDraft: true
           })
         }
       }
