@@ -17,5 +17,19 @@ export default {
     repeatPasswordLabel: 'Confirm new password',
     submitLabel: 'Save',
     changePassSuccess: 'Password successfully changed!'
+  },
+  createdAssets: {
+    showAll: 'Show All',
+    filter: 'Filter',
+    allNfts: 'All NFTs',
+    created: 'Created',
+    declined: 'Declined',
+    approved: 'Approved'
+  },
+  purchasedAssets: {
+    purchased: 'Purchased'
+  },
+  soldAssets: {
+    sold: 'Sold'
   }
 };

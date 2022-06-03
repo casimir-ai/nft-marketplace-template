@@ -194,7 +194,12 @@
       mainRoute: {
         type: Object,
         default: null
+      },
+      isDraft: {
+        type: Boolean,
+        default: false
       }
+
     },
 
     data() {
@@ -204,8 +209,7 @@
         isFullViewDialogOpen: false,
         raisePrice: false,
         customPrice: null,
-        showBackButton: false,
-        isDialogOpen: this.value
+        showBackButton: false
       };
     },
 
@@ -216,7 +220,9 @@
       },
 
       content() {
-        return this.$store.getters['projectContent/one'](this.id);
+        return (this.isDraft)
+          ? this.$store.getters['projectContentDrafts/one'](this.id)
+          : this.$store.getters['projectContent/one'](this.id);
       },
 
       contentUrl() {
@@ -247,15 +253,14 @@
 
       minImageWidth() {
         return this.$vuetify.breakpoint.xs ? null : '500';
-      }
-    },
+      },
 
-    watch: {
       isDialogOpen: {
-        handler(newVal) {
-          if (!newVal) {
-            this.closeDialog();
-          }
+        get() {
+          return this.value;
+        },
+        set(value) {
+          this.$emit('input', value);
         }
       }
     },
@@ -266,17 +271,22 @@
 
     methods: {
       closeDialog() {
+        this.isDialogOpen = false;
         if (!this.mainRoute) {
           this.$emit('close');
         } else {
           this.$router.push(this.mainRoute);
         }
       },
-      getData() {
-        return Promise.all([
-          this.$store.dispatch('projectContent/getOne', this.id),
-          this.$store.dispatch('users/getOne', this.content.authors[0])
-        ]);
+
+      async getData() {
+        try {
+          if (this.isDraft) await this.$store.dispatch('projectContentDrafts/getOne', this.id);
+          else await this.$store.dispatch('projectContent/getOne', this.id);
+          await this.$store.dispatch('users/getOne', this.content.authors[0]);
+        } catch (error) {
+          console.error(error);
+        }
       },
 
       handleFullViewClick() {
