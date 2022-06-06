@@ -261,6 +261,9 @@
         },
         set(value) {
           this.$emit('input', value);
+          if (!value) {
+            this.closeDialog();
+          }
         }
       }
     },
@@ -271,7 +274,6 @@
 
     methods: {
       closeDialog() {
-        this.isDialogOpen = false;
         if (!this.mainRoute) {
           this.$emit('close');
         } else {
