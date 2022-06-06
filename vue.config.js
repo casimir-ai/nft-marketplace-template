@@ -16,6 +16,7 @@ module.exports = {
       config.resolve.alias.set(module, path.join(__dirname, 'node_modules', module));
     }
 
+    // https://polkadot.js.org/docs/usage/FAQ/#on-webpack-4-i-have-a-parse-error-on-importmetaurl
     config.module
       .rule('import-meta')
       .test(/\.js$/)
