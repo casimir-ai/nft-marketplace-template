@@ -27,6 +27,9 @@
 <script>
   import { AuthSignUp } from '@deip/auth-module';
   import { VeStack } from '@deip/vue-elements';
+  import { NonFungibleTokenService } from '@casimir/token-service';
+
+  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   export default {
     name: 'SignUp',
@@ -59,10 +62,26 @@
           'teams/create', { initiator: this.$currentUser, attributes: [] }
         );
 
-        await this.$store.dispatch(
+        const { _id: projectId } = await this.$store.dispatch(
           'projects/create', { initiator: this.$currentUser, data: { teamId, attributes: [] } }
         );
+
+        await nonFungibleTokenService.create(
+          {
+            initiator: this.$currentUser,
+            data: {
+              issuer: teamId,
+              name: '',
+              description: '',
+              metadata: {
+                teamId,
+                projectId
+              }
+            }
+          }
+        );
       }
+
     }
   };
 </script>
