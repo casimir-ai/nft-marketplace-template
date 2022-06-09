@@ -141,6 +141,9 @@ $data-table-regular-row-font-size: map.get($headings, 'body-1', 'size');
 $list-item-title-font-size: map.get($headings, 'body-1', 'size');
 $list-item-subtitle-font-size: map.get($headings, 'body-2', 'size');
 
+// TOOLBAR
+$toolbar-elevation: 0;
+
 $utilities: (
   "position": (
     responsive: true,

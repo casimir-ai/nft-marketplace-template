@@ -1,33 +1,31 @@
 <template>
   <vex-section>
     <ve-stack>
-      <assets-infinite-scroll :filter="filter">
-        <template #default="{ assets }">
-          <v-row>
-            <v-col
-              v-for="asset in assets"
+      <nft-items-infinite-scroll :filter="filter">
+        <template #default="{ list }">
+          <ve-auto-grid
+            cols="1"
+            cols-sm="2"
+            cols-lg="4"
+          >
+            <asset-card
+              v-for="asset in list"
               :key="asset._id"
-              cols="12"
-              md="6"
-              lg="3"
-            >
-              <asset-card
-                :content="asset"
-                add-assets-details-modal
-              />
-            </v-col>
-          </v-row>
+              :content="asset"
+              add-assets-details-modal
+            />
+          </ve-auto-grid>
         </template>
-      </assets-infinite-scroll>
+      </nft-items-infinite-scroll>
     </ve-stack>
   </vex-section>
 </template>
 
 <script>
   import { VexSection } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
+  import { VeStack, VeAutoGrid } from '@deip/vue-elements';
+  import { NftItemsInfiniteScroll } from '@deip/project-content-module';
   import { AssetCard } from '@/components';
-  import { AssetsInfiniteScroll } from '@/components/AssetsInfiniteScroll';
 
   export default {
     name: 'SoldAssets',
@@ -35,7 +33,8 @@
       AssetCard,
       VexSection,
       VeStack,
-      AssetsInfiniteScroll
+      VeAutoGrid,
+      NftItemsInfiniteScroll
     },
     data() {
       return {

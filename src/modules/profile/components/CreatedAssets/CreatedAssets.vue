@@ -13,34 +13,33 @@
         </template>
       </vex-section-title>
 
-      <assets-infinite-scroll :filter="filter" is-draft>
-        <template #default="{ assets }">
-          <v-row>
-            <v-col
-              v-for="asset in assets"
+      <nft-items-infinite-scroll :filter="filter" is-draft>
+        <template #default="{ list }">
+          <ve-auto-grid
+            cols="1"
+            cols-sm="2"
+            cols-lg="4"
+          >
+            <asset-card
+              v-for="asset in list"
               :key="asset._id"
-              cols="12"
-              md="6"
-              lg="3"
-            >
-              <asset-card
-                :content="asset"
-                add-assets-details-modal
-                is-draft
-              />
-            </v-col>
-          </v-row>
+              :content="asset"
+              add-assets-details-modal
+              is-draft
+            />
+          </ve-auto-grid>
         </template>
-      </assets-infinite-scroll>
+      </nft-items-infinite-scroll>
     </ve-stack>
   </vex-section>
 </template>
 
 <script>
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
-  import { AssetsInfiniteScroll } from '@/components/AssetsInfiniteScroll';
+  import { VeStack, VeAutoGrid } from '@deip/vue-elements';
+  import { NftItemsInfiniteScroll } from '@deip/project-content-module';
   import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+
   import { AssetCard } from '@/components';
 
   export default {
@@ -49,8 +48,9 @@
       VexSection,
       VexSectionTitle,
       VeStack,
-      AssetCard,
-      AssetsInfiniteScroll
+      VeAutoGrid,
+      NftItemsInfiniteScroll,
+      AssetCard
     },
     data() {
       const filter = {

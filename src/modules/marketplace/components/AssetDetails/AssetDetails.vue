@@ -7,25 +7,13 @@
       max-content-height="600"
     >
       <template v-if="!completeCheckout" #aside>
-        <v-img
+        <vex-image
           height="500"
           :min-width="minImageWidth"
           content-class="responsive-image"
+          full-view
           :src="contentUrl"
-        >
-          <div class="d-flex justify-end mt-8 mr-8">
-            <nw-btn
-              icon
-              small
-              kind="secondary"
-              class="white"
-              :title="$t('marketplace.assetDetails.fullView')"
-              @click="handleFullViewClick"
-            >
-              <v-icon>mdi-arrow-expand</v-icon>
-            </nw-btn>
-          </div>
-        </v-img>
+        />
       </template>
       <template #title>
         <div>
@@ -118,11 +106,6 @@
         :content-url="contentUrl"
       />
     </nw-dialog>
-    <full-view-dialog
-      v-model="isFullViewDialogOpen"
-      :content-id="id"
-      :content-url="contentUrl"
-    />
   </div>
 </template>
 
@@ -130,9 +113,9 @@
   import { AccessService } from '@deip/access-service';
   import { dateMixin } from '@deip/platform-components';
   import { userHelpersMixin } from '@deip/users-module';
+  import { VexImage } from '@deip/vuetify-extended';
   import { NwDialog, NwBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
-  import FullViewDialog from './FullViewDialog';
 
   const accessService = AccessService.getInstance();
 
@@ -143,7 +126,7 @@
       NwDialog,
       NwBtn,
       CompleteCheckout,
-      FullViewDialog
+      VexImage
     },
 
     mixins: [dateMixin, userHelpersMixin],
@@ -172,7 +155,6 @@
       return {
         loading: false,
         completeCheckout: false,
-        isFullViewDialogOpen: false,
         showBackButton: false
       };
     },
@@ -253,10 +235,6 @@
         } catch (error) {
           console.error(error);
         }
-      },
-
-      handleFullViewClick() {
-        this.isFullViewDialogOpen = true;
       },
 
       handleCopyLinkClick() {

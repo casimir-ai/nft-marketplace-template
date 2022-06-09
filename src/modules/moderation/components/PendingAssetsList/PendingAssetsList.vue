@@ -1,6 +1,6 @@
 <template>
-  <assets-infinite-scroll
-    v-slot="{assets}"
+  <nft-items-infinite-scroll
+    v-slot="{list}"
     :filter="filter"
     is-draft
     class="py-6"
@@ -10,27 +10,28 @@
       cols-sm="2"
       cols-lg="4"
     >
-      <moderation-asset-card
-        v-for="asset in assets"
+      <nft-item-draft-moderation-card
+        v-for="asset in list"
         :key="asset._id"
-        :asset="asset"
+        :nft-item-draft="asset"
+        :success-approve-message="$t('moderation.pendingAssets.approveSuccess')"
+        :success-decline-message="$t('moderation.pendingAssets.declineSuccess')"
       />
     </ve-auto-grid>
-  </assets-infinite-scroll>
+  </nft-items-infinite-scroll>
 </template>
 
 <script>
   import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
-  import { ModerationAssetCard } from '@/modules/moderation/components/ModerationAssetCard';
-  import { AssetsInfiniteScroll } from '@/components/AssetsInfiniteScroll';
+  import { NftItemsInfiniteScroll, NftItemDraftModerationCard } from '@deip/project-content-module';
   import { VeAutoGrid } from '@deip/vue-elements';
 
   export default {
     name: 'PendingAssetsList',
 
     components: {
-      ModerationAssetCard,
-      AssetsInfiniteScroll,
+      NftItemDraftModerationCard,
+      NftItemsInfiniteScroll,
       VeAutoGrid
     },
 
