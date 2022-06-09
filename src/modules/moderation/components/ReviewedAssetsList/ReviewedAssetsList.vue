@@ -10,8 +10,8 @@
       />
     </div>
 
-    <assets-infinite-scroll
-      v-slot="{assets}"
+    <nft-items-infinite-scroll
+      v-slot="{list}"
       :filter="filter"
       is-draft
     >
@@ -21,20 +21,21 @@
         cols-lg="4"
       >
         <asset-card
-          v-for="asset in assets"
+          v-for="asset in list"
           :key="asset._id"
           :content="asset"
         />
       </ve-auto-grid>
-    </assets-infinite-scroll>
+    </nft-items-infinite-scroll>
   </ve-stack>
 </template>
 
 <script>
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
   import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+  import { NftItemsInfiniteScroll } from '@deip/project-content-module';
 
-  import { AssetsInfiniteScroll, AssetCard } from '@/components';
+  import { AssetCard } from '@/components';
 
   export default {
     name: 'ReviewedAssetsList',
@@ -43,7 +44,7 @@
       VeStack,
       VeAutoGrid,
       AssetCard,
-      AssetsInfiniteScroll
+      NftItemsInfiniteScroll
     },
 
     data() {
