@@ -90,10 +90,6 @@
       contentUrl: {
         type: String,
         required: true
-      },
-      customPrice: {
-        type: String,
-        default: null
       }
     },
 
@@ -102,7 +98,7 @@
         return this.$store.getters.defaultAsset;
       },
       price() {
-        return this.customPrice || this.content.metadata.price.amount;
+        return this.content.metadata.price.amount;
       }
     }
   };

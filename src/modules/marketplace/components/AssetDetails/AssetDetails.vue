@@ -97,55 +97,23 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="12" md="6">
-            <div class="mb-9">
-              <div class="text-body-1 grey--text text--lighten-2">
-                {{ $t('marketplace.assetDetails.views') }}
-              </div>
-              <div class="text-subtitle-2">
-                450
-              </div>
-            </div>
-          </v-col>
         </v-row>
       </div>
-      <validation-observer v-slot="{ invalid }">
-        <v-row v-if="!isCurrentUserAuthor && !completeCheckout">
-          <v-col cols="12" md="6">
-            <nw-btn
-              v-if="!raisePrice"
-              kind="secondary"
-              width="100%"
-              block
-              @click="handleRaisePriceClick"
-            >
-              {{ $t('marketplace.assetDetails.raisePrice') }}
-            </nw-btn>
-
-            <div v-else>
-              <price-input
-                v-model="customPrice"
-                @blur="handleTextFieldBlur"
-              />
-            </div>
-          </v-col>
-          <v-col cols="12" md="6">
-            <nw-btn
-              kind="primary"
-              width="100%"
-              block
-              :disabled="invalid"
-              @click="handleSupportClick"
-            >
-              {{ $t('marketplace.assetDetails.support') }}
-            </nw-btn>
-          </v-col>
-        </v-row>
-      </validation-observer>
+      <v-row v-if="!isCurrentUserAuthor && !completeCheckout">
+        <v-col cols="12" md="6">
+          <nw-btn
+            kind="primary"
+            width="100%"
+            block
+            @click="handleSupportClick"
+          >
+            {{ $t('marketplace.assetDetails.support') }}
+          </nw-btn>
+        </v-col>
+      </v-row>
       <complete-checkout
         v-if="completeCheckout"
         :content="content"
-        :custom-price="customPrice"
         :creator-name="creator"
         :content-url="contentUrl"
       />
@@ -163,7 +131,6 @@
   import { dateMixin } from '@deip/platform-components';
   import { userHelpersMixin } from '@deip/users-module';
   import { NwDialog, NwBtn } from '@/components';
-  import PriceInput from './PriceInput';
   import CompleteCheckout from './CompleteCheckout';
   import FullViewDialog from './FullViewDialog';
 
@@ -175,7 +142,6 @@
     components: {
       NwDialog,
       NwBtn,
-      PriceInput,
       CompleteCheckout,
       FullViewDialog
     },
@@ -207,8 +173,6 @@
         loading: false,
         completeCheckout: false,
         isFullViewDialogOpen: false,
-        raisePrice: false,
-        customPrice: null,
         showBackButton: false
       };
     },
@@ -295,10 +259,6 @@
         this.isFullViewDialogOpen = true;
       },
 
-      handleRaisePriceClick() {
-        this.raisePrice = true;
-      },
-
       handleCopyLinkClick() {
         const props = this.$router.resolve({
           name: 'assetDetails',
@@ -315,10 +275,6 @@
 
       handleBackClick() {
         this.completeCheckout = false;
-      },
-
-      handleTextFieldBlur() {
-        if (!this.content.price) this.raisePrice = false;
       }
     }
   };
