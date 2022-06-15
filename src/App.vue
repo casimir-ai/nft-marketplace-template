@@ -18,7 +18,7 @@
 
     created() {
       this.$currentUser.await(() => {
-        this.$store.dispatch('getCurrentUserProject');
+        this.$store.dispatch('getCurrentUserNftCollection');
       });
     }
   };

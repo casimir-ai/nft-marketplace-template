@@ -11,7 +11,7 @@
             <asset-card
               v-for="asset in list"
               :key="asset._id"
-              :content="asset"
+              :asset="asset"
               add-assets-details-modal
             />
           </ve-auto-grid>

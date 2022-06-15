@@ -1,5 +1,5 @@
 <template>
-  <div v-if="content">
+  <div v-if="asset">
     <nw-dialog
       v-model="isDialogOpen"
       persistent
@@ -12,7 +12,7 @@
           :min-width="minImageWidth"
           content-class="responsive-image"
           full-view
-          :src="contentUrl"
+          :src="assetUrl"
         />
       </template>
       <template #title>
@@ -46,9 +46,9 @@
           <v-icon>mdi-share-variant</v-icon>
         </nw-btn>
       </template>
-      <div v-if="!completeCheckout" class="content-container mb-3">
+      <div v-if="!completeCheckout" class="asset-container mb-3">
         <div>
-          {{ content.metadata.description }}
+          {{ asset.metadata.description }}
         </div>
 
         <v-row no-gutters class="mt-8">
@@ -57,7 +57,7 @@
               <div class="text-body-1 grey--text text--lighten-2">
                 {{ $t('marketplace.assetDetails.creator') }}
               </div>
-              <div v-if="!content.metadata.publishAnonymously && creator" class="text-subtitle-2">
+              <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-2">
                 {{ creator }}
               </div>
             </div>
@@ -68,7 +68,7 @@
                 {{ $t('marketplace.assetDetails.created') }}
               </div>
               <div class="text-subtitle-2">
-                {{ $$formatDate($$parseISO(content.createdAt), 'PP') }}
+                {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
               </div>
             </div>
           </v-col>
@@ -78,46 +78,42 @@
                 {{ $t('marketplace.assetDetails.price') }}
               </div>
               <div>
-                <span class="text-subtitle-1">{{ content.metadata.price.amount }} </span>
+                <span class="text-subtitle-1">{{ asset.metadata.price.amount }} </span>
                 <span class="text-body-1 grey--text text--lighten-2">
-                  {{ content.metadata.price.symbol }}
+                  {{ asset.metadata.price.symbol }}
                 </span>
               </div>
             </div>
           </v-col>
         </v-row>
       </div>
-      <v-row v-if="!isCurrentUserAuthor && !completeCheckout">
-        <v-col cols="12" md="6">
-          <nw-btn
-            kind="primary"
-            width="100%"
-            block
-            @click="handleSupportClick"
-          >
-            {{ $t('marketplace.assetDetails.support') }}
-          </nw-btn>
-        </v-col>
-      </v-row>
+      <div
+        v-if="$isUser && !isCurrentUserAuthor && !completeCheckout"
+        class="d-flex justify-end"
+      >
+        <nw-btn
+          kind="primary"
+          @click="handleSupportClick"
+        >
+          {{ $t('marketplace.assetDetails.support') }}
+        </nw-btn>
+      </div>
       <complete-checkout
         v-if="completeCheckout"
-        :content="content"
+        :asset="asset"
         :creator-name="creator"
-        :content-url="contentUrl"
+        :asset-url="assetUrl"
       />
     </nw-dialog>
   </div>
 </template>
 
 <script>
-  import { AccessService } from '@deip/access-service';
   import { dateMixin } from '@deip/platform-components';
   import { userHelpersMixin } from '@deip/users-module';
   import { VexImage } from '@deip/vuetify-extended';
   import { NwDialog, NwBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
-
-  const accessService = AccessService.getInstance();
 
   export default {
     name: 'AssetDetails',
@@ -162,26 +158,26 @@
     computed: {
       title() {
         return this.completeCheckout ? this.$t('marketplace.assetDetails.completeCheckout')
-          : this.content.title;
+          : this.asset.title;
       },
 
-      content() {
+      asset() {
         return (this.isDraft)
           ? this.$store.getters['projectContentDrafts/one'](this.id)
           : this.$store.getters['projectContent/one'](this.id);
       },
 
-      contentUrl() {
+      assetUrl() {
         const { DEIP_SERVER_URL } = this.$env;
-        const authorization = accessService.getAccessToken();
-        const { hash } = this.content.packageFiles[0];
+        const { hash } = this.asset.packageFiles[0];
 
+        const itemId = this.asset._id.nftItemId || this.asset._id;
         // eslint-disable-next-line max-len
-        return `${DEIP_SERVER_URL}/api/v2/project-content/package/${this.content._id}/${hash}?authorization=${authorization}`;
+        return `${DEIP_SERVER_URL}/api/v2/tokens/nft/item/package/${this.asset.nftCollectionId}/${itemId}/${hash}`;
       },
 
       creator() {
-        const userData = this.$store.getters['users/one'](this.content.authors[0]);
+        const userData = this.$store.getters['users/one'](this.asset.authors[0]);
 
         if (!userData?.attributes) return null;
 
@@ -190,7 +186,7 @@
       },
 
       isCurrentUserAuthor() {
-        return this.content.authors.includes(this.$currentUser._id);
+        return this.asset.authors.includes(this.$currentUser._id);
       },
 
       maxWidth() {
@@ -231,7 +227,7 @@
         try {
           if (this.isDraft) await this.$store.dispatch('projectContentDrafts/getOne', this.id);
           else await this.$store.dispatch('projectContent/getOne', this.id);
-          await this.$store.dispatch('users/getOne', this.content.authors[0]);
+          await this.$store.dispatch('users/getOne', this.asset.authors[0]);
         } catch (error) {
           console.error(error);
         }
@@ -240,7 +236,7 @@
       handleCopyLinkClick() {
         const props = this.$router.resolve({
           name: 'assetDetails',
-          params: { id: this.content._id }
+          params: { id: this.asset._id }
         });
 
         navigator.clipboard.writeText(`${window.location.origin}/${props.href}`);
@@ -259,7 +255,7 @@
 </script>
 
 <style scoped lang="scss">
-  .content-container {
+  .asset-container {
     word-break: break-all;
   }
 </style>

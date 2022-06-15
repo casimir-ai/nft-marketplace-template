@@ -23,7 +23,7 @@
             <asset-card
               v-for="asset in list"
               :key="asset._id"
-              :content="asset"
+              :asset="asset"
               add-assets-details-modal
               is-draft
             />
@@ -38,7 +38,7 @@
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
   import { NftItemsInfiniteScroll } from '@deip/project-content-module';
-  import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
 
   import { AssetCard } from '@/components';
 
@@ -66,21 +66,21 @@
         {
           text: this.$t('profile.createdAssets.created'),
           value: {
-            status: PROJECT_CONTENT_DRAFT_STATUS.IN_PROGRESS,
+            status: NFT_ITEM_METADATA_DRAFT_STATUS.IN_PROGRESS,
             ...filter
           }
         },
         {
           text: this.$t('profile.createdAssets.declined'),
           value: {
-            status: PROJECT_CONTENT_DRAFT_STATUS.REJECTED,
+            status: NFT_ITEM_METADATA_DRAFT_STATUS.REJECTED,
             ...filter
           }
         },
         {
           text: this.$t('profile.createdAssets.approved'),
           value: {
-            status: PROJECT_CONTENT_DRAFT_STATUS.APPROVED,
+            status: NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED,
             ...filter
           }
         }

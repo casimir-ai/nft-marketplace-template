@@ -27,9 +27,6 @@
 <script>
   import { AuthSignUp } from '@deip/auth-module';
   import { VeStack } from '@deip/vue-elements';
-  import { NonFungibleTokenService } from '@casimir/token-service';
-
-  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   export default {
     name: 'SignUp',
@@ -43,7 +40,7 @@
         this.$refs.signUpForm.setLoading(true);
         this.$currentUser.await(async () => {
           try {
-            await this.createProject();
+            await this.createNftCollection();
             this.$notifier.showSuccess(this.$t('auth.signUpSuccess'));
             this.$router.push({ name: 'home' });
           } catch (error) {
@@ -57,31 +54,18 @@
         this.$notifier.showError(error);
       },
 
-      async createProject() {
-        const { _id: teamId } = await this.$store.dispatch(
-          'teams/create', { initiator: this.$currentUser, attributes: [] }
-        );
-
-        const { _id: projectId } = await this.$store.dispatch(
-          'projects/create', { initiator: this.$currentUser, data: { teamId, attributes: [] } }
-        );
-
-        await nonFungibleTokenService.create(
-          {
+      async createNftCollection() {
+        return this.$store.dispatch(
+          'projects/create', {
             initiator: this.$currentUser,
             data: {
-              issuer: teamId,
-              name: '',
-              description: '',
-              metadata: {
-                teamId,
-                projectId
-              }
+              issuer: this.$currentUser._id,
+              issuedByTeam: false,
+              metadata: { attributes: [] }
             }
           }
         );
       }
-
     }
   };
 </script>

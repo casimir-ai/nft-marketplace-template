@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="defaultAsset"
+    v-if="defaultFungibleToken"
     :class="{'price-selector-container': true,
              'price-selector-container--is-disabled': disabled}"
   >
@@ -17,7 +17,7 @@
           :class="getItemClass(amount)"
           @click="handleSelect(amount)"
         >
-          {{ amount }} {{ defaultAsset.symbol }}
+          {{ amount }} {{ defaultFungibleToken.symbol }}
         </div>
       </v-item>
       <v-item>
@@ -98,8 +98,8 @@
     },
 
     computed: {
-      defaultAsset() {
-        return this.$store.getters.defaultAsset;
+      defaultFungibleToken() {
+        return this.$store.getters.defaultFungibleToken;
       },
       customPriceClass() {
         return [

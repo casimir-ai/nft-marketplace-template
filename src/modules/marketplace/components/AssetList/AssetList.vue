@@ -15,7 +15,7 @@
 
       <nft-items-infinite-scroll
         :sort="sort"
-        :filter="{ status: PROJECT_CONTENT_DRAFT_STATUS.APPROVED }"
+        :filter="{ status: NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED }"
         is-draft
       >
         <template #default="{ list }">
@@ -30,7 +30,7 @@
               :to="{name: 'assetDetails', params: {id: asset._id}}"
               class="text-decoration-none"
             >
-              <asset-card :content="asset" is-draft />
+              <asset-card :asset="asset" is-draft />
             </router-link>
           </ve-auto-grid>
         </template>
@@ -44,7 +44,7 @@
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
   import { AssetCard } from '@/components';
   import { NftItemsInfiniteScroll } from '@deip/project-content-module';
-  import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
 
   export default {
     name: 'AssetList',
@@ -61,7 +61,7 @@
     data() {
       return {
         loading: false,
-        PROJECT_CONTENT_DRAFT_STATUS,
+        NFT_ITEM_METADATA_DRAFT_STATUS,
         sort: {},
         sortingOptions: [
           {
