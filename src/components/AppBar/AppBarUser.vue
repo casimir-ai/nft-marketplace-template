@@ -127,10 +127,10 @@
       isModerator() {
         const {
           moderators = [],
-          projectContentModerationRequired = false
+          nftItemMetadataDraftModerationRequired = false
         } = this.$currentPortal?.profile?.settings?.moderation || {};
 
-        return projectContentModerationRequired
+        return nftItemMetadataDraftModerationRequired
           && moderators.includes(this.$currentUser?._id);
       }
     },

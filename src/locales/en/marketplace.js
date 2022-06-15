@@ -17,7 +17,7 @@ export default {
     createSuccess: 'Asset successfully created!',
     errors: {
       duplicate: 'Such asset already exists',
-      noProject: 'User can\'t submit assets'
+      noNftCollection: 'User can\'t submit assets without the collection'
     }
   },
   priceSelector: {
@@ -47,11 +47,6 @@ export default {
     serviceFee: 'Service fee',
     total: 'You\'ll pay',
     checkout: 'Checkout',
-    backButton: 'Back',
-    twitter: 'Twitter',
-    email: 'E-mail',
-    telegram: 'Telegram',
-    link: 'Link',
-    facebook: 'Facebook'
+    backButton: 'Back'
   }
 };

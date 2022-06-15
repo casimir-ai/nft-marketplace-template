@@ -8,7 +8,7 @@
       <v-img
         height="230"
         aspect-ratio="1.3"
-        :src="contentUrl"
+        :src="assetUrl"
       >
         <div class="button-container d-flex justify-end mt-4 mr-4">
           <nw-btn
@@ -27,27 +27,27 @@
         <ve-stack :gap="32">
           <ve-stack :gap="4">
             <div class="text-h6">
-              {{ content.title }}
+              {{ asset.title }}
             </div>
-            <div v-if="!content.metadata.publishAnonymously && creator" class="text-subtitle-3">
+            <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-3">
               {{ creator }}
             </div>
             <div class="text-body-1 grey--text text--lighten-2">
-              {{ $$formatDate($$parseISO(content.createdAt), 'PP') }}
+              {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
             </div>
           </ve-stack>
 
           <div class="purchase-container d-flex justify-space-between align-center">
             <div class="price-container">
-              <span class="text-h3">{{ content.metadata.price.amount }} </span>
+              <span class="text-h3">{{ asset.metadata.price.amount }} </span>
               <span class="text-subtitle-3 grey--text text--lighten-2">
-                {{ content.metadata.price.symbol }}
+                {{ asset.metadata.price.symbol }}
               </span>
             </div>
 
             <div>
               <v-chip outlined>
-                {{ getStatusLabel(content.status) }}
+                {{ getStatusLabel(asset.status) }}
               </v-chip>
             </div>
           </div>
@@ -56,7 +56,7 @@
     </v-card>
     <asset-details
       v-if="addAssetsDetailsModal && isAssetDetailsDialogOpen"
-      :id="content._id"
+      :id="asset._id"
       v-model="isAssetDetailsDialogOpen"
       :is-draft="isDraft"
     />
@@ -64,14 +64,11 @@
 </template>
 
 <script>
-  import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
-  import { AccessService } from '@deip/access-service';
+  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
   import { dateMixin } from '@deip/platform-components';
   import { VeStack } from '@deip/vue-elements';
   import { NwBtn } from '@/components/NwBtn';
   import { AssetDetails } from '@/modules/marketplace/components/AssetDetails';
-
-  const accessService = AccessService.getInstance();
 
   export default {
     name: 'AssetCard',
@@ -85,7 +82,7 @@
     mixins: [dateMixin],
 
     props: {
-      content: {
+      asset: {
         type: Object,
         required: true
       },
@@ -101,27 +98,27 @@
 
     data() {
       return {
-        PROJECT_CONTENT_DRAFT_STATUS,
+        NFT_ITEM_METADATA_DRAFT_STATUS,
         isAssetDetailsDialogOpen: false
       };
     },
 
     computed: {
-      contentUrl() {
+      assetUrl() {
         const { DEIP_SERVER_URL } = this.$env;
-        const authorization = accessService.getAccessToken();
-        const { hash } = this.content.packageFiles[0];
+        const { hash } = this.asset.packageFiles[0];
 
+        const itemId = this.asset._id.nftItemId || this.asset._id;
         // eslint-disable-next-line max-len
-        return `${DEIP_SERVER_URL}/api/v2/project-content/package/${this.content._id}/${hash}?authorization=${authorization}`;
+        return `${DEIP_SERVER_URL}/api/v2/tokens/nft/item/package/${this.asset.nftCollectionId}/${itemId}/${hash}`;
       },
 
       isCurrentUserAuthor() {
-        return this.content.authors.includes(this.$currentUser._id);
+        return this.asset.authors.includes(this.$currentUser._id);
       },
 
       creator() {
-        const userData = this.$store.getters['users/one'](this.content.authors[0]);
+        const userData = this.$store.getters['users/one'](this.asset.authors[0]);
 
         if (!userData?.attributes) return null;
 
@@ -134,7 +131,7 @@
       handleCopyLinkClick() {
         const props = this.$router.resolve({
           name: 'assetDetails',
-          params: { id: this.content._id }
+          params: { id: this.asset._id }
         });
 
         navigator.clipboard.writeText(`${window.location.origin}/${props.href}`);
@@ -146,7 +143,7 @@
       },
 
       getStatusLabel(status) {
-        return this.$t(`components.assetCard.status.${PROJECT_CONTENT_DRAFT_STATUS[status]}`);
+        return this.$t(`components.assetCard.status.${NFT_ITEM_METADATA_DRAFT_STATUS[status]}`);
       }
     }
 

@@ -5,12 +5,12 @@
         <v-img
           height="52"
           width="52"
-          :src="contentUrl"
+          :src="assetUrl"
           class="image mr-6"
         />
         <div>
           <div class="text-h6">
-            {{ content.title }}
+            {{ asset.title }}
           </div>
           <div class="text-subtitle-3 grey--text text--lighten-2">
             {{ creatorName }}
@@ -19,7 +19,7 @@
       </div>
       <div class="d-flex flex-column align-center">
         <div class="text-subtitle-3">
-          {{ price }} {{ defaultAsset.symbol }}
+          {{ price }} {{ defaultFungibleToken.symbol }}
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
           {{ $t('marketplace.assetDetails.balance') }}
         </div>
         <div>
-          153.75 {{ defaultAsset.symbol }}
+          153.75 {{ defaultFungibleToken.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -38,7 +38,7 @@
           {{ $t('marketplace.assetDetails.price') }}
         </div>
         <div>
-          {{ price }} {{ defaultAsset.symbol }}
+          {{ price }} {{ defaultFungibleToken.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -46,7 +46,7 @@
           {{ $t('marketplace.assetDetails.serviceFee') }}
         </div>
         <div>
-          2.50 {{ defaultAsset.symbol }}
+          2.50 {{ defaultFungibleToken.symbol }}
         </div>
       </div>
     </ve-stack>
@@ -56,7 +56,7 @@
         {{ $t('marketplace.assetDetails.total') }}
       </div>
       <div class="text-h4">
-        56.00 {{ defaultAsset.symbol }}
+        56.00 {{ defaultFungibleToken.symbol }}
       </div>
     </div>
     <div class="d-flex justify-end">
@@ -79,7 +79,7 @@
     },
 
     props: {
-      content: {
+      asset: {
         type: Object,
         required: true
       },
@@ -87,18 +87,18 @@
         type: String,
         required: true
       },
-      contentUrl: {
+      assetUrl: {
         type: String,
         required: true
       }
     },
 
     computed: {
-      defaultAsset() {
-        return this.$store.getters.defaultAsset;
+      defaultFungibleToken() {
+        return this.$store.getters.defaultFungibleToken;
       },
       price() {
-        return this.content.metadata.price.amount;
+        return this.asset.metadata.price.amount;
       }
     }
   };

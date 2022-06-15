@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
   import { NftItemsInfiniteScroll, NftItemDraftModerationCard } from '@deip/project-content-module';
   import { VeAutoGrid } from '@deip/vue-elements';
 
@@ -38,7 +38,7 @@
     data() {
       return {
         filter: {
-          status: PROJECT_CONTENT_DRAFT_STATUS.PROPOSED
+          status: NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED
         }
       };
     }

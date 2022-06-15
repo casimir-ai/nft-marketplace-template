@@ -23,7 +23,7 @@
         <asset-card
           v-for="asset in list"
           :key="asset._id"
-          :content="asset"
+          :asset="asset"
         />
       </ve-auto-grid>
     </nft-items-infinite-scroll>
@@ -32,7 +32,7 @@
 
 <script>
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
-  import { PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
   import { NftItemsInfiniteScroll } from '@deip/project-content-module';
 
   import { AssetCard } from '@/components';
@@ -52,17 +52,17 @@
         {
           text: this.$t('moderation.reviewedAssets.filter.showAll'),
           value: {
-            $in: [PROJECT_CONTENT_DRAFT_STATUS.APPROVED,
-                  PROJECT_CONTENT_DRAFT_STATUS.REJECTED]
+            $in: [NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED,
+                  NFT_ITEM_METADATA_DRAFT_STATUS.REJECTED]
           }
         },
         {
           text: this.$t('moderation.reviewedAssets.filter.approved'),
-          value: PROJECT_CONTENT_DRAFT_STATUS.APPROVED
+          value: NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED
         },
         {
           text: this.$t('moderation.reviewedAssets.filter.denied'),
-          value: PROJECT_CONTENT_DRAFT_STATUS.REJECTED
+          value: NFT_ITEM_METADATA_DRAFT_STATUS.REJECTED
         }
       ];
 

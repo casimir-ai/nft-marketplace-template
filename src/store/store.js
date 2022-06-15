@@ -1,26 +1,21 @@
 import { proxydi } from '@deip/proxydi';
 
 const GETTERS = {
-  defaultAsset: (state) => state.assets.data
+  defaultFungibleToken: (state) => state.assets.data
     .find((asset) => asset.symbol === proxydi.get('env').CORE_ASSET.symbol),
-  team: (state) => {
+  userNftCollection: (state) => {
     const currentUser = state.currentUser.data;
     if (!currentUser) return null;
-    return state.teams.data.find((team) => team._id === currentUser.teams[0]);
-  },
-  project: (state) => {
-    const currentUser = state.currentUser.data;
-    if (!currentUser) return null;
-    return state.projects.data.find((project) => project.teamId === currentUser.teams[0]);
+    return state.projects.data.find((project) => project.issuer === currentUser._id);
   }
 };
 
 const ACTIONS = {
-  getCurrentUserProject({ rootGetters, dispatch }) {
+  getCurrentUserNftCollection({ rootGetters, dispatch }) {
     const currentUser = rootGetters['currentUser/data'];
 
     if (currentUser) {
-      dispatch('projects/getTeamProjects', { teamId: currentUser.teams[0] }, { root: true });
+      dispatch('projects/getListByIssuer', currentUser._id, { root: true });
     }
   }
 };

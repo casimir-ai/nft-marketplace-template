@@ -138,7 +138,7 @@
 <script>
   import { VeStack } from '@deip/vue-elements';
   import { VexImageInput } from '@deip/vuetify-extended';
-  import { PROJECT_CONTENT_FORMAT, PROJECT_CONTENT_DRAFT_STATUS } from '@deip/constants';
+  import { NFT_ITEM_METADATA_FORMAT, NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
   import { NwBtn } from '@/components/NwBtn';
   import PriceSelector from './PriceSelector';
 
@@ -170,11 +170,11 @@
     },
 
     computed: {
-      project() {
-        return this.$store.getters.project;
+      nftCollection() {
+        return this.$store.getters.userNftCollection;
       },
-      defaultAsset() {
-        return this.$store.getters.defaultAsset;
+      defaultFungibleToken() {
+        return this.$store.getters.defaultFungibleToken;
       }
     },
 
@@ -191,27 +191,35 @@
       },
 
       async createAsset() {
-        if (!this.project) {
-          this.$notifier.showError(this.$t('marketplace.createAsset.errors.noProject'));
+        if (!this.nftCollection) {
+          this.$notifier.showError(this.$t('marketplace.createAsset.errors.noNftCollection'));
           return;
         }
 
         try {
+          const {
+            nftItemMetadataDraftModerationRequired = false
+          } = this.$currentPortal?.profile?.settings?.moderation || {};
+          const status = nftItemMetadataDraftModerationRequired
+            ? NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED
+            : NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED;
+
           const draftPayload = {
             data: {
-              projectId: this.project._id,
-              teamId: this.$store.getters.team._id,
+              owner: this.$currentUser._id,
+              ownedByTeam: false,
+              nftCollectionId: this.nftCollection._id,
               title: this.formData.name,
               authors: [this.$currentUser.username],
-              formatType: PROJECT_CONTENT_FORMAT.PACKAGE,
+              formatType: NFT_ITEM_METADATA_FORMAT.PACKAGE,
               files: [this.formData.image],
-              status: PROJECT_CONTENT_DRAFT_STATUS.PROPOSED,
+              status,
               metadata: {
                 description: this.formData.description,
                 price: {
-                  id: this.defaultAsset._id,
-                  symbol: this.defaultAsset.symbol,
-                  precision: this.defaultAsset.precision,
+                  id: this.defaultFungibleToken._id,
+                  symbol: this.defaultFungibleToken.symbol,
+                  precision: this.defaultFungibleToken.precision,
                   amount: this.formData.price
                 },
                 publishAnonymously: this.formData.publishAnonymously
@@ -224,7 +232,7 @@
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');
         } catch (error) {
-          console.error(error.error);
+          console.error(error.error || error);
           const errorText = error.statusCode === 409
             ? this.$t('marketplace.createAsset.errors.duplicate') : error.error.message;
           this.$notifier.showError(errorText);
