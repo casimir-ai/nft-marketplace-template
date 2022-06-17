@@ -10,6 +10,8 @@ export default {
     field: 'Field',
     createNft: 'Create NFT',
     publishAnonymouslyMessage: 'Publish NFT anonymously',
+    donation: 'Donation',
+    moderation: 'Moderation',
     fundsMessage: `I understand that all the money from 
     selling NFTs is sent to the Ukrainian funds`,
     moderationMessage: `I understand that in case of moderation 
@@ -47,6 +49,7 @@ export default {
     serviceFee: 'Service fee',
     total: 'You\'ll pay',
     checkout: 'Checkout',
-    backButton: 'Back'
+    backButton: 'Back',
+    buySuccess: 'Asset successfully bought!'
   }
 };

@@ -103,6 +103,7 @@
         :asset="asset"
         :creator-name="creator"
         :asset-url="assetUrl"
+        @close-dialog="closeDialog"
       />
     </nw-dialog>
   </div>

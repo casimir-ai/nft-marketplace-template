@@ -144,7 +144,10 @@
       getItemClass(amount) {
         return [
           itemClasses,
-          { 'amount--active': amount === this.internalValue && !this.isTextFieldVisible }
+          {
+            'amount--active': amount === this.internalValue
+              && !this.isTextFieldVisible && this.value !== null
+          }
         ];
       }
     }

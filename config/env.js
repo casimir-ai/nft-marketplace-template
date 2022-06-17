@@ -6,7 +6,8 @@ const env = (process.env.DEIP_CONFIG || process.env.NODE_ENV === 'local')
 require('dotenv').config({
   path: `${__dirname}/${
     // eslint-disable-next-line no-nested-ternary
-    env === 'production' ? '.prod.env' : env === 'development' ? '.dev.env' : process.env.DEIP_CONFIG ? (`.${process.env.DEIP_CONFIG}.env`) : '.local.env'}`
+    env === 'production' ? '.prod.env' : env === 'development' ? '.dev.env'
+      : process.env.DEIP_CONFIG ? (`.${process.env.DEIP_CONFIG}.env`) : '.local.env'}`
 });
 
 const config = {

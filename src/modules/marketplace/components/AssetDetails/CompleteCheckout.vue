@@ -60,7 +60,12 @@
       </div>
     </div>
     <div class="d-flex justify-end">
-      <nw-btn kind="primary" large>
+      <nw-btn
+        kind="primary"
+        large
+        :loading="loading"
+        @click="buyLazy"
+      >
         {{ $t('marketplace.assetDetails.checkout') }}
       </nw-btn>
     </div>
@@ -70,6 +75,9 @@
 <script>
   import { NwBtn } from '@/components';
   import { VeStack } from '@deip/vue-elements';
+  import { NonFungibleTokenService } from '@casimir/token-service';
+
+  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   export default {
     name: 'CompleteCheckout',
@@ -93,12 +101,59 @@
       }
     },
 
+    data() {
+      return {
+        loading: false
+      };
+    },
+
     computed: {
       defaultFungibleToken() {
         return this.$store.getters.defaultFungibleToken;
       },
       price() {
         return this.asset.metadata.price.amount;
+      }
+    },
+
+    methods: {
+      async buyLazy() {
+        this.loading = true;
+        try {
+          const {
+            metadata,
+            nftCollectionId,
+            nftItemId,
+            lazySellProposalId
+          } = this.asset;
+
+          const asset = {
+            amount: metadata.price.amount,
+            id: metadata.price.id,
+            symbol: metadata.price.symbol,
+            precision: metadata.price.precision
+          };
+
+          const payload = {
+            initiator: this.$currentUser,
+            data: {
+              issuer: this.$currentUser._id,
+              nftCollectionId,
+              nftItemId,
+              lazySellProposalId,
+              asset
+            }
+          };
+
+          await nonFungibleTokenService.buyLazy(payload);
+          this.$notifier.showSuccess(this.$t('marketplace.assetDetails.buySuccess'));
+          this.$emit('success');
+        } catch (error) {
+          console.error(error?.error || error);
+          this.$notifier.showError(error?.error?.message || error);
+        }
+        this.loading = false;
+        this.$emit('close-dialog');
       }
     }
   };
