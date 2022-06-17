@@ -112,8 +112,11 @@
   import { dateMixin } from '@deip/platform-components';
   import { userHelpersMixin } from '@deip/users-module';
   import { VexImage } from '@deip/vuetify-extended';
+  import { NonFungibleTokenService } from '@casimir/token-service';
   import { NwDialog, NwBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
+
+  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   export default {
     name: 'AssetDetails',
@@ -168,12 +171,10 @@
       },
 
       assetUrl() {
-        const { DEIP_SERVER_URL } = this.$env;
-        const { hash } = this.asset.packageFiles[0];
+        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.asset;
+        const itemId = _id.nftItemId || _id;
 
-        const itemId = this.asset._id.nftItemId || this.asset._id;
-        // eslint-disable-next-line max-len
-        return `${DEIP_SERVER_URL}/api/v2/tokens/nft/item/package/${this.asset.nftCollectionId}/${itemId}/${hash}`;
+        return nonFungibleTokenService.getNftItemFileSrc(nftCollectionId, itemId, hash);
       },
 
       creator() {
