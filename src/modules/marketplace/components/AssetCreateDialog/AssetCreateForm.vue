@@ -36,7 +36,10 @@
                 />
               </validation-provider>
 
-              <validation-provider v-slot="{ errors }">
+              <validation-provider
+                v-slot="{ errors }"
+                :name="$t('marketplace.createAsset.description')"
+              >
                 <v-textarea
                   v-model="formData.description"
                   :label="$t('marketplace.createAsset.description')
@@ -92,7 +95,7 @@
 
             <validation-provider
               v-slot="{ errors }"
-              name=" "
+              :name="$t('marketplace.createAsset.donation')"
               :rules="{ required: { allowFalse: false } }"
             >
               <v-checkbox
@@ -106,7 +109,7 @@
 
             <validation-provider
               v-slot="{ errors }"
-              name=" "
+              :name="$t('marketplace.createAsset.moderation')"
               :rules="{ required: { allowFalse: false } }"
             >
               <v-checkbox
@@ -140,7 +143,10 @@
   import { VexImageInput } from '@deip/vuetify-extended';
   import { NFT_ITEM_METADATA_FORMAT, NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
   import { NwBtn } from '@/components/NwBtn';
+  import { NonFungibleTokenService } from '@casimir/token-service';
   import PriceSelector from './PriceSelector';
+
+  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   const defaultFormData = () => ({
     name: null,
@@ -178,16 +184,52 @@
       }
     },
 
+    mounted() {
+      this.clearForm();
+      this.reloadNftCollection();
+    },
+
     methods: {
+      async reloadNftCollection() {
+        await this.$store.dispatch('getCurrentUserNftCollection');
+      },
+
       async submit() {
         this.loading = true;
         await this.createAsset();
         this.loading = false;
+        this.clearForm();
       },
 
       clearForm() {
         this.formData = defaultFormData();
         this.$refs.validationObserver.reset();
+      },
+
+      async sellLazy() {
+        try {
+          const { nftCollectionId, issuer, nextNftItemId } = this.nftCollection;
+
+          const asset = {
+            amount: this.formData.price,
+            id: this.defaultFungibleToken._id,
+            symbol: this.defaultFungibleToken.symbol,
+            precision: this.defaultFungibleToken.precision
+          };
+
+          const payload = {
+            initiator: this.$currentUser,
+            data: {
+              issuer,
+              asset,
+              nftCollectionId,
+              nftItemId: nextNftItemId
+            }
+          };
+          await nonFungibleTokenService.sellLazy(payload);
+        } catch (error) {
+          console.error(error?.error || error);
+        }
       },
 
       async createAsset() {
@@ -203,12 +245,12 @@
           const status = nftItemMetadataDraftModerationRequired
             ? NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED
             : NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED;
-
           const draftPayload = {
             data: {
               owner: this.$currentUser._id,
               ownedByTeam: false,
-              nftCollectionId: this.nftCollection._id,
+              nftCollectionId: this.nftCollection.nftCollectionId,
+              nftItemId: this.nftCollection.nextNftItemId,
               title: this.formData.name,
               authors: [this.$currentUser.username],
               formatType: NFT_ITEM_METADATA_FORMAT.PACKAGE,
@@ -229,12 +271,16 @@
 
           await this.$store.dispatch('projectContentDrafts/create', draftPayload);
 
+          await this.sellLazy();
+
+          this.reloadNftCollection();
+
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');
         } catch (error) {
           console.error(error.error || error);
           const errorText = error.statusCode === 409
-            ? this.$t('marketplace.createAsset.errors.duplicate') : error.error.message;
+            ? this.$t('marketplace.createAsset.errors.duplicate') : error;
           this.$notifier.showError(errorText);
         }
       }
