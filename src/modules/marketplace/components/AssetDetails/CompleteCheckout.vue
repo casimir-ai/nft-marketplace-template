@@ -75,9 +75,6 @@
 <script>
   import { NwBtn } from '@/components';
   import { VeStack } from '@deip/vue-elements';
-  import { NonFungibleTokenService } from '@casimir/token-service';
-
-  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   export default {
     name: 'CompleteCheckout',
@@ -145,7 +142,7 @@
             }
           };
 
-          await nonFungibleTokenService.buyLazy(payload);
+          await this.$store.dispatch('projectContentDrafts/buyLazy', payload);
           this.$notifier.showSuccess(this.$t('marketplace.assetDetails.buySuccess'));
           this.$emit('success');
         } catch (error) {

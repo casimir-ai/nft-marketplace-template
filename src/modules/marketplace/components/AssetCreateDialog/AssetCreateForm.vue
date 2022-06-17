@@ -143,10 +143,7 @@
   import { VexImageInput } from '@deip/vuetify-extended';
   import { NFT_ITEM_METADATA_FORMAT, NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
   import { NwBtn } from '@/components/NwBtn';
-  import { NonFungibleTokenService } from '@casimir/token-service';
   import PriceSelector from './PriceSelector';
-
-  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   const defaultFormData = () => ({
     name: null,
@@ -226,7 +223,7 @@
               nftItemId: nextNftItemId
             }
           };
-          await nonFungibleTokenService.sellLazy(payload);
+          await this.$store.dispatch('projectContentDrafts/sellLazy', payload);
         } catch (error) {
           console.error(error?.error || error);
         }
