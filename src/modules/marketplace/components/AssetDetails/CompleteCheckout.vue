@@ -124,13 +124,6 @@
             lazySellProposalId
           } = this.asset;
 
-          const asset = {
-            amount: metadata.price.amount,
-            id: metadata.price.id,
-            symbol: metadata.price.symbol,
-            precision: metadata.price.precision
-          };
-
           const payload = {
             initiator: this.$currentUser,
             data: {
@@ -138,7 +131,7 @@
               nftCollectionId,
               nftItemId,
               lazySellProposalId,
-              asset
+              asset: metadata.price
             }
           };
 
