@@ -27,27 +27,27 @@
         <ve-stack :gap="32">
           <ve-stack :gap="4">
             <div class="text-h6">
-              {{ asset.title }}
+              {{ assetData.title }}
             </div>
-            <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-3">
+            <div v-if="!assetData.metadata.publishAnonymously && creator" class="text-subtitle-3">
               {{ creator }}
             </div>
             <div class="text-body-1 grey--text text--lighten-2">
-              {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
+              {{ $$formatDate($$parseISO(assetData.createdAt), 'PP') }}
             </div>
           </ve-stack>
 
           <div class="purchase-container d-flex justify-space-between align-center">
             <div class="price-container">
-              <span class="text-h3">{{ asset.metadata.price.amount }} </span>
+              <span class="text-h3">{{ assetData.metadata.price.amount }} </span>
               <span class="text-subtitle-3 grey--text text--lighten-2">
-                {{ asset.metadata.price.symbol }}
+                {{ assetData.metadata.price.symbol }}
               </span>
             </div>
 
-            <div>
+            <div v-if="assetData.status">
               <v-chip outlined>
-                {{ getStatusLabel(asset.status) }}
+                {{ getStatusLabel(assetData.status) }}
               </v-chip>
             </div>
           </div>
@@ -56,7 +56,7 @@
     </v-card>
     <asset-details
       v-if="addAssetsDetailsModal && isAssetDetailsDialogOpen"
-      :id="asset._id"
+      :id="assetData._id"
       v-model="isAssetDetailsDialogOpen"
       :is-draft="isDraft"
     />
@@ -108,19 +108,23 @@
     },
 
     computed: {
+      assetData() {
+        return (this.isDraft) ? this.asset : this.asset.metadata;
+      },
+
       assetUrl() {
-        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.asset;
+        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.assetData;
         const itemId = _id.nftItemId || _id;
 
         return nonFungibleTokenService.getNftItemFileSrc(nftCollectionId, itemId, hash);
       },
 
       isCurrentUserAuthor() {
-        return this.asset.authors.includes(this.$currentUser._id);
+        return this.assetData.authors.includes(this.$currentUser._id);
       },
 
       creator() {
-        const userData = this.$store.getters['users/one'](this.asset.authors[0]);
+        const userData = this.$store.getters['users/one'](this.assetData.authors[0]);
 
         if (!userData?.attributes) return null;
 
@@ -133,7 +137,7 @@
       handleCopyLinkClick() {
         const props = this.$router.resolve({
           name: 'assetDetails',
-          params: { id: this.asset._id }
+          params: { id: this.assetData._id }
         });
 
         navigator.clipboard.writeText(`${window.location.origin}/${props.href}`);
