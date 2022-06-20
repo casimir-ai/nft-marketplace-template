@@ -40,9 +40,10 @@
       return {
         loading: false,
         filter: {
-          authors: this.$currentUser._id
+          ownerAddress: this.$currentUser.profile.address
         }
       };
     }
+
   };
 </script>
