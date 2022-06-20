@@ -9,7 +9,20 @@
             v-model="sort"
             :label="$t('marketplace.assetList.sorting')"
             :items="sortingOptions"
-          />
+          >
+            <template #item="{ item }">
+              <v-icon> {{ item.icon }} </v-icon>
+              <div class="ml-2">
+                {{ item.text }}
+              </div>
+            </template>
+            <template #selection="{ item }">
+              <v-icon> {{ item.icon }} </v-icon>
+              <div class="ml-2">
+                {{ item.text }}
+              </div>
+            </template>
+          </v-select>
         </template>
       </vex-section-title>
 
@@ -66,35 +79,41 @@
         sortingOptions: [
           {
             text: this.$t('marketplace.assetList.byDefault'),
-            value: null
+            value: null,
+            icon: null
           },
           {
-            text: this.$t('marketplace.assetList.byNameAsc'),
-            value: { title: 'asc' }
+            text: this.$t('marketplace.assetList.byName'),
+            value: { title: 'asc' },
+            icon: 'mdi-sort-alphabetical-ascending'
           },
           {
-            text: this.$t('marketplace.assetList.byNameDesc'),
-            value: { title: 'desc' }
+            text: this.$t('marketplace.assetList.byName'),
+            value: { title: 'desc' },
+            icon: 'mdi-sort-alphabetical-descending'
           },
           {
-            text: this.$t('marketplace.assetList.byPriceAsc'),
-            value: { 'metadata.price.amount': 'asc' }
+            text: this.$t('marketplace.assetList.byPrice'),
+            value: { 'metadata.price.amount': 'asc' },
+            icon: 'mdi-sort-numeric-ascending'
           },
           {
-            text: this.$t('marketplace.assetList.byPriceDesc'),
-            value: { 'metadata.price.amount': 'desc' }
+            text: this.$t('marketplace.assetList.byPrice'),
+            value: { 'metadata.price.amount': 'desc' },
+            icon: 'mdi-sort-numeric-descending'
           },
           {
-            text: this.$t('marketplace.assetList.byCreationDateAsc'),
-            value: { createdAt: 'asc' }
+            text: this.$t('marketplace.assetList.byCreationDate'),
+            value: { createdAt: 'asc' },
+            icon: 'mdi-sort-numeric-ascending'
           },
           {
-            text: this.$t('marketplace.assetList.byCreationDateDesc'),
-            value: { createdAt: 'desc' }
+            text: this.$t('marketplace.assetList.byCreationDate'),
+            value: { createdAt: 'desc' },
+            icon: 'mdi-sort-numeric-descending'
           }
         ]
       };
     }
-
   };
 </script>
