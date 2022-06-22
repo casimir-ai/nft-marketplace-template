@@ -240,8 +240,8 @@
             nftItemMetadataDraftModerationRequired = false
           } = this.$currentPortal?.profile?.settings?.moderation || {};
           const status = nftItemMetadataDraftModerationRequired
-            ? NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED
-            : NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED;
+            ? NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED
+            : NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
           const draftPayload = {
             data: {
               owner: this.$currentUser._id,
