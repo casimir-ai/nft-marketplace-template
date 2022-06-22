@@ -56,7 +56,7 @@
 
       async createNftCollection() {
         return this.$store.dispatch(
-          'projects/create', {
+          'nftCollections/create', {
             initiator: this.$currentUser,
             data: {
               issuer: this.$currentUser._id,

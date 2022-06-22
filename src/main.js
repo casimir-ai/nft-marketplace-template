@@ -15,7 +15,7 @@ import { LayoutsModule } from '@deip/layouts-module';
 import { AuthModule } from '@deip/auth-module';
 import { UsersModule } from '@deip/users-module';
 import { TeamsModule } from '@deip/teams-module';
-import { ProjectsModule } from '@deip/projects-module';
+import { NftCollectionsModule } from '@casimir/nft-collections-module';
 import { ProjectContentModule } from '@deip/project-content-module';
 import { AssetsModule } from '@deip/assets-module';
 
@@ -61,7 +61,7 @@ noWarApp
   .addModule(AuthModule)
   .addModule(UsersModule, usersModuleOptions)
   .addModule(TeamsModule)
-  .addModule(ProjectsModule)
+  .addModule(NftCollectionsModule)
   .addModule(ProjectContentModule)
   .addModule(AssetsModule)
   .addModule(NoWarWalletModule)
