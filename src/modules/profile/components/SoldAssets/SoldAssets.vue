@@ -10,7 +10,7 @@
           >
             <asset-card
               v-for="asset in list"
-              :key="asset._id"
+              :key="JSON.stringify(asset._id)"
               :asset="asset"
               add-assets-details-modal
             />

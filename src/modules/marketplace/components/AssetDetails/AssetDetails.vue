@@ -1,5 +1,5 @@
 <template>
-  <div v-if="asset">
+  <div v-if="assetData">
     <nw-dialog
       v-model="isDialogOpen"
       persistent
@@ -36,7 +36,7 @@
           </div>
         </div>
       </template>
-      <template v-if="!completeCheckout" #titleButtons>
+      <template v-if="!completeCheckout && isDraft" #titleButtons>
         <nw-btn
           small
           icon
@@ -48,7 +48,7 @@
       </template>
       <div v-if="!completeCheckout" class="asset-container mb-3">
         <div>
-          {{ asset.metadata.description }}
+          {{ assetData.metadata.description }}
         </div>
 
         <v-row no-gutters class="mt-8">
@@ -57,7 +57,7 @@
               <div class="text-body-1 grey--text text--lighten-2">
                 {{ $t('marketplace.assetDetails.creator') }}
               </div>
-              <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-2">
+              <div v-if="!assetData.metadata.publishAnonymously && creator" class="text-subtitle-2">
                 {{ creator }}
               </div>
             </div>
@@ -68,7 +68,7 @@
                 {{ $t('marketplace.assetDetails.created') }}
               </div>
               <div class="text-subtitle-2">
-                {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
+                {{ $$formatDate($$parseISO(assetData.createdAt), 'PP') }}
               </div>
             </div>
           </v-col>
@@ -78,9 +78,9 @@
                 {{ $t('marketplace.assetDetails.price') }}
               </div>
               <div>
-                <span class="text-subtitle-1">{{ asset.metadata.price.amount }} </span>
+                <span class="text-subtitle-1">{{ assetData.metadata.price.amount }} </span>
                 <span class="text-body-1 grey--text text--lighten-2">
-                  {{ asset.metadata.price.symbol }}
+                  {{ assetData.metadata.price.symbol }}
                 </span>
               </div>
             </div>
@@ -88,7 +88,7 @@
         </v-row>
       </div>
       <div
-        v-if="$isUser && !isCurrentUserAuthor && !completeCheckout"
+        v-if="$isUser && !isCurrentUserAuthor && !completeCheckout && isDraft"
         class="d-flex justify-end"
       >
         <nw-btn
@@ -100,7 +100,7 @@
       </div>
       <complete-checkout
         v-if="completeCheckout"
-        :asset="asset"
+        :asset="assetData"
         :creator-name="creator"
         :asset-url="assetUrl"
         @close-dialog="closeDialog"
@@ -137,7 +137,7 @@
         default: true
       },
       id: {
-        type: String,
+        type: [Object, String],
         required: true
       },
       mainRoute: {
@@ -160,9 +160,13 @@
     },
 
     computed: {
+      assetData() {
+        return (this.isDraft) ? this.asset : this.asset.metadata;
+      },
+
       title() {
         return this.completeCheckout ? this.$t('marketplace.assetDetails.completeCheckout')
-          : this.asset.title;
+          : this.assetData.title;
       },
 
       asset() {
@@ -172,14 +176,14 @@
       },
 
       assetUrl() {
-        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.asset;
+        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.assetData;
         const itemId = _id.nftItemId || _id;
 
         return nonFungibleTokenService.getNftItemFileSrc(nftCollectionId, itemId, hash);
       },
 
       creator() {
-        const userData = this.$store.getters['users/one'](this.asset.authors[0]);
+        const userData = this.$store.getters['users/one'](this.assetData.authors[0]);
 
         if (!userData?.attributes) return null;
 
@@ -188,7 +192,7 @@
       },
 
       isCurrentUserAuthor() {
-        return this.asset.authors.includes(this.$currentUser._id);
+        return this.assetData.authors.includes(this.$currentUser._id);
       },
 
       maxWidth() {
@@ -228,8 +232,10 @@
       async getData() {
         try {
           if (this.isDraft) await this.$store.dispatch('projectContentDrafts/getOne', this.id);
-          else await this.$store.dispatch('projectContent/getOne', this.id);
-          await this.$store.dispatch('users/getOne', this.asset.authors[0]);
+          else {
+            await this.$store.dispatch('projectContent/getOne', this.id);
+          }
+          await this.$store.dispatch('users/getOne', this.assetData.authors[0]);
         } catch (error) {
           console.error(error);
         }
@@ -238,7 +244,7 @@
       handleCopyLinkClick() {
         const props = this.$router.resolve({
           name: 'assetDetails',
-          params: { id: this.asset._id }
+          params: { id: this.assetData._id }
         });
 
         navigator.clipboard.writeText(`${window.location.origin}/${props.href}`);
