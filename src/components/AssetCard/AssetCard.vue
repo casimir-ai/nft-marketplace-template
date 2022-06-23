@@ -10,7 +10,7 @@
         aspect-ratio="1.3"
         :src="assetUrl"
       >
-        <div class="button-container d-flex justify-end mt-4 mr-4">
+        <div v-if="isDraft" class="button-container d-flex justify-end mt-4 mr-4">
           <nw-btn
             icon
             small
