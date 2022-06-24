@@ -36,7 +36,7 @@
           </div>
         </div>
       </template>
-      <template v-if="!completeCheckout && isDraft" #titleButtons>
+      <template v-if="isApprovedAsset && !completeCheckout" #titleButtons>
         <nw-btn
           small
           icon
@@ -88,7 +88,7 @@
         </v-row>
       </div>
       <div
-        v-if="$isUser && !isCurrentUserAuthor && !completeCheckout && isDraft"
+        v-if="isSupportShown"
         class="d-flex justify-end"
       >
         <nw-btn
@@ -114,6 +114,8 @@
   import { userHelpersMixin } from '@deip/users-module';
   import { VexImage } from '@deip/vuetify-extended';
   import { NonFungibleTokenService } from '@casimir/token-service';
+  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+
   import { NwDialog, NwBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
 
@@ -213,6 +215,17 @@
             this.closeDialog();
           }
         }
+      },
+
+      isApprovedAsset() {
+        return this.isDraft && this.assetData.status === NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
+      },
+
+      isSupportShown() {
+        return this.$isUser
+          && this.isApprovedAsset
+          && !this.isCurrentUserAuthor
+          && !this.completeCheckout;
       }
     },
 
@@ -231,8 +244,9 @@
 
       async getData() {
         try {
-          if (this.isDraft) await this.$store.dispatch('projectContentDrafts/getOne', this.id);
-          else {
+          if (this.isDraft) {
+            await this.$store.dispatch('projectContentDrafts/getOne', this.id);
+          } else {
             await this.$store.dispatch('projectContent/getOne', this.id);
           }
           await this.$store.dispatch('users/getOne', this.assetData.authors[0]);

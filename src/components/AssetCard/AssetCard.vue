@@ -10,7 +10,7 @@
         aspect-ratio="1.3"
         :src="assetUrl"
       >
-        <div v-if="isDraft" class="button-container d-flex justify-end mt-4 mr-4">
+        <div v-if="isCopyLinkShown" class="button-container d-flex justify-end mt-4 mr-4">
           <nw-btn
             icon
             small
@@ -121,6 +121,10 @@
 
       isCurrentUserAuthor() {
         return this.assetData.authors.includes(this.$currentUser._id);
+      },
+
+      isCopyLinkShown() {
+        return this.isDraft && this.assetData.status === NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
       },
 
       creator() {
