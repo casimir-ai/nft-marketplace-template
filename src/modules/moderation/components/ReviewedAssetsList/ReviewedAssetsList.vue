@@ -13,6 +13,7 @@
     <nft-items-infinite-scroll
       v-slot="{list}"
       :filter="filter"
+      :sort="sort"
       is-draft
     >
       <ve-auto-grid
@@ -24,6 +25,8 @@
           v-for="asset in list"
           :key="asset._id"
           :asset="asset"
+          is-draft
+          add-assets-details-modal
         />
       </ve-auto-grid>
     </nft-items-infinite-scroll>
@@ -68,7 +71,8 @@
 
       return {
         statuses,
-        status: statuses[0].value
+        status: statuses[0].value,
+        sort: { createdAt: 'desc' }
       };
     },
 
