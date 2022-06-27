@@ -5,32 +5,19 @@
         :title="$t('moderation.title')"
       />
       <v-tabs
-        v-model="tab"
         background-color="transparent"
         centered
         fixed-tabs
         class="transparent"
       >
-        <v-tab>
+        <v-tab :to="{name: 'moderation.pending'}">
           {{ $t('moderation.pending') }}
         </v-tab>
-        <v-tab>
+        <v-tab :to="{name: 'moderation.reviewed'}">
           {{ $t('moderation.reviewed') }}
         </v-tab>
-
-        <v-tabs-items
-          v-model="tab"
-          class="transparent mt-4"
-        >
-          <v-tab-item>
-            <pending-assets-list />
-          </v-tab-item>
-
-          <v-tab-item>
-            <reviewed-assets-list />
-          </v-tab-item>
-        </v-tabs-items>
       </v-tabs>
+      <router-view />
     </ve-stack>
   </vex-section>
 </template>
@@ -40,22 +27,13 @@
   import { VeStack } from '@deip/vue-elements';
   import { awaitForStore } from '@deip/platform-util';
 
-  import { PendingAssetsList } from '@/modules/moderation/components/PendingAssetsList';
-  import { ReviewedAssetsList } from '@/modules/moderation/components/ReviewedAssetsList';
-
   export default {
     name: 'ModerationPage',
 
     components: {
       VexSection,
       VexSectionTitle,
-      VeStack,
-      PendingAssetsList,
-      ReviewedAssetsList
-    },
-
-    data() {
-      return { tab: null };
+      VeStack
     },
 
     created() {
