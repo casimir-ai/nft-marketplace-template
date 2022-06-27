@@ -195,7 +195,6 @@
         this.loading = true;
         await this.createAsset();
         this.loading = false;
-        this.clearForm();
       },
 
       clearForm() {
@@ -274,6 +273,7 @@
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');
+          this.clearForm();
         } catch (error) {
           console.error(error.error || error);
           const errorText = error.statusCode === 409
