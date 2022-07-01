@@ -273,6 +273,7 @@
 
           this.$notifier.showSuccess(this.$t('marketplace.createAsset.createSuccess'));
           this.$emit('success');
+          this.$eventBus.$emit('submit-asset');
           this.clearForm();
         } catch (error) {
           console.error(error.error || error);

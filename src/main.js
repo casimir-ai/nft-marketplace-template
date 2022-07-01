@@ -34,6 +34,15 @@ import App from '@/App';
 
 Vue.config.productionTip = false;
 
+const EventBus = new Vue();
+Object.defineProperties(Vue.prototype, {
+  $eventBus: {
+    get() {
+      return EventBus;
+    }
+  }
+});
+
 const noWarApp = new CreateApp(Vue, {
   vuetify,
   i18n,

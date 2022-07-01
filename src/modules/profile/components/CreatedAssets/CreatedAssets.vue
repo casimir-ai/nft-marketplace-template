@@ -13,7 +13,7 @@
         </template>
       </vex-section-title>
 
-      <nft-items-infinite-scroll :filter="filter" is-draft>
+      <nft-items-infinite-scroll ref="scroll" :filter="filter" is-draft>
         <template #default="{ list }">
           <ve-auto-grid
             cols="1"
@@ -92,6 +92,14 @@
         filter,
         filterOptions
       };
+    },
+
+    mounted() {
+      this.$eventBus.$on('submit-asset', this.$refs.scroll.resetInfiniteScroll);
+    },
+
+    destroyed() {
+      this.$eventBus.$off('submit-asset', this.$refs.scroll.resetInfiniteScroll);
     }
   };
 </script>
