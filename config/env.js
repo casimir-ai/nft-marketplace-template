@@ -33,7 +33,9 @@ const config = {
   APP_ID: process.env.APP_ID,
 
   VUE_APP_I18N_LOCALE: process.env.VUE_APP_I18N_LOCALE,
-  VUE_APP_I18N_FALLBACK_LOCALE: process.env.VUE_APP_I18N_FALLBACK_LOCALE
+  VUE_APP_I18N_FALLBACK_LOCALE: process.env.VUE_APP_I18N_FALLBACK_LOCALE,
+
+  WALLET_OAUTH_URL: process.env.WALLET_OAUTH_URL
 };
 
 module.exports = config;
