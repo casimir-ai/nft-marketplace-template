@@ -20,7 +20,7 @@ export const NoWarMarketplaceModule = {
   deps: [
     'EnvModule',
     'AuthModule',
-    'ProjectContentModule'
+    'NftItemsModule'
   ],
   install
 };

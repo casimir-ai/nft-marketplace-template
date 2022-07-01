@@ -23,7 +23,7 @@
 
 <script>
   import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
-  import { NftItemsInfiniteScroll, NftItemDraftModerationCard } from '@deip/project-content-module';
+  import { NftItemsInfiniteScroll, NftItemDraftModerationCard } from '@casimir/nft-items-module';
   import { VeAutoGrid } from '@deip/vue-elements';
 
   export default {

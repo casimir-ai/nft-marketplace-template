@@ -20,7 +20,7 @@ export const NoWarModerationModule = {
   deps: [
     'EnvModule',
     'AuthModule',
-    'ProjectContentModule'
+    'NftItemsModule'
   ],
   install
 };

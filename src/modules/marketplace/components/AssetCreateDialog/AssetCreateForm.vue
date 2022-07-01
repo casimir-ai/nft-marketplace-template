@@ -204,7 +204,7 @@
 
       async sellLazy() {
         try {
-          const { nftCollectionId, issuer, nextNftItemId } = this.nftCollection;
+          const { _id, issuer, nextNftItemId } = this.nftCollection;
 
           const asset = {
             amount: this.formData.price,
@@ -218,11 +218,12 @@
             data: {
               issuer,
               asset,
-              nftCollectionId,
+              nftCollectionId: _id,
               nftItemId: nextNftItemId
             }
           };
-          await this.$store.dispatch('projectContentDrafts/sellLazy', payload);
+
+          await this.$store.dispatch('nftItemDrafts/sellLazy', payload);
         } catch (error) {
           console.error(error?.error || error);
         }
@@ -241,11 +242,12 @@
           const status = nftItemMetadataDraftModerationRequired
             ? NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED
             : NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
+
           const draftPayload = {
             data: {
               owner: this.$currentUser._id,
               ownedByTeam: false,
-              nftCollectionId: this.nftCollection.nftCollectionId,
+              nftCollectionId: this.nftCollection._id,
               nftItemId: this.nftCollection.nextNftItemId,
               title: this.formData.name,
               authors: [this.$currentUser.username],
@@ -265,7 +267,7 @@
             }
           };
 
-          await this.$store.dispatch('projectContentDrafts/create', draftPayload);
+          await this.$store.dispatch('nftItemDrafts/create', draftPayload);
 
           await this.sellLazy();
 

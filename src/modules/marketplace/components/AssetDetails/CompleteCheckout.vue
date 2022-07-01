@@ -135,7 +135,7 @@
             }
           };
 
-          await this.$store.dispatch('projectContentDrafts/buyLazy', payload);
+          await this.$store.dispatch('nftItemDrafts/buyLazy', payload);
           this.$notifier.showSuccess(this.$t('marketplace.assetDetails.buySuccess'));
           this.$emit('success');
         } catch (error) {
