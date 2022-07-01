@@ -1,5 +1,5 @@
 <template>
-  <div v-if="assetData">
+  <div v-if="asset">
     <nw-dialog
       v-model="isDialogOpen"
       persistent
@@ -48,7 +48,7 @@
       </template>
       <div v-if="!completeCheckout" class="asset-container mb-3">
         <div>
-          {{ assetData.metadata.description }}
+          {{ asset.metadata.description }}
         </div>
 
         <v-row no-gutters class="mt-8">
@@ -57,7 +57,7 @@
               <div class="text-body-1 grey--text text--lighten-2">
                 {{ $t('marketplace.assetDetails.creator') }}
               </div>
-              <div v-if="!assetData.metadata.publishAnonymously && creator" class="text-subtitle-2">
+              <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-2">
                 {{ creator }}
               </div>
             </div>
@@ -68,7 +68,7 @@
                 {{ $t('marketplace.assetDetails.created') }}
               </div>
               <div class="text-subtitle-2">
-                {{ $$formatDate($$parseISO(assetData.createdAt), 'PP') }}
+                {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
               </div>
             </div>
           </v-col>
@@ -78,9 +78,9 @@
                 {{ $t('marketplace.assetDetails.price') }}
               </div>
               <div>
-                <span class="text-subtitle-1">{{ assetData.metadata.price.amount }} </span>
+                <span class="text-subtitle-1">{{ asset.metadata.price.amount }} </span>
                 <span class="text-body-1 grey--text text--lighten-2">
-                  {{ assetData.metadata.price.symbol }}
+                  {{ asset.metadata.price.symbol }}
                 </span>
               </div>
             </div>
@@ -100,7 +100,7 @@
       </div>
       <complete-checkout
         v-if="completeCheckout"
-        :asset="assetData"
+        :asset="asset"
         :creator-name="creator"
         :asset-url="assetUrl"
         @close-dialog="closeDialog"
@@ -162,30 +162,26 @@
     },
 
     computed: {
-      assetData() {
-        return (this.isDraft) ? this.asset : this.asset.metadata;
-      },
-
       title() {
         return this.completeCheckout ? this.$t('marketplace.assetDetails.completeCheckout')
-          : this.assetData.title;
+          : this.asset.title;
       },
 
       asset() {
         return (this.isDraft)
-          ? this.$store.getters['projectContentDrafts/one'](this.id)
-          : this.$store.getters['projectContent/one'](this.id);
+          ? this.$store.getters['nftItemDrafts/one'](this.id)
+          : this.$store.getters['nftItems/one'](this.id);
       },
 
       assetUrl() {
-        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.assetData;
+        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.asset;
         const itemId = _id.nftItemId || _id;
 
         return nonFungibleTokenService.getNftItemFileSrc(nftCollectionId, itemId, hash);
       },
 
       creator() {
-        const userData = this.$store.getters['users/one'](this.assetData.authors[0]);
+        const userData = this.$store.getters['users/one'](this.asset.authors[0]);
 
         if (!userData?.attributes) return null;
 
@@ -194,7 +190,7 @@
       },
 
       isCurrentUserAuthor() {
-        return this.assetData.authors.includes(this.$currentUser._id);
+        return this.asset.authors.includes(this.$currentUser._id);
       },
 
       maxWidth() {
@@ -218,7 +214,7 @@
       },
 
       isApprovedAsset() {
-        return this.isDraft && this.assetData.status === NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
+        return this.isDraft && this.asset.status === NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
       },
 
       isSupportShown() {
@@ -245,11 +241,11 @@
       async getData() {
         try {
           if (this.isDraft) {
-            await this.$store.dispatch('projectContentDrafts/getOne', this.id);
+            await this.$store.dispatch('nftItemDrafts/getOne', this.id);
           } else {
-            await this.$store.dispatch('projectContent/getOne', this.id);
+            await this.$store.dispatch('nftItems/getOne', this.id);
           }
-          await this.$store.dispatch('users/getOne', this.assetData.authors[0]);
+          await this.$store.dispatch('users/getOne', this.asset.authors[0]);
         } catch (error) {
           console.error(error);
         }
@@ -258,7 +254,7 @@
       handleCopyLinkClick() {
         const props = this.$router.resolve({
           name: 'assetDetails',
-          params: { id: this.assetData._id }
+          params: { id: this.asset._id }
         });
 
         navigator.clipboard.writeText(`${window.location.origin}/${props.href}`);

@@ -20,7 +20,7 @@
       <img
         :width="imageWidth"
         :height="imageHeight"
-        :src="contentUrl"
+        :src="assetUrl"
         @load="loaded"
       >
     </v-card>
@@ -42,11 +42,7 @@
         type: Boolean,
         default: false
       },
-      contentId: {
-        type: String,
-        required: true
-      },
-      contentUrl: {
+      assetUrl: {
         type: String,
         required: true
       }
