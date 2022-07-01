@@ -19,6 +19,11 @@
           @success="handleSignInSuccess"
           @error="handleSignInError"
         />
+
+        <o-auth
+          @success="handleSignInSuccess"
+          @error="handleSignInError"
+        />
       </ve-stack>
     </v-card>
   </v-sheet>
@@ -27,12 +32,14 @@
 <script>
   import { AuthSignIn } from '@deip/auth-module';
   import { VeStack } from '@deip/vue-elements';
+  import OAuth from '../OAuth';
 
   export default {
     name: 'SignIn',
     components: {
       AuthSignIn,
-      VeStack
+      VeStack,
+      OAuth
     },
 
     methods: {
