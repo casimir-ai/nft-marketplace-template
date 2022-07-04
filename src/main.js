@@ -57,6 +57,12 @@ const usersModuleOptions = {
   ]
 };
 
+const nftCollectionsModuleOptions = {
+  attributesMappedKeys: [
+    { key: 'name', label: 'Name', allowedTypes: ['text'] }
+  ]
+};
+
 noWarApp
   .addModule(EnvModule)
 
@@ -70,7 +76,7 @@ noWarApp
   .addModule(AuthModule)
   .addModule(UsersModule, usersModuleOptions)
   .addModule(TeamsModule)
-  .addModule(NftCollectionsModule)
+  .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
   .addModule(NftItemsModule)
   .addModule(AssetsModule)
   .addModule(NoWarWalletModule)

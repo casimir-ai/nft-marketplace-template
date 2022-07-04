@@ -52,12 +52,12 @@
         </div>
 
         <v-row no-gutters class="mt-8">
-          <v-col cols="12" md="6">
+          <v-col v-if="!asset.metadata.publishAnonymously && creator" cols="12" md="6">
             <div class="mb-9">
               <div class="text-body-1 grey--text text--lighten-2">
                 {{ $t('marketplace.assetDetails.creator') }}
               </div>
-              <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-2">
+              <div class="text-subtitle-2">
                 {{ creator }}
               </div>
             </div>
@@ -82,6 +82,16 @@
                 <span class="text-body-1 grey--text text--lighten-2">
                   {{ asset.metadata.price.symbol }}
                 </span>
+              </div>
+            </div>
+          </v-col>
+          <v-col v-if="nftCollectionName" cols="12" md="6">
+            <div class="mb-9">
+              <div class="text-body-1 grey--text text--lighten-2">
+                {{ $t('marketplace.assetDetails.collectionName') }}
+              </div>
+              <div class="text-subtitle-2">
+                {{ nftCollectionName }}
               </div>
             </div>
           </v-col>
@@ -222,6 +232,16 @@
           && this.isApprovedAsset
           && !this.isCurrentUserAuthor
           && !this.completeCheckout;
+      },
+
+      nftCollectionName() {
+        const nftCollectionData = this.$store.getters['nftCollections/list']()
+          .find((nftCollection) => nftCollection.issuer === this.asset.authors[0]);
+
+        if (!nftCollectionData?.attributes) return null;
+
+        return this.$attributes
+          .getMappedData('nftCollection.name', nftCollectionData.attributes)?.value;
       }
     },
 
@@ -246,6 +266,7 @@
             await this.$store.dispatch('nftItems/getOne', this.id);
           }
           await this.$store.dispatch('users/getOne', this.asset.authors[0]);
+          await this.$store.dispatch('nftCollections/getListByIssuer', this.asset.authors[0]);
         } catch (error) {
           console.error(error);
         }

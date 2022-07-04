@@ -34,6 +34,7 @@ export default {
     byCreationDate: 'By creation date'
   },
   assetDetails: {
+    collectionName: 'Collection name',
     creator: 'Creator',
     created: 'Created',
     price: 'Price',
