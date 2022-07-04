@@ -31,6 +31,7 @@
     "@deip/users-module": "^1.385.1",
     "@deip/validation-plugin": "^1.385.0",
     "@deip/vue-elements": "^1.385.0",
+    "@deip/vue-layout-schema": "^1.385.0",
     "@deip/vuetify-extended": "^1.385.0",
     "@mdi/font": "^6.5.95",
     "@mdi/svg": "^6.5.95",
