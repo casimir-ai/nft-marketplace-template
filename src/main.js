@@ -31,6 +31,7 @@ import i18n from '@/plugins/i18n';
 import router from '@/router';
 import store from '@/store';
 import App from '@/App';
+import { layoutBuilderElements } from '@/config/layoutBuilder';
 
 Vue.config.productionTip = false;
 
@@ -63,6 +64,11 @@ const nftCollectionsModuleOptions = {
   ]
 };
 
+const layoutsModuleOptions = {
+  blocks: layoutBuilderElements.blocks,
+  components: layoutBuilderElements.components
+};
+
 noWarApp
   .addModule(EnvModule)
 
@@ -72,7 +78,7 @@ noWarApp
   .addModule(PortalsModule)
   .addModule(ScopesModule)
   .addModule(AttributesModule)
-  .addModule(LayoutsModule)
+  .addModule(LayoutsModule, layoutsModuleOptions)
   .addModule(AuthModule)
   .addModule(UsersModule, usersModuleOptions)
   .addModule(TeamsModule)
