@@ -74,7 +74,9 @@
       </v-menu>
 
       <nw-btn
+        v-if="nftCollection"
         kind="primary"
+        :disabled="loading"
         small
         active-class="no-active"
         @click="handleCreateAssetClick"
@@ -82,8 +84,23 @@
         {{ $t('components.appBar.submitAsset') }}
       </nw-btn>
 
+      <nw-btn
+        v-else
+        :disabled="loading"
+        kind="primary"
+        small
+        active-class="no-active"
+        @click="handleCreateCollectionClick"
+      >
+        {{ $t('components.appBar.createCollection') }}
+      </nw-btn>
+
       <asset-create-dialog
         v-model="isCreateAssetDialogOpened"
+      />
+
+      <collection-create-dialog
+        v-model="isCreateCollectionDialogOpened"
       />
     </template>
   </ve-stack>
@@ -92,6 +109,7 @@
 <script>
   import { VeStack } from '@deip/vue-elements';
   import { AssetCreateDialog } from '@/modules/marketplace/components/AssetCreateDialog';
+  import { CollectionCreateDialog } from '../CollectionCreateDialog';
   import { NwBtn } from '../NwBtn';
 
   export default {
@@ -100,12 +118,21 @@
     components: {
       VeStack,
       NwBtn,
-      AssetCreateDialog
+      AssetCreateDialog,
+      CollectionCreateDialog
+    },
+
+    props: {
+      loading: {
+        type: Boolean,
+        default: false
+      }
     },
 
     data() {
       return {
-        isCreateAssetDialogOpened: false
+        isCreateAssetDialogOpened: false,
+        isCreateCollectionDialogOpened: false
       };
     },
 
@@ -132,6 +159,10 @@
 
         return nftItemMetadataDraftModerationRequired
           && moderators.includes(this.$currentUser?._id);
+      },
+
+      nftCollection() {
+        return this.$store.getters.userNftCollection;
       }
     },
 
@@ -142,6 +173,10 @@
 
       handleCreateAssetClick() {
         this.isCreateAssetDialogOpened = true;
+      },
+
+      handleCreateCollectionClick() {
+        this.isCreateCollectionDialogOpened = true;
       }
     }
   };

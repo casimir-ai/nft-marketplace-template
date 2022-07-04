@@ -40,36 +40,17 @@
     },
 
     methods: {
-      async handleSignUpSuccess() {
-        this.$refs.signUpForm.setLoading(true);
-        this.$currentUser.await(async () => {
-          try {
-            await this.createNftCollection();
-            this.$notifier.showSuccess(this.$t('auth.signUpSuccess'));
-            this.$router.push({ name: 'home' });
-          } catch (error) {
-            this.$notifier.showError(error);
-            console.error(error);
-          }
+      handleSignUpSuccess() {
+        this.$currentUser.await(() => {
+          this.$notifier.showSuccess(this.$t('auth.signUpSuccess'));
+          this.$router.push({ name: 'home' });
         });
       },
 
       handleSignUpError(error) {
         this.$notifier.showError(error);
-      },
-
-      async createNftCollection() {
-        return this.$store.dispatch(
-          'nftCollections/create', {
-            initiator: this.$currentUser,
-            data: {
-              issuer: this.$currentUser._id,
-              issuedByTeam: false,
-              metadata: { attributes: [] }
-            }
-          }
-        );
       }
+
     }
   };
 </script>
