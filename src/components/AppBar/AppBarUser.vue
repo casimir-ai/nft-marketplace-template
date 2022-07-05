@@ -122,15 +122,9 @@
       CollectionCreateDialog
     },
 
-    props: {
-      loading: {
-        type: Boolean,
-        default: false
-      }
-    },
-
     data() {
       return {
+        loading: false,
         isCreateAssetDialogOpened: false,
         isCreateCollectionDialogOpened: false
       };
@@ -166,7 +160,23 @@
       }
     },
 
+    created() {
+      this.getNftCollection();
+    },
+
     methods: {
+      async getNftCollection() {
+        this.loading = true;
+        try {
+          this.$currentUser.await(() => {
+            this.$store.dispatch('getCurrentUserNftCollection');
+            this.loading = false;
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      },
+
       handleSignOut() {
         this.$store.dispatch('auth/signOut');
       },
