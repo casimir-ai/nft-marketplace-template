@@ -38,7 +38,7 @@
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
   import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
-  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
 
   import { AssetCard } from '@/components';
 
@@ -66,21 +66,21 @@
         {
           text: this.$t('profile.createdAssets.created'),
           value: {
-            status: NFT_ITEM_METADATA_DRAFT_STATUS.IN_PROGRESS,
+            status: NftItemMetadataDraftStatus.IN_PROGRESS,
             ...filter
           }
         },
         {
           text: this.$t('profile.createdAssets.declined'),
           value: {
-            status: NFT_ITEM_METADATA_DRAFT_STATUS.REJECTED,
+            status: NftItemMetadataDraftStatus.REJECTED,
             ...filter
           }
         },
         {
           text: this.$t('profile.createdAssets.approved'),
           value: {
-            status: NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED,
+            status: NftItemMetadataDraftStatus.APPROVED,
             ...filter
           }
         }

@@ -1,4 +1,4 @@
-import { SYSTEM_ROLE } from '@deip/auth-module';
+import { SYSTEM_ROLE } from '@casimir/platform-core';
 
 import { routerView } from '@deip/platform-util';
 

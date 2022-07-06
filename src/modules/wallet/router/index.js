@@ -1,4 +1,4 @@
-import { SYSTEM_ROLE } from '@deip/auth-module';
+import { SYSTEM_ROLE } from '@casimir/platform-core';
 
 import { Wallet } from '@/modules/wallet/components/Wallet';
 import { Transactions } from '@/modules/wallet/components/Transactions';

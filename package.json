@@ -14,12 +14,12 @@
   "dependencies": {
     "@casimir/nft-collections-module": "^1.385.1",
     "@casimir/nft-items-module": "^1.385.1",
+    "@casimir/platform-core": "^1.385.0",
     "@casimir/scopes-module": "^1.385.0",
     "@casimir/token-service": "^1.385.1",
     "@deip/assets-module": "^1.385.1",
     "@deip/attributes-module": "^1.385.1",
     "@deip/auth-module": "^1.385.1",
-    "@deip/constants": "^1.385.0",
     "@deip/env-module": "^1.385.0",
     "@deip/layouts-module": "^1.385.1",
     "@deip/platform-components": "^1.385.0",

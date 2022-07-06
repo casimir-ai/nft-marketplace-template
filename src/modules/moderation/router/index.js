@@ -1,4 +1,4 @@
-import { SYSTEM_ROLE } from '@deip/auth-module';
+import { SYSTEM_ROLE } from '@casimir/platform-core';
 
 import { ModerationPage } from '../components/ModerationPage';
 import { PendingAssetsList } from '../components/PendingAssetsList';

@@ -19,7 +19,7 @@
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
   import { VeStack } from '@deip/vue-elements';
 
-  import { VIEW_MODE } from '@deip/constants';
+  import { ViewMode } from '@casimir/platform-core';
 
   export default {
     name: 'AdminAttributesForm',
@@ -38,9 +38,9 @@
 
       mode: {
         type: Number,
-        default: VIEW_MODE.CREATE,
+        default: ViewMode.CREATE,
         validator(value) {
-          return [VIEW_MODE.CREATE, VIEW_MODE.EDIT].includes(value);
+          return [ViewMode.CREATE, ViewMode.EDIT].includes(value);
         }
       },
 

@@ -35,7 +35,7 @@
 
 <script>
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
-  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
   import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
 
   import { AssetCard } from '@/components';
@@ -55,17 +55,17 @@
         {
           text: this.$t('moderation.reviewedAssets.filter.showAll'),
           value: {
-            $in: [NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED,
-                  NFT_ITEM_METADATA_DRAFT_STATUS.REJECTED]
+            $in: [NftItemMetadataDraftStatus.APPROVED,
+                  NftItemMetadataDraftStatus.REJECTED]
           }
         },
         {
           text: this.$t('moderation.reviewedAssets.filter.approved'),
-          value: NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED
+          value: NftItemMetadataDraftStatus.APPROVED
         },
         {
           text: this.$t('moderation.reviewedAssets.filter.denied'),
-          value: NFT_ITEM_METADATA_DRAFT_STATUS.REJECTED
+          value: NftItemMetadataDraftStatus.REJECTED
         }
       ];
 

@@ -1,5 +1,4 @@
-import { SYSTEM_ROLE } from '@deip/auth-module';
-import { VIEW_MODE } from '@deip/constants';
+import { SYSTEM_ROLE, ViewMode } from '@casimir/platform-core';
 
 import { AdminUsers } from '@/modules/admin/components/AdminUsers';
 
@@ -69,7 +68,7 @@ export const adminRouter = [
             meta: formViewMeta(),
             props: (route) => ({
               attributeId: route.params.attributeId,
-              mode: VIEW_MODE.EDIT,
+              mode: ViewMode.EDIT,
               title: 'Edit attribute'
             })
           }
@@ -104,7 +103,7 @@ export const adminRouter = [
             meta: formViewMeta(),
             props: (route) => ({
               layoutId: route.params.layoutId,
-              mode: VIEW_MODE.EDIT,
+              mode: ViewMode.EDIT,
               title: 'Edit layout'
             })
           }
