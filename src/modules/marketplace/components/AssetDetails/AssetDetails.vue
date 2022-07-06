@@ -124,7 +124,7 @@
   import { userHelpersMixin } from '@deip/users-module';
   import { VexImage } from '@deip/vuetify-extended';
   import { NonFungibleTokenService } from '@casimir/token-service';
-  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
 
   import { NwDialog, NwBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
@@ -224,7 +224,7 @@
       },
 
       isApprovedAsset() {
-        return this.isDraft && this.asset.status === NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
+        return this.isDraft && this.asset.status === NftItemMetadataDraftStatus.APPROVED;
       },
 
       isSupportShown() {

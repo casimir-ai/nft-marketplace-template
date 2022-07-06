@@ -141,7 +141,7 @@
 <script>
   import { VeStack } from '@deip/vue-elements';
   import { VexImageInput } from '@deip/vuetify-extended';
-  import { NFT_ITEM_METADATA_FORMAT, NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+  import { NFT_ITEM_METADATA_FORMAT, NftItemMetadataDraftStatus } from '@casimir/platform-core';
   import { NwBtn } from '@/components/NwBtn';
   import PriceSelector from './PriceSelector';
 
@@ -240,8 +240,8 @@
             nftItemMetadataDraftModerationRequired = false
           } = this.$currentPortal?.profile?.settings?.moderation || {};
           const status = nftItemMetadataDraftModerationRequired
-            ? NFT_ITEM_METADATA_DRAFT_STATUS.PROPOSED
-            : NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
+            ? NftItemMetadataDraftStatus.PROPOSED
+            : NftItemMetadataDraftStatus.APPROVED;
 
           const draftPayload = {
             data: {

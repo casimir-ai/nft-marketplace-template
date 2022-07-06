@@ -64,7 +64,7 @@
 </template>
 
 <script>
-  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
   import { dateMixin } from '@deip/platform-components';
   import { VeStack } from '@deip/vue-elements';
   import { NonFungibleTokenService } from '@casimir/token-service';
@@ -102,7 +102,6 @@
 
     data() {
       return {
-        NFT_ITEM_METADATA_DRAFT_STATUS,
         isAssetDetailsDialogOpen: false
       };
     },
@@ -121,7 +120,7 @@
       },
 
       isCopyLinkShown() {
-        return this.isDraft && this.asset.status === NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED;
+        return this.isDraft && this.asset.status === NftItemMetadataDraftStatus.APPROVED;
       },
 
       creator() {
@@ -150,7 +149,7 @@
       },
 
       getStatusLabel(status) {
-        return this.$t(`components.assetCard.status.${NFT_ITEM_METADATA_DRAFT_STATUS[status]}`);
+        return this.$t(`components.assetCard.status.${NftItemMetadataDraftStatus[status]}`);
       }
     }
 

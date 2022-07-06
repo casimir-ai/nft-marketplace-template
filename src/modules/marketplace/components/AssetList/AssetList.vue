@@ -28,7 +28,7 @@
 
       <nft-items-infinite-scroll
         :sort="sort"
-        :filter="{ status: NFT_ITEM_METADATA_DRAFT_STATUS.APPROVED }"
+        :filter="{ status: NftItemMetadataDraftStatus.APPROVED }"
         is-draft
       >
         <template #default="{ list }">
@@ -57,7 +57,7 @@
   import { VeStack, VeAutoGrid } from '@deip/vue-elements';
   import { AssetCard } from '@/components';
   import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
-  import { NFT_ITEM_METADATA_DRAFT_STATUS } from '@deip/constants';
+  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
 
   export default {
     name: 'AssetList',
@@ -74,7 +74,7 @@
     data() {
       return {
         loading: false,
-        NFT_ITEM_METADATA_DRAFT_STATUS,
+        NftItemMetadataDraftStatus,
         sort: {},
         sortingOptions: [
           {
