@@ -38,8 +38,6 @@ export default {
     creator: 'Creator',
     created: 'Created',
     price: 'Price',
-    fullView: 'Full view',
-    minimize: 'Minimize',
     support: 'Support',
     shareDialogTitle: 'Share this NFT',
     completeCheckout: 'Complete checkout',

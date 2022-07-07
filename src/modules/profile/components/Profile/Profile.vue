@@ -129,7 +129,7 @@
       name() {
         const username = this.$attributes
           .getMappedData('user.name', this.$currentUser.attributes)?.value;
-        return username ? `@${username}` : `@${this.$currentUser.username}`;
+        return username ? `@${username}` : `@${this.$currentUser._id}`;
       },
 
       walletAddress() {
