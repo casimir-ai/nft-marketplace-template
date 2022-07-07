@@ -64,6 +64,12 @@ const nftCollectionsModuleOptions = {
   ]
 };
 
+const nftItemsModuleOptions = {
+  attributesMappedKeys: [
+    { key: 'price', label: 'Nft item price', allowedTypes: ['asset'] }
+  ]
+};
+
 const layoutsModuleOptions = {
   blocks: layoutBuilderElements.blocks,
   components: layoutBuilderElements.components
@@ -83,7 +89,7 @@ noWarApp
   .addModule(UsersModule, usersModuleOptions)
   .addModule(TeamsModule)
   .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
-  .addModule(NftItemsModule)
+  .addModule(NftItemsModule, nftItemsModuleOptions)
   .addModule(AssetsModule)
   .addModule(NoWarWalletModule)
   .addModule(NoWarAuthModule)
