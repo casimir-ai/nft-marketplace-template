@@ -98,7 +98,7 @@
       this.$eventBus.$on('submit-asset', this.$refs.scroll.resetInfiniteScroll);
     },
 
-    destroyed() {
+    beforeDestroy() {
       this.$eventBus.$off('submit-asset', this.$refs.scroll.resetInfiniteScroll);
     }
   };
