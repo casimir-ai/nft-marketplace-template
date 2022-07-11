@@ -2,6 +2,7 @@
   <v-dialog
     v-model="isDialogOpened"
     v-bind="dialogProps"
+    @keydown.esc="handleCloseClick"
   >
     <v-card>
       <div
