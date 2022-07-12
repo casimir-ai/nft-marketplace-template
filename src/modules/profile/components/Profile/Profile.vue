@@ -18,7 +18,7 @@
 
         <div class="d-flex align-center justify-center">
           <div class="text-body-1 mr-2">
-            {{ walletAddress }}
+            {{ $currentUser.address }}
           </div>
           <nw-btn
             icon
@@ -130,17 +130,13 @@
         const username = this.$attributes
           .getMappedData('user.name', this.$currentUser.attributes)?.value;
         return username ? `@${username}` : `@${this.$currentUser._id}`;
-      },
-
-      walletAddress() {
-        return this.$currentUser.profile.address;
       }
 
     },
 
     methods: {
       handleCopyWalletAddressClick() {
-        navigator.clipboard.writeText(this.walletAddress);
+        navigator.clipboard.writeText(this.$currentUser.address);
         this.$notifier.showSuccess(this.$t('profile.copyWalletAddressSuccess'));
       },
       handleShareLinkClick() {

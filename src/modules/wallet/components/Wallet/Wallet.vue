@@ -16,7 +16,7 @@
       </div>
       <div class="d-flex align-center justify-center mt-2 ">
         <div class="text-body-1 mr-2 grey--text text--lighten-1">
-          {{ walletAddress }}
+          {{ $currentUser.address }}
         </div>
         <nw-btn
           icon
@@ -95,9 +95,6 @@
     },
 
     computed: {
-      walletAddress() {
-        return this.$currentUser.profile.address;
-      },
       sheetHeight() {
         return `calc(100vh - ${APP_BAR_HEIGHT}px)`;
       }
@@ -105,7 +102,7 @@
 
     methods: {
       handleCopyWalletAddressClick() {
-        navigator.clipboard.writeText(this.walletAddress);
+        navigator.clipboard.writeText(this.$currentUser.address);
         this.$notifier.showSuccess(this.$t('wallet.copyWalletAddressSuccess'));
       }
     }

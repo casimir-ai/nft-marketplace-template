@@ -40,7 +40,7 @@
       return {
         loading: false,
         filter: {
-          ownerAddress: this.$currentUser.profile.address
+          ownerAddress: this.$currentUser.address
         }
       };
     }
