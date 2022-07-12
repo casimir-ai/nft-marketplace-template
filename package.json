@@ -19,7 +19,7 @@
     "@casimir/token-service": "^1.389.2",
     "@deip/assets-module": "^1.389.2",
     "@deip/attributes-module": "^1.389.2",
-    "@deip/auth-module": "^1.389.2",
+    "@deip/auth-module": "^1.389.3",
     "@deip/env-module": "^1.389.2",
     "@deip/layouts-module": "^1.389.2",
     "@deip/platform-components": "^1.389.2",
