@@ -44,59 +44,101 @@
       </span>
       <div class="d-flex flex-column align-center justify-center mt-6">
         <h3 class="text-h3">
-          950.00 wUSDT
+          {{ balance }} {{ symbol }}
         </h3>
-        <div class="text-body-1 mt-2 grey--text text--lighten-1">
-          (~250.00 DEIP)
+        <div class="align-center mt-6">
+          <nw-btn
+            :href="assetsLink"
+            small
+            kind="secondary"
+            class="ma-3"
+          >
+            {{ $t('wallet.assets') }}
+          </nw-btn>
+
+          <nw-btn
+            :href="transactionsLink"
+            small
+            kind="secondary"
+            class="ma-3"
+          >
+            {{ $t('wallet.transactions') }}
+          </nw-btn>
+          <nw-btn
+            :href="depositLink"
+            small
+            kind="secondary"
+            class="ma-3"
+          >
+            {{ $t('wallet.depositButton') }}
+          </nw-btn>
         </div>
-        <nw-btn
-          small
-          kind="secondary"
-          class="mt-6 mb-6"
-        >
-          {{ $t('wallet.depositButton') }}
-        </nw-btn>
       </div>
+      <!--      <v-tabs-->
+      <!--        background-color="transparent"-->
+      <!--        grow-->
+      <!--      >-->
+      <!--        <v-tab>-->
+      <!--          {{ $t('wallet.assets') }}-->
+      <!--        </v-tab>-->
+      <!--        <v-tab>-->
+      <!--          {{ $t('wallet.transactions') }}-->
+      <!--        </v-tab>-->
 
-      <v-tabs
-        background-color="transparent"
-        grow
-      >
-        <v-tab>
-          {{ $t('wallet.assets') }}
-        </v-tab>
-        <v-tab>
-          {{ $t('wallet.transactions') }}
-        </v-tab>
-
-        <v-tab-item>
-          <assets />
-        </v-tab-item>
-        <v-tab-item>
-          <transactions />
-        </v-tab-item>
-      </v-tabs>
+      <!--        <v-tab-item>-->
+      <!--          <assets />-->
+      <!--        </v-tab-item>-->
+      <!--        <v-tab-item>-->
+      <!--          <transactions />-->
+      <!--        </v-tab-item>-->
+      <!--      </v-tabs>-->
     </v-card>
   </v-sheet>
 </template>
 
 <script>
+  import BigNumber from 'bignumber.js';
   import { NwBtn } from '@/components/NwBtn';
-  import { Assets } from '@/modules/wallet/components/Assets';
-  import { Transactions } from '@/modules/wallet/components/Transactions';
+
+  import { ChainService } from '@deip/chain-service';
   import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
     name: 'Wallet',
     components: {
-      NwBtn,
-      Assets,
-      Transactions
+      NwBtn
+    },
+
+    data() {
+      return {
+        balance: '',
+        transactionsLink: `${this.$env.WALLET_URL}/transactions`,
+        depositLink: `${this.$env.WALLET_URL}/action/receive`,
+        assetsLink: `${this.$env.WALLET_URL}`,
+        symbol: ''
+      };
     },
 
     computed: {
       sheetHeight() {
         return `calc(100vh - ${APP_BAR_HEIGHT}px)`;
+      }
+    },
+
+    async created() {
+      const chainService = await ChainService.getInstanceAsync(this.$env);
+
+      const chainRpc = chainService.getChainRpc();
+      const api = chainService.getChainNodeClient();
+      const daoOpt = await api.query.deipDao.daoRepository(`0x${this.$currentUser.username}`);
+
+      if (daoOpt.isSome) {
+        const walletAddress = daoOpt.value.toJSON().authority.signatories[0];
+        const balance = await chainRpc.getFungibleTokenBalanceByOwnerAsync(walletAddress, 0);
+        const rawNum = new BigNumber(balance.amount).shiftedBy(-18);
+
+        this.symbol = balance.symbol;
+        this.balance = rawNum.toFormat(BigNumber.ROUND_FLOOR);
       }
     },
 
