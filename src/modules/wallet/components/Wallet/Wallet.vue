@@ -49,6 +49,7 @@
         <div class="align-center mt-6">
           <nw-btn
             :href="assetsLink"
+            target="_blank"
             small
             kind="secondary"
             class="ma-3"
@@ -58,6 +59,7 @@
 
           <nw-btn
             :href="transactionsLink"
+            target="_blank"
             small
             kind="secondary"
             class="ma-3"
@@ -66,6 +68,7 @@
           </nw-btn>
           <nw-btn
             :href="depositLink"
+            target="_blank"
             small
             kind="secondary"
             class="ma-3"
