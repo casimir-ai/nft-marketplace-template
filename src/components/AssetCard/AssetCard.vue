@@ -5,54 +5,23 @@
       class="nft-card"
       @click="onCardClick"
     >
-      <v-img
-        height="230"
-        aspect-ratio="1.3"
-        :src="assetUrl"
-      >
-        <div v-if="isCopyLinkShown" class="button-container d-flex justify-end mt-4 mr-4">
-          <nw-btn
-            icon
-            small
-            kind="secondary"
-            class="white"
-            :title="$t('components.assetCard.copyLink')"
-            @click.prevent="handleCopyLinkClick"
-          >
-            <v-icon>mdi-link</v-icon>
-          </nw-btn>
-        </div>
-      </v-img>
-      <v-card-text class="grey--text text--darken-4">
-        <ve-stack :gap="32">
-          <ve-stack :gap="4">
-            <div class="text-h6">
-              {{ asset.title }}
-            </div>
-            <div v-if="!asset.metadata.publishAnonymously && creator" class="text-subtitle-3">
-              {{ creator }}
-            </div>
-            <div class="text-body-1 grey--text text--lighten-2">
-              {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
-            </div>
-          </ve-stack>
-
-          <div class="purchase-container d-flex justify-space-between align-center">
-            <div class="price-container">
-              <span class="text-h3">{{ asset.metadata.price.amount }} </span>
-              <span class="text-subtitle-3 grey--text text--lighten-2">
-                {{ asset.metadata.price.symbol }}
-              </span>
-            </div>
-
-            <div v-if="asset.status">
-              <v-chip outlined>
-                {{ getStatusLabel(asset.status) }}
-              </v-chip>
-            </div>
-          </div>
-        </ve-stack>
-      </v-card-text>
+      <div v-if="isCopyLinkShown" class="button-container d-flex justify-end mt-4 mr-4">
+        <nw-btn
+          icon
+          small
+          kind="secondary"
+          class="white"
+          :title="$t('components.assetCard.copyLink')"
+          @click.prevent="handleCopyLinkClick"
+        >
+          <v-icon>mdi-link</v-icon>
+        </nw-btn>
+      </div>
+      <layout-renderer
+        :value="nftItem"
+        :schema="cardSchema"
+        :schema-data="cardSchemaData"
+      />
     </v-card>
     <asset-details
       v-if="addAssetsDetailsModal && isAssetDetailsDialogOpen"
@@ -66,24 +35,22 @@
 <script>
   import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
   import { dateMixin } from '@deip/platform-components';
-  import { VeStack } from '@deip/vue-elements';
-  import { NonFungibleTokenService } from '@casimir/token-service';
+  import { attributedDetailsFactory, LayoutRenderer } from '@deip/layouts-module';
+  import { attributeMethodsFactory, expandAttributes } from '@deip/attributes-module';
 
   import { NwBtn } from '@/components/NwBtn';
-  import { AssetDetails } from '@/modules/marketplace/components/AssetDetails';
-
-  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
+  import AssetDetails from '@/modules/marketplace/components/AssetDetails/AssetDetails';
 
   export default {
     name: 'AssetCard',
 
     components: {
-      VeStack,
       NwBtn,
-      AssetDetails
+      AssetDetails,
+      LayoutRenderer
     },
 
-    mixins: [dateMixin],
+    mixins: [dateMixin, attributedDetailsFactory('nftItem')],
 
     props: {
       asset: {
@@ -107,29 +74,29 @@
     },
 
     computed: {
-
-      assetUrl() {
-        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.asset;
-        const itemId = _id.nftItemId || _id;
-
-        return nonFungibleTokenService.getNftItemFileSrc(nftCollectionId, itemId, hash);
+      cardSchema() {
+        return this.$layouts.getMappedData('nftItem.card')?.value;
       },
 
-      isCurrentUserAuthor() {
-        return this.asset.authors.includes(this.$currentUser._id);
+      cardSchemaData() {
+        const scopeId = !this.isDraft ? this.asset._id : {
+          nftItemId: this.asset.nftItemId,
+          nftCollectionId: this.asset.nftCollectionId
+        };
+        return {
+          ...attributeMethodsFactory(
+            expandAttributes(this.asset),
+            {
+              scopeName: 'nftItem',
+              scopeId
+            }
+          ),
+          ...this.schemaData
+        };
       },
 
       isCopyLinkShown() {
         return this.isDraft && this.asset.status === NftItemMetadataDraftStatus.APPROVED;
-      },
-
-      creator() {
-        const userData = this.$store.getters['users/one'](this.asset.authors[0]);
-
-        if (!userData?.attributes) return null;
-
-        return this.$attributes
-          .getMappedData('user.name', userData.attributes)?.value;
       }
     },
 
@@ -146,12 +113,17 @@
 
       onCardClick() {
         this.isAssetDetailsDialogOpen = true;
-      },
-
-      getStatusLabel(status) {
-        return this.$t(`components.assetCard.status.${NftItemMetadataDraftStatus[status]}`);
       }
     }
 
   };
 </script>
+
+<style scoped lang="scss">
+  .button-container {
+    position: absolute;
+    width: 100%;
+    right: 5px;
+    z-index: 1;
+  }
+</style>

@@ -1,102 +1,54 @@
 <template>
-  <div v-if="asset">
-    <nw-dialog
-      v-model="isDialogOpen"
-      persistent
-      :max-width="maxWidth"
-      max-content-height="600"
-    >
-      <template v-if="!completeCheckout" #aside>
-        <vex-image
-          height="500"
-          :min-width="minImageWidth"
-          content-class="responsive-image"
-          full-view
-          :src="assetUrl"
-        />
-      </template>
-      <template #title>
-        <div>
-          <nw-btn
-            v-if="completeCheckout"
-            kind="tetriary"
-            small
-            @click="handleBackClick"
-          >
-            <v-icon
-              left
-              dark
-            >
-              mdi-chevron-left
-            </v-icon>
-            {{ $t('marketplace.assetDetails.backButton') }}
-          </nw-btn>
-          <div>
-            {{ title }}
-          </div>
-        </div>
-      </template>
-      <template v-if="isApprovedAsset && !completeCheckout" #titleButtons>
+  <nw-dialog
+    v-if="asset"
+    v-model="isDialogOpen"
+    persistent
+    :max-width="maxWidth"
+    max-content-height="600"
+  >
+    <template v-if="!completeCheckout" #aside>
+      <vex-image
+        height="500"
+        :min-width="minImageWidth"
+        content-class="responsive-image"
+        full-view
+        :src="assetUrl"
+      />
+    </template>
+    <template #title>
+      <div>
         <nw-btn
+          v-if="completeCheckout"
+          kind="tetriary"
           small
-          icon
-          kind="secondary"
-          @click="handleCopyLinkClick"
+          @click="handleBackClick"
         >
-          <v-icon>mdi-share-variant</v-icon>
+          <v-icon
+            left
+            dark
+          >
+            mdi-chevron-left
+          </v-icon>
+          {{ $t('marketplace.assetDetails.backButton') }}
         </nw-btn>
-      </template>
-      <div v-if="!completeCheckout" class="asset-container mb-3">
-        <div>
-          {{ asset.metadata.description }}
-        </div>
-
-        <v-row no-gutters class="mt-8">
-          <v-col v-if="!asset.metadata.publishAnonymously && creator" cols="12" md="6">
-            <div class="mb-9">
-              <div class="text-body-1 grey--text text--lighten-2">
-                {{ $t('marketplace.assetDetails.creator') }}
-              </div>
-              <div class="text-subtitle-2">
-                {{ creator }}
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="6">
-            <div class="mb-9">
-              <div class="text-body-1 grey--text text--lighten-2">
-                {{ $t('marketplace.assetDetails.created') }}
-              </div>
-              <div class="text-subtitle-2">
-                {{ $$formatDate($$parseISO(asset.createdAt), 'PP') }}
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="12" md="6">
-            <div class="mb-9">
-              <div class="text-body-1 grey--text text--lighten-2">
-                {{ $t('marketplace.assetDetails.price') }}
-              </div>
-              <div>
-                <span class="text-subtitle-1">{{ asset.metadata.price.amount }} </span>
-                <span class="text-body-1 grey--text text--lighten-2">
-                  {{ asset.metadata.price.symbol }}
-                </span>
-              </div>
-            </div>
-          </v-col>
-          <v-col v-if="nftCollectionName" cols="12" md="6">
-            <div class="mb-9">
-              <div class="text-body-1 grey--text text--lighten-2">
-                {{ $t('marketplace.assetDetails.collectionName') }}
-              </div>
-              <div class="text-subtitle-2">
-                {{ nftCollectionName }}
-              </div>
-            </div>
-          </v-col>
-        </v-row>
       </div>
+    </template>
+    <template v-if="isApprovedAsset && !completeCheckout" #titleButtons>
+      <nw-btn
+        small
+        icon
+        kind="secondary"
+        @click="handleCopyLinkClick"
+      >
+        <v-icon>mdi-share-variant</v-icon>
+      </nw-btn>
+    </template>
+    <div v-if="!completeCheckout">
+      <layout-renderer
+        :value="asset"
+        :schema="detailsSchema"
+        :schema-data="detailsSchemaData"
+      />
       <div
         v-if="isSupportShown"
         class="d-flex justify-end"
@@ -108,28 +60,27 @@
           {{ $t('marketplace.assetDetails.support') }}
         </nw-btn>
       </div>
-      <complete-checkout
-        v-if="completeCheckout"
-        :asset="asset"
-        :creator-name="creator"
-        :asset-url="assetUrl"
-        @close-dialog="closeDialog"
-      />
-    </nw-dialog>
-  </div>
+    </div>
+    <complete-checkout
+      v-if="completeCheckout"
+      :asset="asset"
+      :creator-name="creator"
+      :asset-url="assetUrl"
+      @close-dialog="closeDialog"
+    />
+  </nw-dialog>
 </template>
 
 <script>
   import { dateMixin } from '@deip/platform-components';
   import { userHelpersMixin } from '@deip/users-module';
   import { VexImage } from '@deip/vuetify-extended';
-  import { NonFungibleTokenService } from '@casimir/token-service';
   import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
+  import { attributeMethodsFactory, expandAttributes } from '@deip/attributes-module';
+  import { attributedDetailsFactory, LayoutRenderer } from '@deip/layouts-module';
 
   import { NwDialog, NwBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
-
-  const nonFungibleTokenService = NonFungibleTokenService.getInstance();
 
   export default {
     name: 'AssetDetails',
@@ -138,10 +89,11 @@
       NwDialog,
       NwBtn,
       CompleteCheckout,
-      VexImage
+      VexImage,
+      LayoutRenderer
     },
 
-    mixins: [dateMixin, userHelpersMixin],
+    mixins: [dateMixin, userHelpersMixin, attributedDetailsFactory('nftItem')],
 
     props: {
       value: {
@@ -165,16 +117,31 @@
 
     data() {
       return {
-        loading: false,
         completeCheckout: false,
         showBackButton: false
       };
     },
 
     computed: {
-      title() {
-        return this.completeCheckout ? this.$t('marketplace.assetDetails.completeCheckout')
-          : this.asset.title;
+      detailsSchema() {
+        return this.$layouts.getMappedData('nftItem.details').value;
+      },
+
+      detailsSchemaData() {
+        const scopeId = !this.isDraft ? this.asset._id : {
+          nftItemId: this.asset.nftItemId,
+          nftCollectionId: this.asset.nftCollectionId
+        };
+        return {
+          ...attributeMethodsFactory(
+            expandAttributes(this.asset),
+            {
+              scopeName: 'nftItem',
+              scopeId
+            }
+          ),
+          ...this.schemaData
+        };
       },
 
       asset() {
@@ -184,17 +151,29 @@
       },
 
       assetUrl() {
-        const { nftCollectionId, _id, packageFiles: [{ hash }] } = this.asset;
-        const itemId = _id.nftItemId || _id;
+        const image = this.$attributes.getMappedData(
+          'nftItem.image',
+          this.asset.attributes
+        );
 
-        return nonFungibleTokenService.getNftItemFileSrc(nftCollectionId, itemId, hash);
+        if (!image) return null;
+
+        const scopeId = JSON.stringify({
+          nftCollectionId: this.asset.nftCollectionId,
+          nftItemId: this.asset.nftItemId
+        });
+
+        return this.$attributes.getFileSrc({
+          scope: 'nftItem',
+          scopeId,
+          attributeId: image.attributeId,
+          filename: image.value
+        });
       },
 
       creator() {
         const userData = this.$store.getters['users/one'](this.asset.authors[0]);
-
         if (!userData?.attributes) return null;
-
         return this.$attributes
           .getMappedData('user.name', userData.attributes)?.value;
       },
@@ -232,16 +211,6 @@
           && this.isApprovedAsset
           && !this.isCurrentUserAuthor
           && !this.completeCheckout;
-      },
-
-      nftCollectionName() {
-        const nftCollectionData = this.$store.getters['nftCollections/list']()
-          .find((nftCollection) => nftCollection.issuer === this.asset.authors[0]);
-
-        if (!nftCollectionData?.attributes) return null;
-
-        return this.$attributes
-          .getMappedData('nftCollection.name', nftCollectionData.attributes)?.value;
       }
     },
 
@@ -266,7 +235,7 @@
             await this.$store.dispatch('nftItems/getOne', this.id);
           }
           await this.$store.dispatch('users/getOne', this.asset.authors[0]);
-          await this.$store.dispatch('nftCollections/getListByIssuer', this.asset.authors[0]);
+          await this.$store.dispatch('nftCollections/getOne', this.asset.nftCollectionId);
         } catch (error) {
           console.error(error);
         }
@@ -292,12 +261,6 @@
     }
   };
 </script>
-
-<style scoped lang="scss">
-  .asset-container {
-    word-break: break-all;
-  }
-</style>
 
 <style  lang="scss">
   .responsive-image {

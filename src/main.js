@@ -32,7 +32,6 @@ import router from '@/router';
 import store from '@/store';
 import App from '@/App';
 import { layoutBuilderElements } from '@/config/layoutBuilder';
-import { authorAttributes, authorComponents } from '@/config/attributes';
 
 Vue.config.productionTip = false;
 
@@ -52,10 +51,6 @@ const noWarApp = new CreateApp(Vue, {
   store
 });
 
-const attributesOptions = {
-  attributes: authorAttributes
-};
-
 const usersModuleOptions = {
   attributesMappedKeys: [
     { key: 'name', label: 'Name', allowedTypes: ['text'] },
@@ -72,13 +67,20 @@ const nftCollectionsModuleOptions = {
 const nftItemsModuleOptions = {
   attributesMappedKeys: [
     { key: 'price', label: 'Nft item price', allowedTypes: ['asset'] },
-    { key: 'author', label: 'Author', allowedTypes: ['author'] }
+    {
+      key: 'image',
+      label: 'Image',
+      allowedTypes: ['image']
+    },
+    { key: 'name', label: 'Name', allowedTypes: ['text'] }
   ]
 };
 
 const layoutsModuleOptions = {
   blocks: layoutBuilderElements.blocks,
-  components: { ...layoutBuilderElements.components, ...authorComponents }
+  components: {
+    ...layoutBuilderElements.components
+  }
 
 };
 
@@ -90,7 +92,7 @@ noWarApp
 
   .addModule(PortalsModule)
   .addModule(ScopesModule)
-  .addModule(AttributesModule, attributesOptions)
+  .addModule(AttributesModule)
   .addModule(LayoutsModule, layoutsModuleOptions)
   .addModule(AuthModule)
   .addModule(UsersModule, usersModuleOptions)

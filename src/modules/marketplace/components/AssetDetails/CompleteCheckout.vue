@@ -10,7 +10,7 @@
         />
         <div>
           <div class="text-h6">
-            {{ asset.title }}
+            {{ title }}
           </div>
           <div class="text-subtitle-3 grey--text text--lighten-2">
             {{ creatorName }}
@@ -19,7 +19,7 @@
       </div>
       <div class="d-flex flex-column align-center">
         <div class="text-subtitle-3">
-          {{ price }} {{ defaultFungibleToken.symbol }}
+          {{ price.amount }} {{ price.symbol }}
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
           {{ $t('marketplace.assetDetails.price') }}
         </div>
         <div>
-          {{ price }} {{ defaultFungibleToken.symbol }}
+          {{ price.amount }} {{ price.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -109,8 +109,14 @@
         return this.$store.getters.defaultFungibleToken;
       },
       price() {
-        return this.asset.metadata.price.amount;
+        return this.$attributes
+          .getMappedData('nftItem.price', this.asset.attributes)?.value;
+      },
+      title() {
+        return this.$attributes
+          .getMappedData('nftItem.name', this.asset.attributes)?.value;
       }
+
     },
 
     methods: {
@@ -118,7 +124,6 @@
         this.loading = true;
         try {
           const {
-            metadata,
             nftCollectionId,
             nftItemId,
             lazySellProposalId
@@ -131,7 +136,7 @@
               nftCollectionId,
               nftItemId,
               lazySellProposalId,
-              asset: metadata.price
+              asset: this.price
             }
           };
 

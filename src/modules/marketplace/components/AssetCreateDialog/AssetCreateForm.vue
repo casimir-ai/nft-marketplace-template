@@ -166,7 +166,6 @@
               ownedByTeam: false,
               nftCollectionId: this.nftCollection._id,
               nftItemId: this.nftCollection.nextNftItemId,
-              title: this.formData.name,
               authors: [this.$currentUser._id],
               status,
               ...this.lazyFormData
