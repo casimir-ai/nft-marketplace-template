@@ -1,4 +1,4 @@
-import { VChip } from 'vuetify';
+import { VChip } from 'vuetify/lib/components';
 import { defineComponent } from '@deip/platform-util';
 import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
 
