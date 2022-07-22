@@ -1,4 +1,4 @@
-FROM node:14.18.3
+FROM node:16.13.0
 
 RUN mkdir -p /var/app
 WORKDIR /var/app
