@@ -14,12 +14,6 @@
           {{ $t('auth.signInToContinue') }}
         </div>
 
-        <auth-sign-in
-          :username-label="$t('auth.email')"
-          @success="handleSignInSuccess"
-          @error="handleSignInError"
-        />
-
         <o-auth
           @success="handleSignInSuccess"
           @error="handleSignInError"
@@ -30,14 +24,12 @@
 </template>
 
 <script>
-  import { AuthSignIn } from '@deip/auth-module';
   import { VeStack } from '@deip/vue-elements';
   import OAuth from '../OAuth';
 
   export default {
     name: 'SignIn',
     components: {
-      AuthSignIn,
       VeStack,
       OAuth
     },
