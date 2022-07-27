@@ -18,7 +18,7 @@
         </nw-btn>
       </div>
       <layout-renderer
-        :value="nftItem"
+        :value="asset"
         :schema="cardSchema"
         :schema-data="cardSchemaData"
       />
@@ -50,13 +50,9 @@
       LayoutRenderer
     },
 
-    mixins: [dateMixin, attributedDetailsFactory('nftItem')],
+    mixins: [dateMixin, attributedDetailsFactory('asset')],
 
     props: {
-      asset: {
-        type: Object,
-        required: true
-      },
       addAssetsDetailsModal: {
         type: Boolean,
         default: false

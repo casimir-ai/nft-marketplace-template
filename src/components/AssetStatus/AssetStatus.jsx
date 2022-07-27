@@ -19,6 +19,10 @@ export default defineComponent({
   },
 
   render() {
-    return <VChip outlined> { this.getStatusLabel(this.schemaData.data.status) } </VChip>;
+    const { status } = this.schemaData.data;
+
+    if (!status) return null;
+
+    return <VChip outlined> { this.getStatusLabel(status) } </VChip>;
   }
 });
