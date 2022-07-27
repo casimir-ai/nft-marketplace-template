@@ -44,66 +44,81 @@
       </span>
       <div class="d-flex flex-column align-center justify-center mt-6">
         <h3 class="text-h3">
-          950.00 wUSDT
+          {{ balance.value }} {{ balance.symbol }}
         </h3>
-        <div class="text-body-1 mt-2 grey--text text--lighten-1">
-          (~250.00 DEIP)
+        <div class="align-center mt-6">
+          <nw-btn
+            :href="assetsLink"
+            target="_blank"
+            small
+            kind="secondary"
+            class="ma-3"
+          >
+            {{ $t('wallet.assets') }}
+          </nw-btn>
+
+          <nw-btn
+            :href="transactionsLink"
+            target="_blank"
+            small
+            kind="secondary"
+            class="ma-3"
+          >
+            {{ $t('wallet.transactions') }}
+          </nw-btn>
+          <nw-btn
+            :href="depositLink"
+            target="_blank"
+            small
+            kind="secondary"
+            class="ma-3"
+          >
+            {{ $t('wallet.depositButton') }}
+          </nw-btn>
         </div>
-        <nw-btn
-          small
-          kind="secondary"
-          class="mt-6 mb-6"
-        >
-          {{ $t('wallet.depositButton') }}
-        </nw-btn>
       </div>
-
-      <v-tabs
-        background-color="transparent"
-        grow
-      >
-        <v-tab>
-          {{ $t('wallet.assets') }}
-        </v-tab>
-        <v-tab>
-          {{ $t('wallet.transactions') }}
-        </v-tab>
-
-        <v-tab-item>
-          <assets />
-        </v-tab-item>
-        <v-tab-item>
-          <transactions />
-        </v-tab-item>
-      </v-tabs>
     </v-card>
   </v-sheet>
 </template>
 
 <script>
   import { NwBtn } from '@/components/NwBtn';
-  import { Assets } from '@/modules/wallet/components/Assets';
-  import { Transactions } from '@/modules/wallet/components/Transactions';
   import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
     name: 'Wallet',
     components: {
-      NwBtn,
-      Assets,
-      Transactions
+      NwBtn
+    },
+
+    data() {
+      return {
+        transactionsLink: `${this.$env.WALLET_URL}/transactions`,
+        depositLink: `${this.$env.WALLET_URL}/action/receive`,
+        assetsLink: `${this.$env.WALLET_URL}`
+      };
     },
 
     computed: {
       sheetHeight() {
         return `calc(100vh - ${APP_BAR_HEIGHT}px)`;
+      },
+      balance() {
+        return this.$store.getters['balances/balance'];
       }
+    },
+
+    created() {
+      this.getUserBalance();
     },
 
     methods: {
       handleCopyWalletAddressClick() {
         navigator.clipboard.writeText(this.$currentUser.address);
         this.$notifier.showSuccess(this.$t('wallet.copyWalletAddressSuccess'));
+      },
+      getUserBalance() {
+        this.$store.dispatch('getCurrentUserBalance');
       }
     }
 

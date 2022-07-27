@@ -18,6 +18,13 @@ const ACTIONS = {
     if (currentUser) {
       dispatch('nftCollections/getListByIssuer', currentUser._id, { root: true });
     }
+  },
+  getCurrentUserBalance({ rootGetters, dispatch }) {
+    const currentUser = rootGetters['currentUser/data'];
+
+    if (currentUser) {
+      dispatch('balances/getBalance', currentUser.username);
+    }
   }
 };
 
