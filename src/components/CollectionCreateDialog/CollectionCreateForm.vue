@@ -2,7 +2,6 @@
   <nft-collection-form
     ref="nftCollectionForm"
     :schema="$layouts.getMappedData('nftCollection.form').value"
-    :submit-label="$t('components.collectionCreateDialog.checkout')"
     @success="handleSuccess"
     @error="handleError"
     @cancel="handleCancel"
@@ -34,7 +33,7 @@
       },
       handleError(error) {
         this.reloadNftCollection();
-        this.$notifier.showError(error);
+        if (error) this.$notifier.showError(error);
       },
       handleCancel() {
         this.$emit('close-dialog');
