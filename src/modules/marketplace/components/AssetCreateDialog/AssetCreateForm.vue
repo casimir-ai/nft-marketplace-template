@@ -125,25 +125,21 @@
       },
 
       async sellLazy() {
-        try {
-          const { _id, issuer, nextNftItemId } = this.nftCollection;
-          const asset = this.$attributes
-            .getMappedData('nftItem.price', this.lazyFormData.attributes)?.value;
+        const { _id, issuer, nextNftItemId } = this.nftCollection;
+        const asset = this.$attributes
+          .getMappedData('nftItem.price', this.lazyFormData.attributes)?.value;
 
-          const payload = {
-            initiator: this.$currentUser,
-            data: {
-              issuer,
-              asset,
-              nftCollectionId: _id,
-              nftItemId: nextNftItemId
-            }
-          };
+        const payload = {
+          initiator: this.$currentUser,
+          data: {
+            issuer,
+            asset,
+            nftCollectionId: _id,
+            nftItemId: nextNftItemId
+          }
+        };
 
-          await this.$store.dispatch('nftItemDrafts/sellLazy', payload);
-        } catch (error) {
-          console.error(error?.error || error);
-        }
+        await this.$store.dispatch('nftItemDrafts/sellLazy', payload);
       },
 
       async createAsset() {
@@ -152,14 +148,8 @@
           return;
         }
 
+        let createdAssetId;
         try {
-          const {
-            nftItemMetadataDraftModerationRequired = false
-          } = this.$currentPortal?.profile?.settings?.moderation || {};
-          const status = nftItemMetadataDraftModerationRequired
-            ? NftItemMetadataDraftStatus.PROPOSED
-            : NftItemMetadataDraftStatus.APPROVED;
-
           const draftPayload = {
             data: {
               owner: this.$currentUser._id,
@@ -167,14 +157,34 @@
               nftCollectionId: this.nftCollection._id,
               nftItemId: this.nftCollection.nextNftItemId,
               authors: [this.$currentUser._id],
-              status,
+              status: NftItemMetadataDraftStatus.IN_PROGRESS,
               ...this.lazyFormData
             }
           };
 
-          await this.$store.dispatch('nftItemDrafts/create', draftPayload);
+          const {
+            data:
+              { _id }
+          } = await this.$store.dispatch('nftItemDrafts/create', draftPayload);
+          createdAssetId = _id;
 
           await this.sellLazy();
+
+          const {
+            nftItemMetadataDraftModerationRequired = false
+          } = this.$currentPortal?.profile?.settings?.moderation || {};
+          const status = nftItemMetadataDraftModerationRequired
+            ? NftItemMetadataDraftStatus.PROPOSED
+            : NftItemMetadataDraftStatus.APPROVED;
+
+          const changeStatusPayload = {
+            data: {
+              _id: createdAssetId,
+              status
+            }
+          };
+
+          await this.$store.dispatch('nftItemDrafts/moderate', changeStatusPayload);
 
           this.reloadNftCollection();
 
@@ -183,10 +193,15 @@
           this.$eventBus.$emit('submit-asset');
           this.clearForm();
         } catch (error) {
-          console.error(error.error || error);
-          const errorText = error.statusCode === 409
-            ? this.$t('marketplace.createAsset.errors.duplicate') : error;
-          this.$notifier.showError(errorText);
+          if (createdAssetId) {
+            this.$store.dispatch('nftItemDrafts/remove', createdAssetId);
+          }
+          if (error) {
+            console.error(error.error || error);
+            const errorText = error.statusCode === 409
+              ? this.$t('marketplace.createAsset.errors.duplicate') : error;
+            this.$notifier.showError(errorText);
+          }
         }
       }
     }
