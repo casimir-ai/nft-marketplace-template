@@ -94,7 +94,7 @@
     data() {
       return {
         transactionsLink: `${this.$env.WALLET_URL}/transactions`,
-        depositLink: `${this.$env.WALLET_URL}/action/receive`,
+        depositLink: `${this.$env.WALLET_URL}/action/receive?address=${this.$currentUser.address}`,
         assetsLink: `${this.$env.WALLET_URL}`
       };
     },
