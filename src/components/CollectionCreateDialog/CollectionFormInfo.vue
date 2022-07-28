@@ -6,7 +6,7 @@
           {{ $t('components.collectionCreateDialog.balance') }}
         </div>
         <div>
-          153.75 {{ defaultFungibleToken.symbol }}
+          {{ balance.value }} {{ balance.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -46,6 +46,19 @@
     computed: {
       defaultFungibleToken() {
         return this.$store.getters.defaultFungibleToken;
+      },
+      balance() {
+        return this.$store.getters['balances/balance'];
+      }
+    },
+
+    created() {
+      this.getUserBalance();
+    },
+
+    methods: {
+      getUserBalance() {
+        this.$store.dispatch('getCurrentUserBalance');
       }
     }
   };

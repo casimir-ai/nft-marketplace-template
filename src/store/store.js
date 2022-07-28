@@ -23,7 +23,7 @@ const ACTIONS = {
     const currentUser = rootGetters['currentUser/data'];
 
     if (currentUser) {
-      dispatch('balances/getBalance', currentUser.username);
+      dispatch('balances/getBalance', currentUser.address);
     }
   }
 };

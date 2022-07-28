@@ -1,5 +1,5 @@
 export default {
-  title: 'My wallet',
+  title: 'Account balance',
   copy: 'Copy link',
   depositButton: 'Deposit',
   assets: 'Assets',
