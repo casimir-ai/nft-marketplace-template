@@ -10,6 +10,7 @@
       <ve-stack>
         <layout-renderer
           v-if="formSchema"
+          :key="forceUpdateKey"
           v-model="formData"
           :schema="formSchema"
           :schema-data="schemaData"
@@ -118,7 +119,7 @@
       },
 
       clearForm() {
-        this.restoreOldValue(true); // TODO doesn't clean the form
+        this.restoreOldValue(true);
 
         this.confirmations = defaultConfirmationsData();
         this.$refs.validationObserver.reset();
