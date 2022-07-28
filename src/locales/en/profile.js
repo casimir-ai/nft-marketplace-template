@@ -11,13 +11,6 @@ export default {
     editButonName: 'Edit profile',
     editSuccess: 'Account updated successfully!'
   },
-  passwordTab: {
-    name: 'Password',
-    title: 'Change password',
-    repeatPasswordLabel: 'Confirm new password',
-    submitLabel: 'Save',
-    changePassSuccess: 'Password successfully changed!'
-  },
   createdAssets: {
     showAll: 'Show All',
     filter: 'Filter',

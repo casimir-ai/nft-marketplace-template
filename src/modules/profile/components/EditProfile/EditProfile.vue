@@ -11,15 +11,9 @@
           <v-tab class="mb-9">
             {{ $t('profile.accountTab.name') }}
           </v-tab>
-          <v-tab>
-            {{ $t('profile.passwordTab.name') }}
-          </v-tab>
 
           <v-tab-item>
             <account />
-          </v-tab-item>
-          <v-tab-item>
-            <password />
           </v-tab-item>
         </v-tabs>
       </ve-stack>
@@ -31,7 +25,6 @@
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
   import { VeStack } from '@deip/vue-elements';
   import { Account } from '@/modules/profile/components/EditProfile/Account';
-  import { Password } from '@/modules/profile/components/EditProfile/Password';
   import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
@@ -40,8 +33,7 @@
       VexSection,
       VexSectionTitle,
       VeStack,
-      Account,
-      Password
+      Account
     },
 
     computed: {
