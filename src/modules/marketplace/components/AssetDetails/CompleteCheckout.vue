@@ -30,7 +30,7 @@
           {{ $t('marketplace.assetDetails.balance') }}
         </div>
         <div>
-          153.75 {{ defaultFungibleToken.symbol }}
+          {{ balance.value }} {{ balance.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
@@ -108,6 +108,9 @@
       defaultFungibleToken() {
         return this.$store.getters.defaultFungibleToken;
       },
+      balance() {
+        return this.$store.getters['balances/balance'];
+      },
       price() {
         return this.$attributes
           .getMappedData('nftItem.price', this.asset.attributes)?.value;
@@ -116,7 +119,10 @@
         return this.$attributes
           .getMappedData('nftItem.name', this.asset.attributes)?.value;
       }
+    },
 
+    created() {
+      this.getUserBalance();
     },
 
     methods: {
@@ -149,6 +155,9 @@
         }
         this.loading = false;
         this.$emit('close-dialog');
+      },
+      getUserBalance() {
+        this.$store.dispatch('getCurrentUserBalance');
       }
     }
   };

@@ -4,7 +4,7 @@ export default {
     submitAsset: 'Submit asset',
     profile: 'Profile',
     account: 'Account',
-    wallet: 'Wallet',
+    wallet: 'Account balance',
     admin: 'Admin',
     moderation: 'Moderation'
   },
