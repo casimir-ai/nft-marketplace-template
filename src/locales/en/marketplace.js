@@ -8,7 +8,7 @@ export default {
     setThePrice: 'Set the price',
     price: 'Price',
     field: 'Field',
-    createNft: 'Create NFT',
+    createNft: 'Submit asset',
     publishAnonymouslyMessage: 'Publish NFT anonymously',
     donation: 'Donation',
     moderation: 'Moderation',
