@@ -66,7 +66,7 @@
       :asset="asset"
       :creator-name="creator"
       :asset-url="assetUrl"
-      @close-dialog="closeDialog"
+      @success="closeDialog"
     />
   </nw-dialog>
 </template>
@@ -209,8 +209,7 @@
       isSupportShown() {
         return this.$isUser
           && this.isApprovedAsset
-          && !this.isCurrentUserAuthor
-          && !this.completeCheckout;
+          && !this.isCurrentUserAuthor;
       }
     },
 
@@ -234,8 +233,10 @@
           } else {
             await this.$store.dispatch('nftItems/getOne', this.id);
           }
-          await this.$store.dispatch('users/getOne', this.asset.authors[0]);
-          await this.$store.dispatch('nftCollections/getOne', this.asset.nftCollectionId);
+          if (this.asset) {
+            await this.$store.dispatch('users/getOne', this.asset.authors[0]);
+            await this.$store.dispatch('nftCollections/getOne', this.asset.nftCollectionId);
+          }
         } catch (error) {
           console.error(error);
         }

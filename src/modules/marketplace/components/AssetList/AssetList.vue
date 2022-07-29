@@ -28,6 +28,7 @@
       </vex-section-title>
 
       <nft-items-infinite-scroll
+        ref="scroll"
         :sort="sort"
         :filter="filter"
         is-draft
@@ -99,6 +100,14 @@
           lazySellProposalId: { $exists: true }
         }
       };
+    },
+
+    mounted() {
+      this.$eventBus.$on('asset-purchased', this.$refs.scroll.resetInfiniteScroll);
+    },
+
+    beforeDestroy() {
+      this.$eventBus.$off('asset-purchased', this.$refs.scroll.resetInfiniteScroll);
     }
   };
 </script>
