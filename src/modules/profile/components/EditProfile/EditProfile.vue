@@ -1,47 +1,55 @@
 <template>
   <v-sheet>
-    <vex-section :height="sectionHeight">
-      <ve-stack class="align-center justify-center">
-        <vex-section-title
-          :title="$t('profile.editProfileTitle')"
-          class="mb-11"
-        />
-
-        <v-tabs vertical>
-          <v-tab class="mb-9">
-            {{ $t('profile.accountTab.name') }}
-          </v-tab>
-
-          <v-tab-item>
-            <account />
-          </v-tab-item>
-        </v-tabs>
-      </ve-stack>
+    <vex-section
+      max-width="800"
+      class="mx-auto"
+    >
+      <vex-section-title
+        :title="$t('profile.editProfileTitle')"
+        class="mb-11"
+      />
+      <user-form
+        :schema="schema"
+        :user="$currentUser"
+        :submit-label="$t('profile.accountTab.submitLabel')"
+        @success="handleSuccess"
+        @error="handleError"
+        @cancel="handleCancel"
+      />
     </vex-section>
   </v-sheet>
 </template>
 
 <script>
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
-  import { Account } from '@/modules/profile/components/EditProfile/Account';
-  import { APP_BAR_HEIGHT } from '@/constants';
+  import { UserForm } from '@deip/users-module';
 
   export default {
     name: 'EditProfile',
     components: {
       VexSection,
       VexSectionTitle,
-      VeStack,
-      Account
+      UserForm
     },
 
     computed: {
-      sectionHeight() {
-        return `calc(100vh - ${APP_BAR_HEIGHT}px)`;
+      schema() {
+        return this.$layouts.getMappedData('user.form')?.value;
+      }
+    },
+
+    methods: {
+      handleSuccess() {
+        this.$notifier.showSuccess(this.$t('profile.accountTab.editSuccess'));
+        this.$router.push({ name: 'profile.details' });
+      },
+      handleError(error) {
+        this.$notifier.showError(error);
+      },
+      handleCancel() {
+        this.$router.push({ name: 'profile.details' });
       }
     }
-
   };
 </script>
 
