@@ -38,7 +38,8 @@
     data() {
       return {
         filter: {
-          status: NftItemMetadataDraftStatus.PROPOSED
+          status: NftItemMetadataDraftStatus.PROPOSED,
+          lazySellProposalId: { $exists: true }
         }
       };
     }
