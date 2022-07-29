@@ -149,6 +149,7 @@
           await this.$store.dispatch('nftItemDrafts/buyLazy', payload);
           this.$notifier.showSuccess(this.$t('marketplace.assetDetails.buySuccess'));
           this.$emit('success');
+          this.$eventBus.$emit('asset-purchased');
         } catch (error) {
           console.error(error?.error || error);
           this.$notifier.showError(error?.error?.message || error);
