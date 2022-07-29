@@ -54,7 +54,8 @@
     },
     data() {
       const filter = {
-        authors: this.$currentUser._id
+        authors: this.$currentUser._id,
+        lazySellProposalId: { $exists: true }
       };
       const filterOptions = [
         {
