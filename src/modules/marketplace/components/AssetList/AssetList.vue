@@ -9,6 +9,7 @@
             v-model="sort"
             :label="$t('marketplace.assetList.sorting')"
             :items="sortingOptions"
+            class="sort-select"
           >
             <template #item="{ item }">
               <v-icon> {{ item.icon }} </v-icon>
@@ -28,7 +29,7 @@
 
       <nft-items-infinite-scroll
         :sort="sort"
-        :filter="{ status: NftItemMetadataDraftStatus.APPROVED }"
+        :filter="filter"
         is-draft
       >
         <template #default="{ list }">
@@ -83,26 +84,6 @@
             icon: null
           },
           {
-            text: this.$t('marketplace.assetList.byName'),
-            value: { title: 'asc' },
-            icon: 'mdi-sort-alphabetical-ascending'
-          },
-          {
-            text: this.$t('marketplace.assetList.byName'),
-            value: { title: 'desc' },
-            icon: 'mdi-sort-alphabetical-descending'
-          },
-          {
-            text: this.$t('marketplace.assetList.byPrice'),
-            value: { 'metadata.price.amount': 'asc' },
-            icon: 'mdi-sort-numeric-ascending'
-          },
-          {
-            text: this.$t('marketplace.assetList.byPrice'),
-            value: { 'metadata.price.amount': 'desc' },
-            icon: 'mdi-sort-numeric-descending'
-          },
-          {
             text: this.$t('marketplace.assetList.byCreationDate'),
             value: { createdAt: 'asc' },
             icon: 'mdi-sort-numeric-ascending'
@@ -112,8 +93,19 @@
             value: { createdAt: 'desc' },
             icon: 'mdi-sort-numeric-descending'
           }
-        ]
+        ],
+        filter: {
+          status: NftItemMetadataDraftStatus.APPROVED,
+          lazySellProposalId: { $exists: true }
+        }
       };
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .sort-select {
+    width: 250px;
+    max-width: 250px;
+  }
+</style>
