@@ -26,7 +26,7 @@
             :label="$t('marketplace.createAsset.fundsMessage')"
             :error-messages="errors"
             hide-details="auto"
-            class="pa-0"
+            class="pa-0 mt-0"
           />
         </validation-provider>
 
@@ -40,7 +40,7 @@
             :label="$t('marketplace.createAsset.moderationMessage')"
             :error-messages="errors"
             hide-details="auto"
-            class="pa-0"
+            class="pa-0 mt-0"
           />
         </validation-provider>
 
