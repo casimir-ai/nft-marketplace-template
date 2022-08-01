@@ -42,8 +42,6 @@ export default {
     shareDialogTitle: 'Share this NFT',
     completeCheckout: 'Complete checkout',
     balance: 'Your balance',
-    serviceFee: 'Service fee',
-    total: 'You\'ll pay',
     checkout: 'Checkout',
     backButton: 'Back',
     buySuccess: 'Asset successfully bought!'
