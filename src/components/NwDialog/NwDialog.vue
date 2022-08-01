@@ -120,6 +120,6 @@
 
 <style scoped lang="scss">
   .v-card__text, .v-card__title {
-   word-break: break-all;
+    word-break: break-word;
   }
 </style>
