@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@casimir/nft-collections-module": "^1.393.0",
-    "@casimir/nft-items-module": "^1.393.0",
+    "@casimir/nft-items-module": "^1.393.1",
     "@casimir/platform-core": "^1.390.0",
     "@casimir/scopes-module": "^1.392.0",
     "@casimir/token-service": "^1.393.0",
