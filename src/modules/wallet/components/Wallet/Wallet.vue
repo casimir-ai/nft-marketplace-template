@@ -34,9 +34,9 @@
       </div>
       <v-divider class="mt-11" />
 
-      <span class="usdt-icon">
+      <span class="deip-icon">
         <img
-          src="@/assets/usdt.svg"
+          src="@/assets/deip.svg"
           height="36"
           width="36"
           alt=""
@@ -131,7 +131,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.usdt-icon {
+.deip-icon {
   width: 58px;
   height: 58px;
   display: flex;
