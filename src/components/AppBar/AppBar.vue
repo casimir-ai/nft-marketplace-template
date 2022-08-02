@@ -11,7 +11,8 @@
         :to="{ name: 'home' }"
         class="text-decoration-none text--primary d-block"
       >
-        #NoWar🇺🇦
+        <!-- XXX: Put your logo here -->
+        NFT marketplace
       </router-link>
     </v-app-bar-title>
 

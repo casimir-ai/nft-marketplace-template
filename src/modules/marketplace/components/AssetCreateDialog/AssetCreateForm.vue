@@ -18,25 +18,11 @@
 
         <validation-provider
           v-slot="{ errors }"
-          :name="$t('marketplace.createAsset.donation')"
-          :rules="{ required: { allowFalse: false } }"
-        >
-          <v-checkbox
-            v-model="confirmations.confirmDonate"
-            :label="$t('marketplace.createAsset.fundsMessage')"
-            :error-messages="errors"
-            hide-details="auto"
-            class="pa-0 mt-0"
-          />
-        </validation-provider>
-
-        <validation-provider
-          v-slot="{ errors }"
           :name="$t('marketplace.createAsset.moderation')"
           :rules="{ required: { allowFalse: false } }"
         >
           <v-checkbox
-            v-model="confirmations.confirmModeration"
+            v-model="isModerationChecked"
             :label="$t('marketplace.createAsset.moderationMessage')"
             :error-messages="errors"
             hide-details="auto"
@@ -45,14 +31,14 @@
         </validation-provider>
 
         <div class="buttons-container ml-auto">
-          <nw-btn
+          <m-btn
             kind="primary"
             :disabled="invalid"
             :loading="loading"
             type="submit"
           >
             {{ $t('marketplace.createAsset.createNft') }}
-          </nw-btn>
+          </m-btn>
         </div>
       </ve-stack>
     </v-form>
@@ -63,12 +49,7 @@
   import { attributedFormFactory, LayoutRenderer } from '@deip/layouts-module';
   import { VeStack } from '@deip/vue-elements';
   import { NftItemMetadataDraftStatus, AttributeScope } from '@casimir/platform-core';
-  import { NwBtn } from '@/components/NwBtn';
-
-  const defaultConfirmationsData = () => ({
-    donate: false,
-    moderation: false
-  });
+  import { MBtn } from '@/components/MBtn';
 
   export default {
     name: 'AssetCreateForm',
@@ -76,7 +57,7 @@
     components: {
       LayoutRenderer,
       VeStack,
-      NwBtn
+      MBtn
     },
 
     mixins: [attributedFormFactory(AttributeScope.NFT_ITEM, 'nftItem')],
@@ -84,7 +65,7 @@
     data() {
       return {
         loading: false,
-        confirmations: defaultConfirmationsData()
+        isModerationChecked: false
       };
     },
 
@@ -121,7 +102,7 @@
       clearForm() {
         this.restoreOldValue(true);
 
-        this.confirmations = defaultConfirmationsData();
+        this.isModerationChecked = false;
         this.$refs.validationObserver.reset();
       },
 

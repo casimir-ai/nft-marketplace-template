@@ -10,7 +10,7 @@ const install = (Vue, options = {}) => {
   if (store) {
     store.registerModule('admin', adminStore);
   } else {
-    throw Error('[NoWarAdminModule]: storeInstance is not provided');
+    throw Error('[NftMarketplaceAdminModule]: storeInstance is not provided');
   }
 
   if (router) {
@@ -18,12 +18,12 @@ const install = (Vue, options = {}) => {
       router.addRoute(route);
     }
   } else {
-    throw Error('[NoWarAdminModule]: router instance is not provided');
+    throw Error('[NftMarketplaceAdminModule]: router instance is not provided');
   }
 };
 
-export const NoWarAdminModule = {
-  name: 'NoWarAdminModule',
+export const NftMarketplaceAdminModule = {
+  name: 'NftMarketplaceAdminModule',
   deps: [
     'EnvModule'
   ],

@@ -1,5 +1,5 @@
 <template>
-  <nw-dialog
+  <m-dialog
     v-if="asset"
     v-model="isDialogOpen"
     persistent
@@ -17,7 +17,7 @@
     </template>
     <template #title>
       <div>
-        <nw-btn
+        <m-btn
           v-if="completeCheckout"
           kind="tetriary"
           small
@@ -30,18 +30,18 @@
             mdi-chevron-left
           </v-icon>
           {{ $t('marketplace.assetDetails.backButton') }}
-        </nw-btn>
+        </m-btn>
       </div>
     </template>
     <template v-if="isApprovedAsset && !completeCheckout" #titleButtons>
-      <nw-btn
+      <m-btn
         small
         icon
         kind="secondary"
         @click="handleCopyLinkClick"
       >
         <v-icon>mdi-share-variant</v-icon>
-      </nw-btn>
+      </m-btn>
     </template>
     <div v-if="!completeCheckout">
       <layout-renderer
@@ -50,15 +50,15 @@
         :schema-data="detailsSchemaData"
       />
       <div
-        v-if="isSupportShown"
+        v-if="isBuyShown"
         class="d-flex justify-end"
       >
-        <nw-btn
+        <m-btn
           kind="primary"
-          @click="handleSupportClick"
+          @click="handleBuyClick"
         >
-          {{ $t('marketplace.assetDetails.support') }}
-        </nw-btn>
+          {{ $t('marketplace.assetDetails.buy') }}
+        </m-btn>
       </div>
     </div>
     <complete-checkout
@@ -68,7 +68,7 @@
       :asset-url="assetUrl"
       @success="closeDialog"
     />
-  </nw-dialog>
+  </m-dialog>
 </template>
 
 <script>
@@ -79,15 +79,15 @@
   import { attributeMethodsFactory, expandAttributes } from '@deip/attributes-module';
   import { attributedDetailsFactory, LayoutRenderer } from '@deip/layouts-module';
 
-  import { NwDialog, NwBtn } from '@/components';
+  import { MDialog, MBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';
 
   export default {
     name: 'AssetDetails',
 
     components: {
-      NwDialog,
-      NwBtn,
+      MDialog,
+      MBtn,
       CompleteCheckout,
       VexImage,
       LayoutRenderer
@@ -206,7 +206,7 @@
         return this.isDraft && this.asset.status === NftItemMetadataDraftStatus.APPROVED;
       },
 
-      isSupportShown() {
+      isBuyShown() {
         return this.$isUser
           && this.isApprovedAsset
           && !this.isCurrentUserAuthor;
@@ -252,7 +252,7 @@
         this.$notifier.showSuccess(this.$t('components.assetCard.linkCopied'));
       },
 
-      handleSupportClick() {
+      handleBuyClick() {
         this.completeCheckout = true;
       },
 

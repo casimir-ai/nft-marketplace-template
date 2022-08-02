@@ -19,12 +19,12 @@ import { NftCollectionsModule } from '@casimir/nft-collections-module';
 import { NftItemsModule } from '@casimir/nft-items-module';
 import { AssetsModule } from '@deip/assets-module';
 
-import { NoWarAuthModule } from '@/modules/auth';
-import { NoWarMarketplaceModule } from '@/modules/marketplace';
-import { NoWarAdminModule } from '@/modules/admin';
-import { NoWarProfileModule } from '@/modules/profile';
-import { NoWarWalletModule } from '@/modules/wallet';
-import { NoWarModerationModule } from '@/modules/moderation';
+import { NftMarketplaceAuthModule } from '@/modules/auth';
+import { NftMarketplaceMarketplaceModule } from '@/modules/marketplace';
+import { NftMarketplaceAdminModule } from '@/modules/admin';
+import { NftMarketplaceProfileModule } from '@/modules/profile';
+import { NftMarketplaceWalletModule } from '@/modules/wallet';
+import { NftMarketplaceModerationModule } from '@/modules/moderation';
 
 import vuetify from '@/plugins/vuetify';
 import i18n from '@/plugins/i18n';
@@ -44,7 +44,7 @@ Object.defineProperties(Vue.prototype, {
   }
 });
 
-const noWarApp = new CreateApp(Vue, {
+const nftMarketplaceApp = new CreateApp(Vue, {
   vuetify,
   i18n,
   router,
@@ -84,7 +84,7 @@ const layoutsModuleOptions = {
 
 };
 
-noWarApp
+nftMarketplaceApp
   .addModule(EnvModule)
 
   .addModule(ValidationPlugin)
@@ -100,12 +100,12 @@ noWarApp
   .addModule(NftCollectionsModule, nftCollectionsModuleOptions)
   .addModule(NftItemsModule, nftItemsModuleOptions)
   .addModule(AssetsModule)
-  .addModule(NoWarWalletModule)
-  .addModule(NoWarAuthModule)
-  .addModule(NoWarMarketplaceModule)
-  .addModule(NoWarAdminModule)
-  .addModule(NoWarProfileModule)
-  .addModule(NoWarModerationModule)
+  .addModule(NftMarketplaceWalletModule)
+  .addModule(NftMarketplaceAuthModule)
+  .addModule(NftMarketplaceMarketplaceModule)
+  .addModule(NftMarketplaceAdminModule)
+  .addModule(NftMarketplaceProfileModule)
+  .addModule(NftMarketplaceModerationModule)
 
   .bootstrap()
 

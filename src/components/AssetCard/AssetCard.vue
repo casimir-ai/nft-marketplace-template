@@ -6,7 +6,7 @@
       @click="onCardClick"
     >
       <div v-if="isCopyLinkShown" class="button-container d-flex justify-end mt-4 mr-4">
-        <nw-btn
+        <m-btn
           icon
           small
           kind="secondary"
@@ -15,7 +15,7 @@
           @click.prevent="handleCopyLinkClick"
         >
           <v-icon>mdi-link</v-icon>
-        </nw-btn>
+        </m-btn>
       </div>
       <layout-renderer
         :value="asset"
@@ -38,14 +38,14 @@
   import { attributedDetailsFactory, LayoutRenderer } from '@deip/layouts-module';
   import { attributeMethodsFactory, expandAttributes } from '@deip/attributes-module';
 
-  import { NwBtn } from '@/components/NwBtn';
+  import { MBtn } from '@/components/MBtn';
   import AssetDetails from '@/modules/marketplace/components/AssetDetails/AssetDetails';
 
   export default {
     name: 'AssetCard',
 
     components: {
-      NwBtn,
+      MBtn,
       AssetDetails,
       LayoutRenderer
     },

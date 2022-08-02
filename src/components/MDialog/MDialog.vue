@@ -21,14 +21,14 @@
             <ve-stack flow="column" gap="8" class="ml-auto">
               <slot name="titleButtons" />
 
-              <nw-btn
+              <m-btn
                 small
                 icon
                 kind="secondary"
                 @click="handleCloseClick"
               >
                 <v-icon>mdi-window-close</v-icon>
-              </nw-btn>
+              </m-btn>
             </ve-stack>
           </v-card-title>
 
@@ -51,14 +51,14 @@
   } from '@deip/vuetify-extended';
   import { convertToUnit } from '@deip/toolbox';
 
-  import { NwBtn } from '../NwBtn';
+  import { MBtn } from '../MBtn';
 
   export default {
-    name: 'NwDialog',
+    name: 'MDialog',
 
     components: {
       VeStack,
-      NwBtn
+      MBtn
     },
 
     mixins: [contextMixin],

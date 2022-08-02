@@ -1,19 +1,9 @@
 export default {
   createAsset: {
     formTitle: 'Submit asset',
-    name: 'Name',
-    description: 'Description',
-    optional: 'optional',
-    uploadFile: 'Upload file',
-    setThePrice: 'Set the price',
     price: 'Price',
-    field: 'Field',
     createNft: 'Submit asset',
-    publishAnonymouslyMessage: 'Publish NFT anonymously',
-    donation: 'Donation',
     moderation: 'Moderation',
-    fundsMessage: `I understand that all the money from 
-    selling NFTs is sent to the Ukrainian funds`,
     moderationMessage: `I understand that in case of moderation 
     decline - NFT would be removed for good`,
     createSuccess: 'Asset successfully created!',
@@ -22,15 +12,10 @@ export default {
       noNftCollection: 'User can\'t submit assets without the collection'
     }
   },
-  priceSelector: {
-    yourPrice: 'Your price'
-  },
   assetList: {
     allNfts: 'All NFTs',
     sorting: 'Sorting',
     byDefault: 'By default',
-    byName: 'By name',
-    byPrice: 'By price',
     byCreationDate: 'By creation date'
   },
   assetDetails: {
@@ -38,7 +23,7 @@ export default {
     creator: 'Creator',
     created: 'Created',
     price: 'Price',
-    support: 'Support',
+    buy: 'Buy',
     shareDialogTitle: 'Share this NFT',
     completeCheckout: 'Complete checkout',
     balance: 'Your balance',

@@ -1,4 +1,4 @@
-# no-war-portal
+# nft-marketplace-template
 
 ## Project setup
 ```

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nw-btn class="oauth-button" :loading="loading" @click="handleOAuth">
+    <m-btn class="oauth-button" :loading="loading" @click="handleOAuth">
       <img
         class="oauth-button__logo mr-2"
         src="@/assets/wallet_logo.png"
@@ -9,24 +9,24 @@
         alt=""
       >
       Auth with DEIP Wallet
-    </nw-btn>
+    </m-btn>
   </div>
 </template>
 
 <script>
-  import { NwBtn } from '@/components/NwBtn';
+  import { MBtn } from '@/components/MBtn';
 
   export default {
     name: 'OAuth',
 
     components: {
-      NwBtn
+      MBtn
     },
 
     props: {
       name: {
         type: String,
-        default: 'nowar'
+        default: 'Portal'
       },
       url: {
         type: String,
@@ -37,7 +37,7 @@
     data() {
       return {
         oAuthUrl: [
-          this.$env.WALLET_OAUTH_URL,
+          `${this.$env.WALLET_URL}/account/oauth`,
           `?url=${this.url}`,
           `&name=${this.name}`,
           `&portalId=${this.$env.TENANT}`,
