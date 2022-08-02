@@ -20,31 +20,31 @@
           <div class="text-body-1 mr-2">
             {{ $currentUser.address }}
           </div>
-          <nw-btn
+          <m-btn
             icon
             small
             kind="secondary"
             width="24"
             height="24"
             :title="$t('profile.copy')"
-            @click="handleCopyWalletAddressClick"
+            @click="handleCopyAccountAddressClick"
           >
             <v-icon size="16">
               mdi-content-copy
             </v-icon>
-          </nw-btn>
+          </m-btn>
         </div>
 
         <div class="d-flex align-center justify-center">
-          <nw-btn
+          <m-btn
             small
             kind="secondary"
             :to="editProfileRoute"
             class="mr-4"
           >
             {{ $t('profile.editProfileRoute') }}
-          </nw-btn>
-          <nw-btn
+          </m-btn>
+          <m-btn
             icon
             small
             kind="secondary"
@@ -52,7 +52,7 @@
             @click="handleShareLinkClick"
           >
             <v-icon>mdi-share-variant</v-icon>
-          </nw-btn>
+          </m-btn>
         </div>
       </ve-stack>
 
@@ -96,7 +96,7 @@
   import { VexSection } from '@deip/vuetify-extended';
   import { UserAvatar } from '@deip/users-module';
   import { VeStack } from '@deip/vue-elements';
-  import { NwBtn } from '@/components/NwBtn';
+  import { MBtn } from '@/components/MBtn';
   import { CreatedAssets } from '@/modules/profile/components/CreatedAssets';
   import { PurchasedAssets } from '@/modules/profile/components/PurchasedAssets';
   import { SoldAssets } from '@/modules/profile/components/SoldAssets';
@@ -107,7 +107,7 @@
       VexSection,
       VeStack,
       UserAvatar,
-      NwBtn,
+      MBtn,
       CreatedAssets,
       PurchasedAssets,
       SoldAssets
@@ -127,17 +127,16 @@
       },
 
       name() {
-        const username = this.$attributes
+        return this.$attributes
           .getMappedData('user.name', this.$currentUser.attributes)?.value;
-        return username ? `@${username}` : `@${this.$currentUser._id}`;
       }
 
     },
 
     methods: {
-      handleCopyWalletAddressClick() {
+      handleCopyAccountAddressClick() {
         navigator.clipboard.writeText(this.$currentUser.address);
-        this.$notifier.showSuccess(this.$t('profile.copyWalletAddressSuccess'));
+        this.$notifier.showSuccess(this.$t('profile.copyAccountAddressSuccess'));
       },
       handleShareLinkClick() {
         navigator.clipboard.writeText(window.location.href);

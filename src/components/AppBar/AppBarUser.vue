@@ -1,6 +1,6 @@
 <template>
   <ve-stack flow="column" gap="8">
-    <nw-btn
+    <m-btn
       v-if="$isGuest"
       kind="secondary"
       small
@@ -8,7 +8,7 @@
       :to="{ name: 'signIn' }"
     >
       {{ $t('auth.signIn') }}
-    </nw-btn>
+    </m-btn>
 
     <template v-if="$isUser">
       <v-menu
@@ -18,13 +18,13 @@
         min-width="220"
       >
         <template #activator="{ on }">
-          <nw-btn
+          <m-btn
             kind="tetriary"
             small
             v-on="on"
           >
             {{ $t('components.appBar.profile') }}
-          </nw-btn>
+          </m-btn>
         </template>
 
         <v-list dense active-class="primary">
@@ -73,7 +73,7 @@
         </v-list>
       </v-menu>
 
-      <nw-btn
+      <m-btn
         v-if="nftCollection"
         kind="primary"
         :disabled="loading"
@@ -82,9 +82,9 @@
         @click="handleCreateAssetClick"
       >
         {{ $t('components.appBar.submitAsset') }}
-      </nw-btn>
+      </m-btn>
 
-      <nw-btn
+      <m-btn
         v-else
         :disabled="loading"
         kind="primary"
@@ -93,7 +93,7 @@
         @click="handleCreateCollectionClick"
       >
         {{ $t('components.appBar.createCollection') }}
-      </nw-btn>
+      </m-btn>
 
       <asset-create-dialog
         v-model="isCreateAssetDialogOpened"
@@ -110,14 +110,14 @@
   import { VeStack } from '@deip/vue-elements';
   import { AssetCreateDialog } from '@/modules/marketplace/components/AssetCreateDialog';
   import { CollectionCreateDialog } from '../CollectionCreateDialog';
-  import { NwBtn } from '../NwBtn';
+  import { MBtn } from '../MBtn';
 
   export default {
     name: 'AppBarUser',
 
     components: {
       VeStack,
-      NwBtn,
+      MBtn,
       AssetCreateDialog,
       CollectionCreateDialog
     },

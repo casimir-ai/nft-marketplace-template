@@ -11,12 +11,12 @@ const install = (Vue, options = {}) => {
       router.addRoute(route);
     }
   } else {
-    throw Error('[NoWarModerationModule]: router instance is not provided');
+    throw Error('[NftMarketplaceModerationModule]: router instance is not provided');
   }
 };
 
-export const NoWarModerationModule = {
-  name: 'NoWarModerationModule',
+export const NftMarketplaceModerationModule = {
+  name: 'NftMarketplaceModerationModule',
   deps: [
     'EnvModule',
     'AuthModule',

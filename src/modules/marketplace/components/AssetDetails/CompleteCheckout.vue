@@ -38,26 +38,26 @@
       </div>
     </ve-stack>
     <div class="d-flex justify-end">
-      <nw-btn
+      <m-btn
         kind="primary"
         large
         :loading="loading"
         @click="buyLazy"
       >
         {{ $t('marketplace.assetDetails.checkout') }}
-      </nw-btn>
+      </m-btn>
     </div>
   </div>
 </template>
 
 <script>
-  import { NwBtn } from '@/components';
+  import { MBtn } from '@/components';
   import { VeStack } from '@deip/vue-elements';
 
   export default {
     name: 'CompleteCheckout',
     components: {
-      NwBtn,
+      MBtn,
       VeStack
     },
 

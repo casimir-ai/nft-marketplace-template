@@ -18,7 +18,7 @@
   };
 
   export default {
-    name: 'NwBtn',
+    name: 'MBtn',
 
     props: {
       ...VBtn.options.props,

@@ -1,5 +1,5 @@
 <template>
-  <nw-dialog
+  <m-dialog
     v-model="isDialogOpen"
     persistent
     max-width="646"
@@ -13,17 +13,17 @@
       class="d-block mt-1"
       @close-dialog="closeDialog"
     />
-  </nw-dialog>
+  </m-dialog>
 </template>
 
 <script>
-  import { NwDialog } from '@/components/NwDialog';
+  import { MDialog } from '@/components/MDialog';
   import CollectionCreateForm from './CollectionCreateForm';
 
   export default {
     name: 'CollectionCreateDialog',
     components: {
-      NwDialog,
+      MDialog,
       CollectionCreateForm
     },
     props: {

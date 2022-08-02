@@ -6,7 +6,7 @@
         class="align-center"
       >
         <template #append>
-          <nw-btn
+          <m-btn
             small
             kind="primary"
             outlined
@@ -17,8 +17,8 @@
               mdi-tune-vertical
             </v-icon>
             {{ $t('admin.attributes.settings') }}
-          </nw-btn>
-          <nw-btn
+          </m-btn>
+          <m-btn
             small
             kind="primary"
             depressed
@@ -28,7 +28,7 @@
               mdi-puzzle-plus-outline
             </v-icon>
             {{ $t('admin.attributes.attribute.create') }}
-          </nw-btn>
+          </m-btn>
         </template>
       </vex-section-title>
       <attributes-list
@@ -41,7 +41,7 @@
 
 <script>
   import { AttributesList } from '@deip/attributes-module';
-  import { NwBtn } from '@/components/NwBtn';
+  import { MBtn } from '@/components/MBtn';
   import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
   import { VeStack } from '@deip/vue-elements';
 
@@ -49,7 +49,7 @@
     name: 'AdminAttributes',
     components: {
       AttributesList,
-      NwBtn,
+      MBtn,
       VeStack,
       VexSection,
       VexSectionTitle

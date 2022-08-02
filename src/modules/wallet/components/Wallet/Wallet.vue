@@ -18,19 +18,19 @@
         <div class="text-body-1 mr-2 grey--text text--lighten-1">
           {{ $currentUser.address }}
         </div>
-        <nw-btn
+        <m-btn
           icon
           small
           kind="secondary"
           width="24"
           height="24"
           :title="$t('wallet.copy')"
-          @click="handleCopyWalletAddressClick"
+          @click="handleCopyAccountAddressClick"
         >
           <v-icon size="16">
             mdi-content-copy
           </v-icon>
-        </nw-btn>
+        </m-btn>
       </div>
       <v-divider class="mt-11" />
 
@@ -47,7 +47,7 @@
           {{ balance.value }} {{ balance.symbol }}
         </h3>
         <div class="align-center mt-6">
-          <nw-btn
+          <m-btn
             :href="assetsLink"
             target="_blank"
             small
@@ -55,9 +55,9 @@
             class="ma-3"
           >
             {{ $t('wallet.assets') }}
-          </nw-btn>
+          </m-btn>
 
-          <nw-btn
+          <m-btn
             :href="transactionsLink"
             target="_blank"
             small
@@ -65,8 +65,8 @@
             class="ma-3"
           >
             {{ $t('wallet.transactions') }}
-          </nw-btn>
-          <nw-btn
+          </m-btn>
+          <m-btn
             :href="depositLink"
             target="_blank"
             small
@@ -74,7 +74,7 @@
             class="ma-3"
           >
             {{ $t('wallet.depositButton') }}
-          </nw-btn>
+          </m-btn>
         </div>
       </div>
     </v-card>
@@ -82,13 +82,13 @@
 </template>
 
 <script>
-  import { NwBtn } from '@/components/NwBtn';
+  import { MBtn } from '@/components/MBtn';
   import { APP_BAR_HEIGHT } from '@/constants';
 
   export default {
     name: 'Wallet',
     components: {
-      NwBtn
+      MBtn
     },
 
     data() {
@@ -113,9 +113,9 @@
     },
 
     methods: {
-      handleCopyWalletAddressClick() {
+      handleCopyAccountAddressClick() {
         navigator.clipboard.writeText(this.$currentUser.address);
-        this.$notifier.showSuccess(this.$t('wallet.copyWalletAddressSuccess'));
+        this.$notifier.showSuccess(this.$t('wallet.copyAccountAddressSuccess'));
       },
       getUserBalance() {
         this.$store.dispatch('getCurrentUserBalance');

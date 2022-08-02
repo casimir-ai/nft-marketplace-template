@@ -4,5 +4,5 @@ export default {
   depositButton: 'Deposit',
   assets: 'Assets',
   transactions: 'Transactions',
-  copyWalletAddressSuccess: 'Wallet address was successfully copied!'
+  copyAccountAddressSuccess: 'Account address was successfully copied!'
 };

@@ -9,12 +9,14 @@
       max-width="416"
       width="100%"
     >
-      <ve-stack :gap="16">
+      <ve-stack :gap="24">
         <div class="text-h3">
           {{ $t('auth.signInToContinue') }}
         </div>
 
+        <!-- XXX: Put your portal name here -->
         <o-auth
+          name="NFT marketplace"
           @success="handleSignInSuccess"
           @error="handleSignInError"
         />

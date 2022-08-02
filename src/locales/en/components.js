@@ -14,7 +14,6 @@ export default {
     layouts: 'Layouts'
   },
   assetCard: {
-    support: 'Support',
     created: 'Created',
     copyLink: 'Copy link',
     linkCopied: 'Link successfully copied!',

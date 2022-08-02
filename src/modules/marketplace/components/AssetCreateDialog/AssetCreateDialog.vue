@@ -1,5 +1,5 @@
 <template>
-  <nw-dialog
+  <m-dialog
     v-model="isDialogOpen"
     persistent
     max-width="646"
@@ -13,17 +13,17 @@
       class="d-block mt-1"
       @success="handleCreateSuccess"
     />
-  </nw-dialog>
+  </m-dialog>
 </template>
 
 <script>
-  import { NwDialog } from '@/components/NwDialog';
+  import { MDialog } from '@/components/MDialog';
   import AssetCreateForm from './AssetCreateForm';
 
   export default {
     name: 'AssetCreateDialog',
     components: {
-      NwDialog,
+      MDialog,
       AssetCreateForm
     },
     props: {
