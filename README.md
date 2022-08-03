@@ -6,8 +6,9 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
+Put your env variables to config/.local.env  
 ```
-npm run serve
+DEIP_CONFIG=local npm run start
 ```
 
 ### Compiles and minifies for production
