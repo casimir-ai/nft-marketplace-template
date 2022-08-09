@@ -8,7 +8,7 @@
         width="30"
         alt=""
       >
-      Auth with DEIP Wallet
+      {{ $t('auth.connectWallet') }}
     </m-btn>
   </div>
 </template>
