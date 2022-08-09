@@ -25,7 +25,7 @@
           {{ $t('marketplace.assetDetails.balance') }}
         </div>
         <div>
-          {{ balance.value }} {{ balance.symbol }}
+          {{ balance.amount }} {{ balance.symbol }}
         </div>
       </div>
       <div class="d-flex justify-space-between align-center">
