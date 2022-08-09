@@ -44,7 +44,7 @@
       </span>
       <div class="d-flex flex-column align-center justify-center mt-6">
         <h3 class="text-h3">
-          {{ balance.value }} {{ balance.symbol }}
+          {{ balance.amount }} {{ balance.symbol }}
         </h3>
         <div class="align-center mt-6">
           <m-btn

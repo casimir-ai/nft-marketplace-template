@@ -6,7 +6,7 @@
           {{ $t('components.collectionCreateDialog.balance') }}
         </div>
         <div>
-          {{ balance.value }} {{ balance.symbol }}
+          {{ balance.amount }} {{ balance.symbol }}
         </div>
       </div>
       <div>
