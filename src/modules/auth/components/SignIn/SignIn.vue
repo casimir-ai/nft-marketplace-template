@@ -9,7 +9,7 @@
       max-width="416"
       width="100%"
     >
-      <ve-stack :gap="24">
+      <ve-stack :gap="32" class="text-center">
         <div class="text-h3">
           {{ $t('auth.signInToContinue') }}
         </div>
