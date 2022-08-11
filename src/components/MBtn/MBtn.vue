@@ -9,7 +9,7 @@
 
 <script>
   import { VBtn } from 'vuetify/lib/components';
-  import { getBindableProps } from '@deip/vuetify-extended';
+  import { getBindableProps } from '@casimir/vuetify-extended';
 
   const BUTTON_KIND = {
     PRIMARY: 'primary',

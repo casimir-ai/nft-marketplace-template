@@ -46,8 +46,8 @@
 </template>
 
 <script>
-  import { attributedFormFactory, LayoutRenderer } from '@deip/layouts-module';
-  import { VeStack } from '@deip/vue-elements';
+  import { attributedFormFactory, LayoutRenderer } from '@casimir/layouts-module';
+  import { VeStack } from '@casimir/vue-elements';
   import { NftItemMetadataDraftStatus, AttributeScope } from '@casimir/platform-core';
   import { MBtn } from '@/components/MBtn';
 

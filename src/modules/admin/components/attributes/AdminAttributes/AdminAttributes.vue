@@ -40,10 +40,10 @@
 </template>
 
 <script>
-  import { AttributesList } from '@deip/attributes-module';
+  import { AttributesList } from '@casimir/attributes-module';
   import { MBtn } from '@/components/MBtn';
-  import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
+  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
+  import { VeStack } from '@casimir/vue-elements';
 
   export default {
     name: 'AdminAttributes',

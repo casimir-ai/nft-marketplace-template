@@ -93,9 +93,9 @@
 </template>
 
 <script>
-  import { VexSection } from '@deip/vuetify-extended';
-  import { UserAvatar } from '@deip/users-module';
-  import { VeStack } from '@deip/vue-elements';
+  import { VexSection } from '@casimir/vuetify-extended';
+  import { UserAvatar } from '@casimir/users-module';
+  import { VeStack } from '@casimir/vue-elements';
   import { MBtn } from '@/components/MBtn';
   import { CreatedAssets } from '@/modules/profile/components/CreatedAssets';
   import { PurchasedAssets } from '@/modules/profile/components/PurchasedAssets';

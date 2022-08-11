@@ -85,9 +85,16 @@ prompt([{
     return Promise.all(linkModulesPromises);
   })
   .then(() => {
-    const globalPath = path.join(__dirname, '..', '..', 'casimir-frontend', 'node_modules', modulesToRemoveNamesGlob);
+    const globalPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'casimir-frontend',
+      'node_modules',
+      modulesToRemoveNamesGlob
+    );
     rimraf(globalPath, {}, () => {
-      console.info(`${modulesToRemove} removed from @deip`);
+      console.info(`${modulesToRemove} removed from @casimir`);
     });
   })
   .catch((err) => console.error(err));

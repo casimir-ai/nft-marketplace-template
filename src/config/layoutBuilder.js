@@ -1,4 +1,4 @@
-import { blocksGenerator } from '@deip/vue-layout-schema';
+import { blocksGenerator } from '@casimir/vue-layout-schema';
 import { AttributeScope } from '@casimir/platform-core';
 
 import CollectionFormInfo from '@/components/CollectionCreateDialog/CollectionFormInfo';

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import { routerView } from '@deip/platform-util';
+  import { routerView } from '@casimir/platform-util';
 
   import { AdminNavigation } from '@/modules/admin/components/view/AdminNavigation';
 

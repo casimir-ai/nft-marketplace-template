@@ -27,10 +27,10 @@
 </template>
 
 <script>
-  import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
+  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
+  import { VeStack } from '@casimir/vue-elements';
 
-  import { LayoutsSettings } from '@deip/layouts-module';
+  import { LayoutsSettings } from '@casimir/layouts-module';
 
   export default {
     name: 'AdminLayoutsSettings',

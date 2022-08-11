@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { LayoutsManagement } from '@deip/layouts-module';
+  import { LayoutsManagement } from '@casimir/layouts-module';
 
   export default {
     name: 'AdminLayouts',

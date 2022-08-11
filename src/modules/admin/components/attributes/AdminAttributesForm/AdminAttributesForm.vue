@@ -26,9 +26,9 @@
 </template>
 
 <script>
-  import { AttributeEdit } from '@deip/attributes-module';
-  import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
+  import { AttributeEdit } from '@casimir/attributes-module';
+  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
+  import { VeStack } from '@casimir/vue-elements';
 
   import { ViewMode } from '@casimir/platform-core';
 
