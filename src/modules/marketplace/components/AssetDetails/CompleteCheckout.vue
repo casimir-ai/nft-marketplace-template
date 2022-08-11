@@ -52,7 +52,7 @@
 
 <script>
   import { MBtn } from '@/components';
-  import { VeStack } from '@deip/vue-elements';
+  import { VeStack } from '@casimir/vue-elements';
 
   export default {
     name: 'CompleteCheckout',

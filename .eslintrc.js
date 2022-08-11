@@ -1,8 +1,8 @@
 module.exports = {
   root: true,
   extends: [
-    '@deip/eslint-config',
-    '@deip/eslint-config/vue'
+    '@casimir/eslint-config',
+    '@casimir/eslint-config/vue'
   ],
   settings: {
     'import/resolver': {

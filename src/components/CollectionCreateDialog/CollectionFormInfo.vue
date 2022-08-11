@@ -17,8 +17,8 @@
 </template>
 
 <script>
-  import { VexBlock } from '@deip/vuetify-extended';
-  import { VeStack } from '@deip/vue-elements';
+  import { VexBlock } from '@casimir/vuetify-extended';
+  import { VeStack } from '@casimir/vue-elements';
 
   export default {
     name: 'CollectionFormInfo',

@@ -34,9 +34,9 @@
 
 <script>
   import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
-  import { dateMixin } from '@deip/platform-components';
-  import { attributedDetailsFactory, LayoutRenderer } from '@deip/layouts-module';
-  import { attributeMethodsFactory, expandAttributes } from '@deip/attributes-module';
+  import { dateMixin } from '@casimir/platform-components';
+  import { attributedDetailsFactory, LayoutRenderer } from '@casimir/layouts-module';
+  import { attributeMethodsFactory, expandAttributes } from '@casimir/attributes-module';
 
   import { MBtn } from '@/components/MBtn';
   import AssetDetails from '@/modules/marketplace/components/AssetDetails/AssetDetails';

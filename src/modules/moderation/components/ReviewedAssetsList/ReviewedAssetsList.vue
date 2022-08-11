@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import { VeStack, VeAutoGrid } from '@deip/vue-elements';
+  import { VeStack, VeAutoGrid } from '@casimir/vue-elements';
   import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
   import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
 

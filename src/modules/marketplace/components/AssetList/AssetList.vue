@@ -55,8 +55,8 @@
 </template>
 
 <script>
-  import { VexSection, VexSectionTitle } from '@deip/vuetify-extended';
-  import { VeStack, VeAutoGrid } from '@deip/vue-elements';
+  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
+  import { VeStack, VeAutoGrid } from '@casimir/vue-elements';
   import { AssetCard } from '@/components';
   import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
   import { NftItemMetadataDraftStatus } from '@casimir/platform-core';

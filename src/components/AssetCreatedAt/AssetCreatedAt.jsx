@@ -1,5 +1,5 @@
-import { defineComponent } from '@deip/platform-util';
-import { dateMixin } from '@deip/platform-components';
+import { defineComponent } from '@casimir/platform-util';
+import { dateMixin } from '@casimir/platform-components';
 
 export default defineComponent({
   name: 'AssetCreatedAt',

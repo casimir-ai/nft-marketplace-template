@@ -4,20 +4,20 @@ import '@mdi/font/css/materialdesignicons.css';
 
 import Vue from 'vue';
 
-import { CreateApp } from '@deip/platform-util';
-import { ValidationPlugin } from '@deip/validation-plugin';
-import { VuetifyExtended } from '@deip/vuetify-extended';
-import { EnvModule } from '@deip/env-module';
-import { PortalsModule } from '@deip/portals-module';
+import { CreateApp } from '@casimir/platform-util';
+import { ValidationPlugin } from '@casimir/validation-plugin';
+import { VuetifyExtended } from '@casimir/vuetify-extended';
+import { EnvModule } from '@casimir/env-module';
+import { PortalsModule } from '@casimir/portals-module';
 import { ScopesModule } from '@casimir/scopes-module';
-import { AttributesModule } from '@deip/attributes-module';
-import { LayoutsModule } from '@deip/layouts-module';
-import { AuthModule } from '@deip/auth-module';
-import { UsersModule } from '@deip/users-module';
-import { TeamsModule } from '@deip/teams-module';
+import { AttributesModule } from '@casimir/attributes-module';
+import { LayoutsModule } from '@casimir/layouts-module';
+import { AuthModule } from '@casimir/auth-module';
+import { UsersModule } from '@casimir/users-module';
+import { TeamsModule } from '@casimir/teams-module';
 import { NftCollectionsModule } from '@casimir/nft-collections-module';
 import { NftItemsModule } from '@casimir/nft-items-module';
-import { AssetsModule } from '@deip/assets-module';
+import { AssetsModule } from '@casimir/assets-module';
 
 import { NftMarketplaceAuthModule } from '@/modules/auth';
 import { NftMarketplaceMarketplaceModule } from '@/modules/marketplace';
