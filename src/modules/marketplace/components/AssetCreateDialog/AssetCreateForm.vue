@@ -178,7 +178,8 @@
           if (createdAssetId) {
             this.$store.dispatch('nftItemDrafts/remove', createdAssetId);
           }
-          if (error) {
+          if (error && error?.message !== 'close'
+            && error?.error?.message !== 'close') {
             console.error(error.error || error);
             const errorText = error.statusCode === 409
               ? this.$t('marketplace.createAsset.errors.duplicate') : error;
