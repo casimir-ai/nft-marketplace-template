@@ -129,8 +129,11 @@
           this.$emit('success');
           this.$eventBus.$emit('asset-purchased');
         } catch (error) {
-          console.error(error?.error || error);
-          this.$notifier.showError(error?.error?.message || error);
+          if (error?.message !== 'close'
+            && error?.error?.message !== 'close') {
+            console.error(error?.error || error);
+            this.$notifier.showError(error?.error?.message || error);
+          }
         }
         this.loading = false;
         this.$emit('close-dialog');

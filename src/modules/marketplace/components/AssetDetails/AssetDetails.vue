@@ -67,6 +67,7 @@
       :creator-name="creator"
       :asset-url="assetUrl"
       @success="closeDialog"
+      @close-dialog="closeDialog"
     />
   </m-dialog>
 </template>
