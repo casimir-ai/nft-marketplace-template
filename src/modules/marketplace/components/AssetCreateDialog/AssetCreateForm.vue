@@ -20,6 +20,7 @@
           v-slot="{ errors }"
           :name="$t('marketplace.createAsset.moderation')"
           :rules="{ required: { allowFalse: false } }"
+          :custom-messages="{ required: $t('marketplace.createAsset.moderationRequired') }"
         >
           <v-checkbox
             v-model="isModerationChecked"

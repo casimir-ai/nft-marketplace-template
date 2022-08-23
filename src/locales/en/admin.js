@@ -14,7 +14,7 @@ export default {
     attribute: {
       create: 'New attribute',
       createTitle: 'Create attribute',
-      remove: 'Are you sure you want to remove attribute?',
+      remove: 'Are you sure you want to remove the attribute?',
       removeTitle: 'Remove attribute',
       removeInSettings: 'Attribute is used in Settings map. Are you sure you want to remove it?',
       removeSuccess: 'Attribute removed successfully!',
