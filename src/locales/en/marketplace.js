@@ -4,8 +4,9 @@ export default {
     price: 'Price',
     createNft: 'Submit asset',
     moderation: 'Moderation',
-    moderationMessage: `I understand that in case of moderation 
-    decline - NFT would be removed for good`,
+    moderationRequired: 'This is a required field.',
+    moderationMessage: `I understand that if my submission is declined, 
+    the NFT will not be created and the asset will be permanently deleted.`,
     createSuccess: 'Asset successfully created!',
     errors: {
       duplicate: 'Such asset already exists',

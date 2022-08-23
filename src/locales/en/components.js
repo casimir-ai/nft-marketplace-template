@@ -31,7 +31,8 @@ export default {
     title: 'Create NFT Collection',
     createSuccess: 'Collection successfully created!',
     balance: 'Your balance',
-    feeMessage: 'Only service fee is charged. Check the service fee on DEIP wallet approval screen',
+    feeMessage: `Only a service fee is charged.
+     Check the service fee on the DEIP wallet approval screen.`,
     collectionName: 'Collection name'
   }
 };
