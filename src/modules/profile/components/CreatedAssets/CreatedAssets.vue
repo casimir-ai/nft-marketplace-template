@@ -67,7 +67,7 @@
         {
           text: this.$t('profile.createdAssets.created'),
           value: {
-            status: NftItemMetadataDraftStatus.IN_PROGRESS,
+            status: NftItemMetadataDraftStatus.PROPOSED,
             ...filter
           }
         },
