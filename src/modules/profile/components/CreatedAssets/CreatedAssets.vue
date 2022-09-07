@@ -35,10 +35,10 @@
 </template>
 
 <script>
-  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
-  import { VeStack, VeAutoGrid } from '@casimir/vue-elements';
-  import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
-  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
+  import { VexSection, VexSectionTitle } from '@casimir.one/vuetify-extended';
+  import { VeStack, VeAutoGrid } from '@casimir.one/vue-elements';
+  import { NftItemsInfiniteScroll } from '@casimir.one/nft-items-module';
+  import { NftItemMetadataDraftStatus } from '@casimir.one/platform-core';
 
   import { AssetCard } from '@/components';
 

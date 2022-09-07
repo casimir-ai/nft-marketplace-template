@@ -1,6 +1,6 @@
-import { SYSTEM_ROLE } from '@casimir/platform-core';
+import { SYSTEM_ROLE } from '@casimir.one/platform-core';
 
-import { routerView } from '@casimir/platform-util';
+import { routerView } from '@casimir.one/platform-util';
 
 import { Profile } from '@/modules/profile/components/Profile';
 import { EditProfile } from '@/modules/profile/components/EditProfile';

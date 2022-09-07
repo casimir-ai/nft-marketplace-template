@@ -21,8 +21,8 @@
 </template>
 
 <script>
-  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
-  import { UserForm } from '@casimir/users-module';
+  import { VexSection, VexSectionTitle } from '@casimir.one/vuetify-extended';
+  import { UserForm } from '@casimir.one/users-module';
 
   export default {
     name: 'EditProfile',

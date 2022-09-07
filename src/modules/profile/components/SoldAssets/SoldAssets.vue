@@ -22,9 +22,9 @@
 </template>
 
 <script>
-  import { VexSection } from '@casimir/vuetify-extended';
-  import { VeStack, VeAutoGrid } from '@casimir/vue-elements';
-  import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
+  import { VexSection } from '@casimir.one/vuetify-extended';
+  import { VeStack, VeAutoGrid } from '@casimir.one/vue-elements';
+  import { NftItemsInfiniteScroll } from '@casimir.one/nft-items-module';
   import { AssetCard } from '@/components';
 
   export default {

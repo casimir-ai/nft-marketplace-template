@@ -4,20 +4,20 @@ import '@mdi/font/css/materialdesignicons.css';
 
 import Vue from 'vue';
 
-import { CreateApp } from '@casimir/platform-util';
-import { ValidationPlugin } from '@casimir/validation-plugin';
-import { VuetifyExtended } from '@casimir/vuetify-extended';
-import { EnvModule } from '@casimir/env-module';
-import { PortalsModule } from '@casimir/portals-module';
-import { ScopesModule } from '@casimir/scopes-module';
-import { AttributesModule } from '@casimir/attributes-module';
-import { LayoutsModule } from '@casimir/layouts-module';
-import { AuthModule } from '@casimir/auth-module';
-import { UsersModule } from '@casimir/users-module';
-import { TeamsModule } from '@casimir/teams-module';
-import { NftCollectionsModule } from '@casimir/nft-collections-module';
-import { NftItemsModule } from '@casimir/nft-items-module';
-import { AssetsModule } from '@casimir/assets-module';
+import { CreateApp } from '@casimir.one/platform-util';
+import { ValidationPlugin } from '@casimir.one/validation-plugin';
+import { VuetifyExtended } from '@casimir.one/vuetify-extended';
+import { EnvModule } from '@casimir.one/env-module';
+import { PortalsModule } from '@casimir.one/portals-module';
+import { ScopesModule } from '@casimir.one/scopes-module';
+import { AttributesModule } from '@casimir.one/attributes-module';
+import { LayoutsModule } from '@casimir.one/layouts-module';
+import { AuthModule } from '@casimir.one/auth-module';
+import { UsersModule } from '@casimir.one/users-module';
+import { TeamsModule } from '@casimir.one/teams-module';
+import { NftCollectionsModule } from '@casimir.one/nft-collections-module';
+import { NftItemsModule } from '@casimir.one/nft-items-module';
+import { AssetsModule } from '@casimir.one/assets-module';
 
 import { NftMarketplaceAuthModule } from '@/modules/auth';
 import { NftMarketplaceMarketplaceModule } from '@/modules/marketplace';

@@ -37,11 +37,11 @@
 
 <script>
   import { compareAsc } from 'date-fns';
-  import { UsersDataProvider, userHelpersMixin } from '@casimir/users-module';
-  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
-  import { VeStack } from '@casimir/vue-elements';
+  import { UsersDataProvider, userHelpersMixin } from '@casimir.one/users-module';
+  import { VexSection, VexSectionTitle } from '@casimir.one/vuetify-extended';
+  import { VeStack } from '@casimir.one/vue-elements';
 
-  import { dateMixin } from '@casimir/platform-components';
+  import { dateMixin } from '@casimir.one/platform-components';
 
   export default {
     name: 'AdminUsers',

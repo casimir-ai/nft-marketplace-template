@@ -1,4 +1,4 @@
-import { proxydi } from '@casimir/proxydi';
+import { proxydi } from '@casimir.one/proxydi';
 
 const GETTERS = {
   defaultFungibleToken: (state) => state.assets.data

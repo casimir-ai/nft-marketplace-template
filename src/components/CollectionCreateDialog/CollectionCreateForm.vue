@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import { NftCollectionForm } from '@casimir/nft-collections-module';
+  import { NftCollectionForm } from '@casimir.one/nft-collections-module';
 
   export default {
     name: 'AssetCreateForm',

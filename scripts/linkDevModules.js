@@ -94,7 +94,7 @@ prompt([{
       modulesToRemoveNamesGlob
     );
     rimraf(globalPath, {}, () => {
-      console.info(`${modulesToRemove} removed from @casimir`);
+      console.info(`${modulesToRemove} removed from @casimir.one`);
     });
   })
   .catch((err) => console.error(err));

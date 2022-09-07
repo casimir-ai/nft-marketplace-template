@@ -73,12 +73,12 @@
 </template>
 
 <script>
-  import { dateMixin } from '@casimir/platform-components';
-  import { userHelpersMixin } from '@casimir/users-module';
-  import { VexImage } from '@casimir/vuetify-extended';
-  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
-  import { attributeMethodsFactory, expandAttributes } from '@casimir/attributes-module';
-  import { attributedDetailsFactory, LayoutRenderer } from '@casimir/layouts-module';
+  import { dateMixin } from '@casimir.one/platform-components';
+  import { userHelpersMixin } from '@casimir.one/users-module';
+  import { VexImage } from '@casimir.one/vuetify-extended';
+  import { NftItemMetadataDraftStatus } from '@casimir.one/platform-core';
+  import { attributeMethodsFactory, expandAttributes } from '@casimir.one/attributes-module';
+  import { attributedDetailsFactory, LayoutRenderer } from '@casimir.one/layouts-module';
 
   import { MDialog, MBtn } from '@/components';
   import CompleteCheckout from './CompleteCheckout';

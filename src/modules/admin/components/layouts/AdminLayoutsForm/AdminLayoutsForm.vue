@@ -8,9 +8,9 @@
 </template>
 
 <script>
-  import { LayoutBuilder } from '@casimir/layouts-module';
-  import { formMixin } from '@casimir/platform-components';
-  import { filterObjectKeys } from '@casimir/toolbox';
+  import { LayoutBuilder } from '@casimir.one/layouts-module';
+  import { formMixin } from '@casimir.one/platform-components';
+  import { filterObjectKeys } from '@casimir.one/toolbox';
 
   export default {
     name: 'AdminLayoutsForm',

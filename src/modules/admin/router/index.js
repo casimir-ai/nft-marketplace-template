@@ -1,4 +1,4 @@
-import { SYSTEM_ROLE, ViewMode } from '@casimir/platform-core';
+import { SYSTEM_ROLE, ViewMode } from '@casimir.one/platform-core';
 
 import { AdminUsers } from '@/modules/admin/components/AdminUsers';
 

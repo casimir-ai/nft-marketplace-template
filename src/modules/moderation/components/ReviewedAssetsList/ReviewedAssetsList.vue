@@ -34,9 +34,9 @@
 </template>
 
 <script>
-  import { VeStack, VeAutoGrid } from '@casimir/vue-elements';
-  import { NftItemMetadataDraftStatus } from '@casimir/platform-core';
-  import { NftItemsInfiniteScroll } from '@casimir/nft-items-module';
+  import { VeStack, VeAutoGrid } from '@casimir.one/vue-elements';
+  import { NftItemMetadataDraftStatus } from '@casimir.one/platform-core';
+  import { NftItemsInfiniteScroll } from '@casimir.one/nft-items-module';
 
   import { AssetCard } from '@/components';
 

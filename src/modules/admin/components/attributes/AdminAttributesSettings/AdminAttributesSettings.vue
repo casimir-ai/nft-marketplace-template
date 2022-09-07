@@ -19,9 +19,9 @@
 </template>
 
 <script>
-  import { AttributesSetup } from '@casimir/attributes-module';
-  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
-  import { VeStack } from '@casimir/vue-elements';
+  import { AttributesSetup } from '@casimir.one/attributes-module';
+  import { VexSection, VexSectionTitle } from '@casimir.one/vuetify-extended';
+  import { VeStack } from '@casimir.one/vue-elements';
 
   export default {
     name: 'AdminAttributesSettings',

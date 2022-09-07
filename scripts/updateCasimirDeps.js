@@ -8,7 +8,7 @@ const prompt = inquirer.createPromptModule();
 prompt([{
   type: 'list',
   name: 'update',
-  message: 'This will update all @casimir dependencies',
+  message: 'This will update all @casimir.one dependencies',
   default: [1],
   choices: [
     {

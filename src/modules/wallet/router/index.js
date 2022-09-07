@@ -1,4 +1,4 @@
-import { SYSTEM_ROLE } from '@casimir/platform-core';
+import { SYSTEM_ROLE } from '@casimir.one/platform-core';
 
 import { Wallet } from '@/modules/wallet/components/Wallet';
 

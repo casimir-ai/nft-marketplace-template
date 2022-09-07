@@ -23,9 +23,9 @@
 </template>
 
 <script>
-  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
-  import { VeStack } from '@casimir/vue-elements';
-  import { awaitForStore } from '@casimir/platform-util';
+  import { VexSection, VexSectionTitle } from '@casimir.one/vuetify-extended';
+  import { VeStack } from '@casimir.one/vue-elements';
+  import { awaitForStore } from '@casimir.one/platform-util';
 
   export default {
     name: 'ModerationPage',

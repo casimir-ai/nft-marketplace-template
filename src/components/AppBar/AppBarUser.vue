@@ -107,7 +107,7 @@
 </template>
 
 <script>
-  import { VeStack } from '@casimir/vue-elements';
+  import { VeStack } from '@casimir.one/vue-elements';
   import { AssetCreateDialog } from '@/modules/marketplace/components/AssetCreateDialog';
   import { CollectionCreateDialog } from '../CollectionCreateDialog';
   import { MBtn } from '../MBtn';

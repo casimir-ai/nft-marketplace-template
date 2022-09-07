@@ -26,11 +26,11 @@
 </template>
 
 <script>
-  import { AttributeEdit } from '@casimir/attributes-module';
-  import { VexSection, VexSectionTitle } from '@casimir/vuetify-extended';
-  import { VeStack } from '@casimir/vue-elements';
+  import { AttributeEdit } from '@casimir.one/attributes-module';
+  import { VexSection, VexSectionTitle } from '@casimir.one/vuetify-extended';
+  import { VeStack } from '@casimir.one/vue-elements';
 
-  import { ViewMode } from '@casimir/platform-core';
+  import { ViewMode } from '@casimir.one/platform-core';
 
   export default {
     name: 'AdminAttributesForm',

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { LayoutsManagement } from '@casimir/layouts-module';
+  import { LayoutsManagement } from '@casimir.one/layouts-module';
 
   export default {
     name: 'AdminLayouts',

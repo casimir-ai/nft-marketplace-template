@@ -44,12 +44,12 @@
 <script>
   import { VDialog } from 'vuetify/lib/components';
 
-  import { VeStack } from '@casimir/vue-elements';
+  import { VeStack } from '@casimir.one/vue-elements';
   import {
     contextMixin,
     getBindableProps
-  } from '@casimir/vuetify-extended';
-  import { convertToUnit } from '@casimir/toolbox';
+  } from '@casimir.one/vuetify-extended';
+  import { convertToUnit } from '@casimir.one/toolbox';
 
   import { MBtn } from '../MBtn';
 

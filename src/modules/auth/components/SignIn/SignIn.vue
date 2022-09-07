@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { VeStack } from '@casimir/vue-elements';
+  import { VeStack } from '@casimir.one/vue-elements';
   import OAuth from '../OAuth';
 
   export default {
