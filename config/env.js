@@ -15,15 +15,12 @@ const config = {
 
   DEIP_SERVER_URL: process.env.DEIP_SERVER_URL,
   DEIP_WEB_SOCKET_URL: process.env.DEIP_WEB_SOCKET_URL,
-  DEIP_WEB_SOCKET_TIMEOUT: process.env.DEIP_WEB_SOCKET_TIMEOUT
-    ? parseInt(process.env.DEIP_WEB_SOCKET_TIMEOUT)
-    : 0,
+  DEIP_WEB_SOCKET_TIMEOUT: process.env.DEIP_WEB_SOCKET_TIMEOUT ? parseInt(process.env.DEIP_WEB_SOCKET_TIMEOUT) : 0,
   DEIP_FULL_NODE_URL: process.env.DEIP_FULL_NODE_URL,
   DEIP_CHAIN_EXPLORER_URL: process.env.DEIP_CHAIN_EXPLORER_URL,
   TENANT: process.env.TENANT,
   TENANT_HOT_WALLET_DAO_ID: process.env.TENANT_HOT_WALLET_DAO_ID,
   CHAIN_ID: process.env.CHAIN_ID,
-
   PROTOCOL: process.env.PROTOCOL ? parseInt(process.env.PROTOCOL) : 0,
   CORE_ASSET: JSON.parse(process.env.CORE_ASSET),
   FAUCET_ACCOUNT_USERNAME: process.env.FAUCET_ACCOUNT_USERNAME,
