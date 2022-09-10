@@ -12,7 +12,6 @@ require('dotenv').config({
 
 const config = {
   NODE_ENV: process.env.NODE_ENV,
-  DEIP_CLIENT_URL: process.env.DEIP_CLIENT_URL,
 
   DEIP_SERVER_URL: process.env.DEIP_SERVER_URL,
   DEIP_WEB_SOCKET_URL: process.env.DEIP_WEB_SOCKET_URL,
@@ -24,7 +23,6 @@ const config = {
 
   PROTOCOL: process.env.PROTOCOL ? parseInt(process.env.PROTOCOL) : 0,
   CORE_ASSET: JSON.parse(process.env.CORE_ASSET),
-  ACCOUNT_DEFAULT_FUNDING_AMOUNT: process.env.ACCOUNT_DEFAULT_FUNDING_AMOUNT || 0,
   FAUCET_ACCOUNT_USERNAME: process.env.FAUCET_ACCOUNT_USERNAME,
 
   SIG_SEED: process.env.SIG_SEED,
