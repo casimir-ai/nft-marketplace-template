@@ -2,7 +2,7 @@
 
 ## Local Development
 
-1. See the [repo](https://github.com/casimir-ai/nft-marketplace-template-docker) with docker template configuration. Go through the ["Frontend development on local environment"](https://github.com/casimir-ai/nft-marketplace-template/blob/main/config/.local.env) section
+1. See the [repo](https://github.com/casimir-ai/nft-marketplace-template-docker) with docker template configuration. Go through the ["Frontend development on local environment"](https://github.com/casimir-ai/nft-marketplace-template-docker#frontend-development-on-local-environment) section
 
 2. Start the application in dev mode using the [local config](https://github.com/casimir-ai/nft-marketplace-template/blob/main/config/.local.env):
 
